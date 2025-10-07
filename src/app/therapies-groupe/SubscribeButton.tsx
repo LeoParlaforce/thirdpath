@@ -3,15 +3,24 @@ import { useState } from "react"
 
 export type TrackId = `${"t1" | "t2"}-${"fr" | "en"}`
 
+type CheckoutResponse = {
+  url?: string
+  error?: string
+}
+
 export default function SubscribeButton({
   track,
   label = "Join (every 2 weeks)",
-}: { track: TrackId; label?: string }) {
+}: {
+  track: TrackId
+  label?: string
+}) {
   const [loading, setLoading] = useState(false)
 
-  async function go() {
+  async function go(): Promise<void> {
     try {
       setLoading(true)
+
       const r = await fetch("/api/checkout/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -19,21 +28,27 @@ export default function SubscribeButton({
       })
 
       const ct = r.headers.get("content-type") || ""
-      let data: any = null
+      let data: CheckoutResponse = {}
+
       if (ct.includes("application/json")) {
-        try { data = await r.json() } catch { /* ignore */ }
+        try {
+          data = await r.json()
+        } catch {
+          /* ignore */
+        }
       } else {
         const raw = await r.text()
-        throw new Error(`Non-JSON response (${r.status}): ${raw.slice(0,120)}`)
+        throw new Error(`Non-JSON response (${r.status}): ${raw.slice(0, 120)}`)
       }
 
-      if (!r.ok || !data?.url) {
-        throw new Error(data?.error || `Bad response (${r.status})`)
+      if (!r.ok || !data.url) {
+        throw new Error(data.error || `Bad response (${r.status})`)
       }
 
       window.location.href = data.url
-    } catch (e: any) {
-      alert(e?.message || "Checkout failed")
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e)
+      alert(message || "Checkout failed")
     } finally {
       setLoading(false)
     }

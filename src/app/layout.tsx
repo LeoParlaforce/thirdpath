@@ -2,6 +2,7 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { EB_Garamond } from "next/font/google"
+import Link from "next/link"
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -19,23 +20,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${garamond.variable} font-serif min-h-screen flex flex-col`}>
         <header className="sticky top-0 z-50 bg-header/95 backdrop-blur border-b border-muted shadow-sm">
           <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
-            <a href="/" className="text-lg font-semibold tracking-wide transition hover:text-accent">
+            <Link href="/" className="text-lg font-semibold tracking-wide transition hover:text-accent">
               Third Path
-            </a>
+            </Link>
             <nav className="flex gap-2 text-base">
-              <a href="/" className="px-3 py-1.5 rounded-md hover:text-accent">Home</a>
-              <a href="/boutique" className="px-3 py-1.5 rounded-md hover:text-accent">Store</a>
-              <a href="/therapies-groupe" className="px-3 py-1.5 rounded-md hover:text-accent">Group Therapy</a>
+              <Link href="/" className="px-3 py-1.5 rounded-md hover:text-accent">Home</Link>
+              <Link href="/boutique" className="px-3 py-1.5 rounded-md hover:text-accent">Store</Link>
+              <Link href="/therapies-groupe" className="px-3 py-1.5 rounded-md hover:text-accent">Group Therapy</Link>
             </nav>
           </div>
         </header>
