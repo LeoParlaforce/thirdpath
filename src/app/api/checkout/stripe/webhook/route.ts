@@ -101,3 +101,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "handler_error" }, { status: 200 })
   }
 }
+
+// healthcheck pour éviter 405 et tester en prod
+export async function GET() {
+  return new Response("ok", { status: 200 })
+}
