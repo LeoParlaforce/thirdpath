@@ -4,28 +4,22 @@ import Stripe from "stripe"
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
-type TrackId = "t1-en" | "t2-en"
+type TrackId = "t1-fr" | "t2-fr"
 type Av = { count: number; spotsLeft: number; full: boolean }
 
 const CAPACITY = 10
+const stripe = new Stripe(required("STRIPE_SECRET_KEY"))
 
-function mustGet(name: string): string {
+function required(name: string): string {
   const v = process.env[name]
   if (!v) throw new Error(`Missing ${name}`)
   return v
 }
 
-const stripe = new Stripe(mustGet("STRIPE_SECRET_KEY"))
-
-// Les statuts actifs comptent dans les places
+const TRACKS: TrackId[] = ["t1-fr", "t2-fr"]
 const OCCUPY = new Set<Stripe.Subscription.Status>([
-  "active",
-  "trialing",
-  "past_due",
-  "unpaid",
+  "active", "trialing", "past_due", "unpaid",
 ])
-
-const TRACKS: TrackId[] = ["t1-en", "t2-en"]
 
 async function countByTrack(track: TrackId): Promise<number> {
   const q = `metadata['track']:'${track}' AND status:'active'`
@@ -42,8 +36,8 @@ async function countByTrack(track: TrackId): Promise<number> {
 
 export async function GET() {
   const base: Record<TrackId, Av> = {
-    "t1-en": { count: 0, spotsLeft: CAPACITY, full: false },
-    "t2-en": { count: 0, spotsLeft: CAPACITY, full: false },
+    "t1-fr": { count: 0, spotsLeft: CAPACITY, full: false },
+    "t2-fr": { count: 0, spotsLeft: CAPACITY, full: false },
   }
 
   async function safeCount(track: TrackId) {
