@@ -1,3 +1,4 @@
+// src/app/api/contact/route.ts
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
@@ -19,29 +20,31 @@ export async function POST(req: Request) {
 
     const resend = new Resend(process.env.RESEND_API_KEY!)
     const to = process.env.CONTACT_TO || "you@example.com"
-    const subject = `Demande d’info — ${track || "groupe"}`
-    const html =
-      `<div style="font-family:Arial,Helvetica,sans-serif">
-        <p><strong>Nom:</strong> ${name}</p>
+    const subject = `Info request — ${track || "group"}`
+    const html = `
+      <div style="font-family:Arial,Helvetica,sans-serif">
+        <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Groupe:</strong> ${track || "-"}</p>
+        <p><strong>Group:</strong> ${track || "-"}</p>
         <p style="white-space:pre-wrap">${message}</p>
       </div>`
 
     const r = await resend.emails.send({
       from: process.env.RESEND_FROM!,
       to,
-      replyTo: email, // correction
+      replyTo: email,
       subject,
       html,
-      text: `Nom: ${name}\nEmail: ${email}\nGroupe: ${track || "-"}\n\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nGroup: ${track || "-"}\n\n${message}`,
     })
 
     if (r.error) {
       return NextResponse.json({ error: "send_failed" }, { status: 500 })
     }
+
     return NextResponse.json({ ok: true })
-  } catch {
+  } catch (e: unknown) {
+    console.error("contact route error:", e)
     return NextResponse.json({ error: "contact_error" }, { status: 500 })
   }
 }

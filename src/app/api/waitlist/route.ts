@@ -1,3 +1,4 @@
+// src/app/api/waitlist/route.ts
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
@@ -18,7 +19,7 @@ type Body = {
   type: "info" | "waitlist"
   name: string
   email: string
-  track: "t1-fr" | "t2-fr" | "t1-en" | "t2-en"
+  track: "t1-en" | "t2-en" | "t1-fr" | "t2-fr"
   message?: string
 }
 
@@ -29,34 +30,50 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 })
   }
 
-  // Mail interne (à toi)
+  // Internal email (to admin)
   const tag = b.type === "waitlist" ? "[WAITLIST]" : "[INFO]"
   const adminHtml = `
-  <div style="font-family:Arial">
+  <div style="font-family:Arial,Helvetica,sans-serif">
     <p>${tag} ${b.track}</p>
-    <p><strong>Nom:</strong> ${b.name}<br/>
+    <p><strong>Name:</strong> ${b.name}<br/>
     <strong>Email:</strong> ${b.email}</p>
-    ${b.message ? `<p><strong>Message:</strong><br/>${b.message.replace(/\n/g,"<br/>")}</p>` : ""}
+    ${
+      b.message
+        ? `<p><strong>Message:</strong><br/>${b.message.replace(/\n/g, "<br/>")}</p>`
+        : ""
+    }
   </div>`.trim()
 
-  // Accusé réception utilisateur
+  // Auto-reply to user
+  const firstName = b.name.split(" ")[0] || ""
   const userHtml = `
-  <div style="font-family:Arial">
-    <p>Bonjour ${b.name.split(" ")[0] || ""},</p>
-    ${b.type === "waitlist"
-      ? `<p>Vous avez été ajouté·e à la liste d’attente pour <strong>${b.track}</strong>. Nous vous écrirons dès qu’une place se libère.</p>`
-      : `<p>Merci pour votre demande d’information. Nous revenons vers vous rapidement.</p>`
+  <div style="font-family:Arial,Helvetica,sans-serif">
+    <p>Hello ${firstName},</p>
+    ${
+      b.type === "waitlist"
+        ? `<p>You’ve been added to the waiting list for <strong>${b.track}</strong>. We’ll contact you as soon as a spot becomes available.</p>`
+        : `<p>Thank you for your request. We’ll get back to you shortly.</p>`
     }
   </div>`.trim()
 
   try {
     await Promise.all([
-      resend.emails.send({ from: FROM, to: ADMIN_TO, subject: `${tag} ${b.track}`, html: adminHtml }),
-      resend.emails.send({ from: FROM, to: b.email!, subject: "Réception confirmée", html: userHtml }),
+      resend.emails.send({
+        from: FROM,
+        to: ADMIN_TO,
+        subject: `${tag} ${b.track}`,
+        html: adminHtml,
+      }),
+      resend.emails.send({
+        from: FROM,
+        to: b.email!,
+        subject: "Confirmation received",
+        html: userHtml,
+      }),
     ])
   } catch (e) {
     console.error("waitlist send error:", e)
-    // on confirme quand même côté UI
+    // still respond ok to avoid blocking UI
   }
 
   return NextResponse.json({ ok: true })

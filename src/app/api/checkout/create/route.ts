@@ -13,16 +13,14 @@ function must(name: string): string {
   return v
 }
 
-// Stripe
 const stripe = new Stripe(must("STRIPE_SECRET_KEY"))
 
-// Ancres publiques pour le retour UI
 const publicAnchorByTrack: Record<TrackId, string> = {
   "t1-en": "anxiety",
   "t2-en": "relationships",
 }
 
-// Dates de première séance — 19:00 Paris = 18:00 UTC
+// 19:00 Paris = 18:00 UTC
 const T1_START_UTC = Math.floor(Date.UTC(2026, 0, 10, 18, 0, 0) / 1000)
 const T2_START_UTC = Math.floor(Date.UTC(2026, 0, 17, 18, 0, 0) / 1000)
 
@@ -78,7 +76,7 @@ export async function POST(req: Request) {
         },
       ],
       subscription_data: {
-        trial_end, // première facturation à cette date
+        trial_end, // premier paiement à cette date
         metadata: { track },
       },
     })
@@ -86,14 +84,15 @@ export async function POST(req: Request) {
     if (!session.url) {
       return NextResponse.json({ error: "no_session_url" }, { status: 500 })
     }
+
     return NextResponse.json({ url: session.url }, { status: 200 })
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("checkout/create error:", e)
-    return NextResponse.json({ error: e?.message ?? "internal_error" }, { status: 500 })
+    const message = e instanceof Error ? e.message : "internal_error"
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
 
-// Health simple pour débogage rapide
 export async function GET() {
   return NextResponse.json({ ok: true, endpoint: "checkout/create" })
 }
