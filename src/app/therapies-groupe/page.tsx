@@ -53,7 +53,7 @@ function GroupCard({ t, avail }: { t: Track; avail: Availability[LocalTrackId] }
           <li>• Max. 10 people</li>
           <li>• Video conference</li>
           <li>• {priceText()}</li>
-          {!avail.full && <li>• {avail.spotsLeft} spot(s) left</li>}
+          {/* capacity count intentionally hidden */}
         </ul>
 
         <div className="mt-5 flex flex-wrap gap-3">
