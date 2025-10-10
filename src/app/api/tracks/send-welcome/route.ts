@@ -15,8 +15,8 @@ function mustGet(name: string): string {
 
 const resend = new Resend(mustGet("RESEND_API_KEY"))
 const FROM = mustGet("RESEND_FROM")
+const ADMIN_TO = mustGet("CONTACT_TO")
 
-// Jitsi/Zoom links from .env.local
 const SESSION_LINK: Record<TrackId, string | undefined> = {
   "t1-en": process.env.ZOOM_T1_EN_LINK,
   "t2-en": process.env.ZOOM_T2_EN_LINK,
@@ -27,23 +27,35 @@ const FIRST_DATE_TEXT: Record<TrackId, string> = {
   "t2-en": "Saturday, January 17, 2026 at 7:00 PM (Europe/Paris)",
 }
 
-const SUBJECT: Record<TrackId, string> = {
+const SUBJECT_USER: Record<TrackId, string> = {
   "t1-en": "Welcome — Group ENG — Theme 1",
   "t2-en": "Welcome — Group ENG — Theme 2",
 }
 
-function welcomeHtml(track: TrackId, link: string) {
+function userHtml(track: TrackId, link: string) {
   const when = FIRST_DATE_TEXT[track]
   return `
 <div style="font-family:Arial,Helvetica,sans-serif;line-height:1.6;color:#171717">
   <p>Hello,</p>
   <p>Welcome to the group session. The first meeting will be on <strong>${when}</strong>, then every two weeks. Duration: 90 minutes.</p>
   <p>Rules: camera optional, confidentiality required.</p>
-  <p>You will speak only if you want to. Nothing is mandatory — some participants just listen, others share. You decide your level of involvement.</p>
+  <p>You will speak only if you want to. Nothing is mandatory — some participants just listen, others share.</p>
   <p><strong>Access link:</strong><br />
     <a href="${link}" style="color:#7c3aed">${link}</a>
   </p>
   <p>Best regards,<br/>Léo Gayrard</p>
+</div>`.trim()
+}
+
+function adminHtml(email: string, track: TrackId, link: string) {
+  const when = FIRST_DATE_TEXT[track]
+  return `
+<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.6;color:#171717">
+  <p><strong>New subscription</strong></p>
+  <p><strong>Email:</strong> ${email}<br/>
+  <strong>Track:</strong> ${track}<br/>
+  <strong>First date:</strong> ${when}<br/>
+  <strong>Session link:</strong> <a href="${link}" style="color:#7c3aed">${link}</a></p>
 </div>`.trim()
 }
 
@@ -56,12 +68,22 @@ export async function POST(req: Request) {
   const link = SESSION_LINK[track] || process.env.ZOOM_DEFAULT_LINK || "#"
 
   try {
-    await resend.emails.send({
-      from: FROM,
-      to: email,
-      subject: SUBJECT[track],
-      html: welcomeHtml(track, link),
-    })
+    await Promise.all([
+      // user
+      resend.emails.send({
+        from: FROM,
+        to: email,
+        subject: SUBJECT_USER[track],
+        html: userHtml(track, link),
+      }),
+      // admin
+      resend.emails.send({
+        from: FROM,
+        to: ADMIN_TO,
+        subject: `[SUBSCRIPTION] ${track} — ${email}`,
+        html: adminHtml(email, track, link),
+      }),
+    ])
     return NextResponse.json({ ok: true })
   } catch (e) {
     console.error("welcome send error:", e)

@@ -6,6 +6,7 @@ export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
 type TrackId = "t1-en" | "t2-en"
+const CAP = 10
 
 function must(name: string): string {
   const v = process.env[name]
@@ -20,11 +21,29 @@ const publicAnchorByTrack: Record<TrackId, string> = {
   "t2-en": "relationships",
 }
 
+// Start dates — 19:00 Paris = 18:00 UTC
 const T1_START_UTC = Math.floor(Date.UTC(2026, 0, 10, 18, 0, 0) / 1000)
 const T2_START_UTC = Math.floor(Date.UTC(2026, 0, 17, 18, 0, 0) / 1000)
-
 function startUnixFor(track: TrackId): number {
   return track === "t1-en" ? T1_START_UTC : T2_START_UTC
+}
+
+async function countActiveFor(track: TrackId): Promise<number> {
+  // Compte abonnements actifs ou en période d’essai avec le même metadata.track
+  const query = `(status:'active' OR status:'trialing') AND metadata['track']:'${track}'`
+  let count = 0
+  let next_page: string | null = null
+  do {
+    const res = await stripe.subscriptions.search({
+      query,
+      limit: 100,
+      page: next_page ?? undefined,
+    })
+    count += res.data.length
+    next_page = (res as any).next_page || null
+    if (count >= CAP) return count
+  } while (next_page)
+  return count
 }
 
 export async function POST(req: Request) {
@@ -33,6 +52,15 @@ export async function POST(req: Request) {
     const track = body?.track as TrackId | undefined
     if (track !== "t1-en" && track !== "t2-en") {
       return NextResponse.json({ error: "invalid_track" }, { status: 400 })
+    }
+
+    // Capacity gate
+    const used = await countActiveFor(track)
+    if (used >= CAP) {
+      return NextResponse.json(
+        { error: "track_full", track, used, cap: CAP },
+        { status: 409 },
+      )
     }
 
     const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
@@ -67,6 +95,7 @@ export async function POST(req: Request) {
                 track === "t1-en"
                   ? "Group Theme 1 — Anxiety & Regulation"
                   : "Group Theme 2 — Relationships & Self-Esteem",
+              metadata: { track },
             },
           },
         },
