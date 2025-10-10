@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import { products } from "@/app/boutique/data"
 
-type TrackId = "t1-fr" | "t2-fr"
+type TrackId = "t1-en" | "t2-en"
 
 const TRACK_GCAL: Record<TrackId, { title: string; start: string; end: string }> = {
-  "t1-fr": { title: "Groupe Thème 1 — FR", start: "20260107T170000", end: "20260107T183000" },
-  "t2-fr": { title: "Groupe Thème 2 — FR", start: "20260114T170000", end: "20260114T183000" },
+  "t1-en": { title: "Group ENG — Theme 1", start: "20260110T190000", end: "20260110T203000" },
+  "t2-en": { title: "Group ENG — Theme 2", start: "20260117T190000", end: "20260117T203000" },
 }
 
 function gcalUrl(p:{title:string;start:string;end:string;details?:string;location?:string;ctz?:string;recur?:string}) {
@@ -60,7 +60,7 @@ export default function SuccessClient() {
       title: m.title,
       start: m.start,
       end: m.end,
-      details: "Session en visioconférence. Le lien vous a été envoyé par email.",
+      details: "Online videoconference session. The access link was sent to your email.",
       location: "Jitsi Meet",
       ctz: "Europe/Paris",
       recur: "FREQ=WEEKLY;INTERVAL=2",
@@ -81,18 +81,18 @@ export default function SuccessClient() {
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-16 text-foreground">
-      <h1 className="text-3xl font-bold">Paiement confirmé</h1>
+      <h1 className="text-3xl font-bold">Payment confirmed</h1>
       {email && (
         <p className="mt-2 opacity-80">
-          Confirmation envoyée à <span className="font-medium">{email}</span>.
+          Confirmation sent to <span className="font-medium">{email}</span>.
         </p>
       )}
 
-      {/* Groupes */}
+      {/* Groups */}
       {track && (
         <div className="mt-6 space-y-3">
           <p className="opacity-80">
-            Inscription confirmée pour <strong>{track}</strong>.
+            Subscription confirmed for <strong>{track}</strong>.
           </p>
           <a
             href={gcal}
@@ -100,28 +100,28 @@ export default function SuccessClient() {
             rel="noopener noreferrer"
             className="inline-block rounded-md border px-4 py-2 text-sm transition hover:scale-[1.02] hover:border-accent hover:text-accent"
           >
-            Ajouter à Google Calendar
+            Add to Google Calendar
           </a>
-          {sending && <p className="text-xs opacity-60">Envoi des infos par email…</p>}
+          {sending && <p className="text-xs opacity-60">Sending details by email…</p>}
         </div>
       )}
 
-      {/* E-book : vrai téléchargement */}
+      {/* E-book: real download */}
       {!track && slug && (
         <div className="mt-8">
           <button
             onClick={handleDownload}
             className="rounded-md bg-purple-600 text-white px-4 py-2 text-sm hover:bg-purple-700 transition"
           >
-            Télécharger maintenant
+            Download now
           </button>
         </div>
       )}
 
-      {/* Suggestions de guides */}
+      {/* Guide suggestions */}
       {!track && suggestions.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold">Autres guides qui peuvent vous intéresser</h2>
+          <h2 className="text-2xl font-semibold">Other guides you may like</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {suggestions.map(p => (
               <article key={p.slug} className="border rounded-lg overflow-hidden">
@@ -140,7 +140,7 @@ export default function SuccessClient() {
                     href={`/boutique/${p.slug}`}
                     className="inline-block mt-3 text-sm text-purple-600 hover:underline"
                   >
-                    Voir le guide
+                    View guide
                   </a>
                 </div>
               </article>

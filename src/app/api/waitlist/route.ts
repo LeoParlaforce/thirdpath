@@ -15,11 +15,13 @@ const resend = new Resend(mustGet("RESEND_API_KEY"))
 const ADMIN_TO = mustGet("CONTACT_TO")
 const FROM = mustGet("RESEND_FROM")
 
+type TrackId = "t1-en" | "t2-en"
+
 type Body = {
   type: "info" | "waitlist"
   name: string
   email: string
-  track: "t1-en" | "t2-en" | "t1-fr" | "t2-fr"
+  track: TrackId
   message?: string
 }
 

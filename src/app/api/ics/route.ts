@@ -2,11 +2,9 @@
 import { NextResponse } from "next/server"
 
 // Start anchors and days (Europe/Paris)
-const cfg: Record<string, { dtstart: string; byday: "WE" | "SA"; summary: string }> = {
+const cfg: Record<"t1-en" | "t2-en", { dtstart: string; byday: "SA"; summary: string }> = {
   "t1-en": { dtstart: "20260110T190000", byday: "SA", summary: "Group ENG — Theme 1" },
   "t2-en": { dtstart: "20260117T190000", byday: "SA", summary: "Group ENG — Theme 2" },
-  "t1-fr": { dtstart: "20260107T170000", byday: "WE", summary: "Groupe FR — Thème 1" },
-  "t2-fr": { dtstart: "20260114T170000", byday: "WE", summary: "Groupe FR — Thème 2" },
 }
 
 export async function GET(req: Request) {

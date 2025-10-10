@@ -43,7 +43,7 @@ export default function SuccessClient() {
   useEffect(() => {
     if (!sid) return
     ;(async () => {
-      const r = await fetch(`/api/checkout/success?id=${encodeURIComponent(sid)}`, { cache: "no-store" })
+      const r = await fetch(`/api/checkout?id=${encodeURIComponent(sid)}`, { cache: "no-store" })
       if (!r.ok) return
       const data: { track?: TrackId; email?: string; slug?: string } = await r.json()
       setTrack(data.track ?? null)

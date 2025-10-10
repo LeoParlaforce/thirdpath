@@ -20,7 +20,6 @@ const publicAnchorByTrack: Record<TrackId, string> = {
   "t2-en": "relationships",
 }
 
-// 19:00 Paris = 18:00 UTC
 const T1_START_UTC = Math.floor(Date.UTC(2026, 0, 10, 18, 0, 0) / 1000)
 const T2_START_UTC = Math.floor(Date.UTC(2026, 0, 17, 18, 0, 0) / 1000)
 
@@ -37,11 +36,8 @@ export async function POST(req: Request) {
     }
 
     const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
-
-    const usdCentsRaw = process.env.GROUP_PRICE_USD_CENTS
-    const usdCentsNum = Number(usdCentsRaw)
-    const usdCents = Number.isFinite(usdCentsNum) ? usdCentsNum : 0
-    if (!usdCents || usdCents < 50) {
+    const usdCentsNum = Number(process.env.GROUP_PRICE_USD_CENTS)
+    if (!usdCentsNum || usdCentsNum < 50) {
       return NextResponse.json({ error: "price_missing" }, { status: 500 })
     }
 
@@ -57,14 +53,14 @@ export async function POST(req: Request) {
       client_reference_id: track,
       metadata: { track },
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/therapies-groupe#inscription-${publicAnchorByTrack[track]}`,
+      cancel_url: `${origin}/therapies-group#inscription-${publicAnchorByTrack[track]}`,
       allow_promotion_codes: true,
       line_items: [
         {
           quantity: 1,
           price_data: {
             currency: "usd",
-            unit_amount: usdCents,
+            unit_amount: usdCentsNum,
             recurring: { interval: "week", interval_count: 2 },
             product_data: {
               name:
@@ -76,14 +72,10 @@ export async function POST(req: Request) {
         },
       ],
       subscription_data: {
-        trial_end, // premier paiement à cette date
+        trial_end,
         metadata: { track },
       },
     })
-
-    if (!session.url) {
-      return NextResponse.json({ error: "no_session_url" }, { status: 500 })
-    }
 
     return NextResponse.json({ url: session.url }, { status: 200 })
   } catch (e: unknown) {

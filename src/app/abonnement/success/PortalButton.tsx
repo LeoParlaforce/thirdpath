@@ -15,13 +15,13 @@ export default function PortalButton({ sessionId }: { sessionId: string }) {
           })
           const data = await r.json()
           if (data?.url) window.location.href = data.url
-          else alert("Erreur portail")
+          else alert("Portal error")
         })
       }
       disabled={pending}
       className="rounded-md border px-4 py-2 text-sm transition hover:border-accent hover:text-accent disabled:opacity-60"
     >
-      {pending ? "Ouverture…" : "Gérer mon inscription"}
+      {pending ? "Opening…" : "Manage subscription"}
     </button>
   )
 }

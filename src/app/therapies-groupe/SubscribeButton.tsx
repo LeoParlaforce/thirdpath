@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 
-export type TrackId = `${"t1" | "t2"}-${"fr" | "en"}`
+export type TrackId = "t1-en" | "t2-en"
 
 type CheckoutResponse = {
   url?: string

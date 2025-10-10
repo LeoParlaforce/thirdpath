@@ -1,7 +1,7 @@
 import Stripe from "stripe"
 import PortalButton from "./PortalButton"
 
-type TrackId = "t1-fr" | "t2-fr"
+type TrackId = "t1-en" | "t2-en"
 
 export default async function SubSuccess({
   searchParams,
@@ -14,11 +14,11 @@ export default async function SubSuccess({
   if (!sid) {
     return (
       <main className="mx-auto max-w-2xl px-6 py-16">
-        <h1 className="text-3xl font-bold">Inscription confirmée</h1>
+        <h1 className="text-3xl font-bold">Subscription confirmed</h1>
         <p className="mt-3 opacity-80">
-          Retour aux{" "}
+          Back to{" "}
           <a href="/therapies-groupe" className="underline">
-            Groupes
+            Groups
           </a>.
         </p>
       </main>
@@ -31,15 +31,15 @@ export default async function SubSuccess({
   const track = sub?.metadata?.track as TrackId | undefined
 
   const title =
-    track === "t1-fr" ? "Thème 1 — FR" :
-    track === "t2-fr" ? "Thème 2 — FR" :
-    "Groupe"
+    track === "t1-en" ? "Theme 1 — EN" :
+    track === "t2-en" ? "Theme 2 — EN" :
+    "Group"
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-3xl font-bold">Inscription confirmée</h1>
+      <h1 className="text-3xl font-bold">Subscription confirmed</h1>
       <p className="mt-3 opacity-80">
-        Prélèvement automatique toutes les 2 semaines. Vous pouvez arrêter à tout moment.
+        Auto-debit every 2 weeks. You can cancel anytime.
       </p>
 
       <div className="mt-6 rounded border p-4 space-y-3">
@@ -49,7 +49,7 @@ export default async function SubSuccess({
             href={`/api/ics?track=${encodeURIComponent(track)}`}
             className="inline-block rounded-md bg-accent px-4 py-2 text-white text-sm"
           >
-            Ajouter au calendrier (.ics)
+            Add to calendar (.ics)
           </a>
         )}
         <PortalButton sessionId={sid} />
@@ -60,14 +60,14 @@ export default async function SubSuccess({
           href="/therapies-groupe"
           className="rounded-md border px-4 py-3 text-center transition hover:border-accent hover:text-accent"
         >
-          Voir les groupes
+          View groups
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/boutique"
           className="rounded-md border px-4 py-3 text-center transition hover:border-accent hover:text-accent"
         >
-          Découvrir les guides
+          Browse guides
         </a>
       </div>
     </main>
