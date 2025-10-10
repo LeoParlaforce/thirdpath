@@ -6,6 +6,8 @@ export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
 type TrackId = "t1-en" | "t2-en"
+type CreateCheckoutBody = { track: TrackId }
+
 const CAP = 10
 
 function must(name: string): string {
@@ -29,27 +31,34 @@ function startUnixFor(track: TrackId): number {
 }
 
 async function countActiveFor(track: TrackId): Promise<number> {
-  // Compte abonnements actifs ou en période d’essai avec le même metadata.track
+  // Subscriptions actifs ou en essai portant le même metadata.track
   const query = `(status:'active' OR status:'trialing') AND metadata['track']:'${track}'`
   let count = 0
-  let next_page: string | null = null
+  let next_page: string | null | undefined = undefined
+
   do {
     const res = await stripe.subscriptions.search({
       query,
       limit: 100,
-      page: next_page ?? undefined,
+      page: next_page,
     })
     count += res.data.length
-    next_page = (res as any).next_page || null
+    next_page = res.next_page
     if (count >= CAP) return count
   } while (next_page)
+
   return count
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({}))
-    const track = body?.track as TrackId | undefined
+    const raw: unknown = await req.json()
+    const body =
+      typeof raw === "object" && raw !== null
+        ? (raw as Partial<CreateCheckoutBody>)
+        : {}
+    const track = body.track
+
     if (track !== "t1-en" && track !== "t2-en") {
       return NextResponse.json({ error: "invalid_track" }, { status: 400 })
     }
