@@ -12,7 +12,15 @@ const TRACK_GCAL: Record<TrackId, { title: string; start: string; end: string }>
   "t2-en": { title: "Group ENG — Theme 2", start: "20260117T190000", end: "20260117T203000" },
 }
 
-function gcalUrl(p:{title:string;start:string;end:string;details?:string;location?:string;ctz?:string;recur?:string}) {
+function gcalUrl(p: {
+  title: string
+  start: string
+  end: string
+  details?: string
+  location?: string
+  ctz?: string
+  recur?: string
+}) {
   const q = new URLSearchParams()
   q.set("text", p.title)
   q.set("dates", `${p.start}/${p.end}`)
@@ -68,16 +76,21 @@ export default function SuccessClient() {
   }, [track])
 
   const suggestions = useMemo(() => {
-    return products.filter(p => p.slug !== slug).slice(0, 6)
+    return products.filter((p) => p.slug !== slug).slice(0, 6)
   }, [slug])
 
+  // --- FIX critical for pack download ---
   async function handleDownload() {
-    if (!slug) return
+    if (!slug || !sid) return
+    const url = `/api/download?session_id=${encodeURIComponent(sid)}&slug=${encodeURIComponent(slug)}`
     const link = document.createElement("a")
-    link.href = `/boutique/${slug}?download=1`
-    link.download = `${slug}.pdf`
+    link.href = url
+    link.target = "_blank"
+    document.body.appendChild(link)
     link.click()
+    link.remove()
   }
+  // -------------------------------------
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-16 text-foreground">
@@ -123,7 +136,7 @@ export default function SuccessClient() {
         <section className="mt-12">
           <h2 className="text-2xl font-semibold">Other guides you may like</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {suggestions.map(p => (
+            {suggestions.map((p) => (
               <article key={p.slug} className="border rounded-lg overflow-hidden">
                 {p.image && (
                   <Image
