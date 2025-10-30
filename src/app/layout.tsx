@@ -58,8 +58,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
 
         <footer className="border-t border-muted bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-6 text-center text-sm opacity-80">
-            © {new Date().getFullYear()} thirdpath.cloud
+          <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col items-center gap-3 text-sm opacity-80">
+            <div className="flex gap-5">
+              <a aria-label="YouTube" href="https://www.youtube.com/@TroisiemeChemin" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/youtube.svg" alt="YouTube" className="h-6 w-6 hover:opacity-70 transition" />
+              </a>
+              <a aria-label="Instagram" href="https://www.instagram.com/troisiemechemin/" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/instagram.svg" alt="Instagram" className="h-6 w-6 hover:opacity-70 transition" />
+              </a>
+              <a aria-label="TikTok" href="https://www.tiktok.com/@troisieme_chemin" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/tiktok.svg" alt="TikTok" className="h-6 w-6 hover:opacity-70 transition" />
+              </a>
+              <a aria-label="Facebook" href="https://www.facebook.com/profile.php?id=61582137873180" target="_blank" rel="noopener noreferrer">
+                <img src="/icons/facebook.svg" alt="Facebook" className="h-6 w-6 hover:opacity-70 transition" />
+              </a>
+            </div>
+            <div>© {new Date().getFullYear()} thirdpath.cloud</div>
           </div>
         </footer>
       </body>
