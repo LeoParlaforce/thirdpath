@@ -1,4 +1,3 @@
-// src/app/api/checkout/route.ts
 import { NextResponse } from "next/server"
 import Stripe from "stripe"
 
@@ -22,7 +21,7 @@ export async function GET(req: Request) {
     }
 
     const session = await stripe.checkout.sessions.retrieve(id, {
-      expand: ["subscription", "customer", "line_items"],
+      expand: ["subscription", "customer", "line_items.data.price.product"],
     })
 
     const track =
@@ -33,10 +32,18 @@ export async function GET(req: Request) {
     const email = session.customer_details?.email || null
 
     const lineItem = session.line_items?.data?.[0]
-    const slug =
-      lineItem?.description
-        ? lineItem.description.toLowerCase().replace(/\s+/g, "-")
-        : null
+    let slug: string | null = null
+
+    if (lineItem?.price?.product && typeof lineItem.price.product !== "string") {
+      const product = lineItem.price.product as Stripe.Product
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      slug = (product.metadata as any)?.slug || null
+    }
+
+    // fallback sur description si metadata.slug non présent
+    if (!slug && lineItem?.description) {
+      slug = lineItem.description.toLowerCase().replace(/\s+/g, "-")
+    }
 
     const res = NextResponse.json({ track, email, slug }, { status: 200 })
 

@@ -7,7 +7,7 @@ import path from "node:path"
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
-const PACK_FILE = "Psychological Guides - Full Pack.rar" // présent dans /public/
+const PACK_FILE = "Psychological Guides - Full Pack.rar" // présent dans /private/pdfs
 
 const files: Record<string, string> = {
   "introduction-to-guides": "Introduction to the psychological guides.pdf",
@@ -30,7 +30,9 @@ function isPackSlug(raw: string) {
 }
 function contentDisposition(name: string) {
   const ascii = name.replace(/[^\x20-\x7E]/g, "_")
-  const utf8 = encodeURIComponent(name).replace(/['()]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`).replace(/\*/g, "%2A")
+  const utf8 = encodeURIComponent(name)
+    .replace(/['()]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)
+    .replace(/\*/g, "%2A")
   return `attachment; filename="${ascii}"; filename*=UTF-8''${utf8}`
 }
 async function streamFile(p: string, name: string, type: string) {
@@ -57,7 +59,7 @@ export async function GET(req: Request) {
 
     // BYPASS test: /api/download?slug=full-pack&diag=1
     if (diag && pack) {
-      const p = path.join(process.cwd(), "public", PACK_FILE)
+      const p = path.join(process.cwd(), "private/pdfs", PACK_FILE)
       return streamFile(p, PACK_FILE, "application/octet-stream")
     }
 
@@ -82,16 +84,17 @@ export async function GET(req: Request) {
     if (!authorized) return NextResponse.json({ error: "item_not_in_session", requested: rawSlug }, { status: 403 })
 
     if (pack) {
-      const p = path.join(process.cwd(), "public", PACK_FILE)
+      const p = path.join(process.cwd(), "private/pdfs", PACK_FILE)
       return streamFile(p, PACK_FILE, "application/octet-stream")
     }
 
     const fname = files[rawSlug]
     if (!fname) return NextResponse.json({ error: "file_not_mapped", requested: rawSlug }, { status: 404 })
-    const fp = path.join(process.cwd(), "public", fname)
+    const fp = path.join(process.cwd(), "private/pdfs", fname)
     return streamFile(fp, fname, "application/pdf")
   } catch (e) {
     const msg = e instanceof Error ? e.message : "download_error"
+    console.error("Download API error:", e)
     return NextResponse.json({ error: "download_error", detail: msg }, { status: 500 })
   }
 }
