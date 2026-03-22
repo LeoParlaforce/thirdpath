@@ -30,9 +30,9 @@ export default function HomePage() {
         <h2>What You Will Find Here</h2>
         <ul className="list-disc ml-6 space-y-2">
           <li>Complete Guides – step-by-step evidence-based guides</li>
-          <li>Humanist Approach – insights for self-awareness and relationships</li>
           <li>Articles – psychology, personal development, and mental health</li>
           <li>Resources – exercises, reflections, and techniques</li>
+          <li>Humanist Approach – insights for self-awareness and relationships</li>
         </ul>
       </section>
 
@@ -40,7 +40,7 @@ export default function HomePage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Complete Guides */}
         <Link
-          href="/complete-guides"
+          href="/boutique"
           title="Complete Guides on Psychology"
           className="group block border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
         >
@@ -54,26 +54,6 @@ export default function HomePage() {
             <h3 className="text-xl font-semibold mb-1">Complete Guides</h3>
             <p className="text-gray-600 text-sm">
               Step-by-step evidence-based guides for understanding psychological concepts and practices.
-            </p>
-          </div>
-        </Link>
-
-        {/* Humanist Approach */}
-        <Link
-          href="/humanist-approach"
-          title="Humanist Approach in Psychology"
-          className="group block border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
-        >
-          <img
-            src="/humanist-approach.jpg"
-            alt="Humanist Approach in Psychology"
-            loading="lazy"
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
-          />
-          <div className="p-4">
-            <h3 className="text-xl font-semibold mb-1">Humanist Approach</h3>
-            <p className="text-gray-600 text-sm">
-              Learn how psychological insights can be applied to improve self-awareness and relationships.
             </p>
           </div>
         </Link>
@@ -97,6 +77,24 @@ export default function HomePage() {
             </p>
           </div>
         </Link>
+
+        {/* Humanist Approach – non cliquable */}
+        <div
+          className="group block border rounded-lg overflow-hidden shadow transition cursor-default"
+        >
+          <img
+            src="/humanist-approach.jpg"
+            alt="Humanist Approach in Psychology"
+            loading="lazy"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+          />
+          <div className="p-4">
+            <h3 className="text-xl font-semibold mb-1">Humanist Approach</h3>
+            <p className="text-gray-600 text-sm">
+              Learn how psychological insights can be applied to improve self-awareness and relationships.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Closing / CTA */}
