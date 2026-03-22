@@ -1,4 +1,5 @@
-import NextLink from "next/link"
+// src/app/page.tsx
+import Link from "next/link"
 import Image from "next/image"
 
 export default function Home() {
@@ -12,17 +13,25 @@ export default function Home() {
               Psychology: embody life, discover your world
             </h1>
             <p className="mt-5 text-xl/8 opacity-80">
-              Psychological support and practical guides. E-books available online.
+              Psychological support and practical guides. E-books and online resources.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <NextLink
+              <Link
                 href="/boutique"
                 className="rounded-md bg-accent px-6 py-3 text-white text-base font-medium
                            transition transform-gpu hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 Browse guides
-              </NextLink>
+              </Link>
+              <Link
+                href="/blog"
+                className="rounded-md border px-6 py-3 text-base font-medium
+                           transition transform-gpu hover:-translate-y-1 hover:border-accent hover:text-accent hover:shadow-md
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                Blog
+              </Link>
             </div>
           </div>
 
@@ -39,13 +48,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2 key points */}
+      {/* 3 key points */}
       <section className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="text-3xl font-semibold">What you will find here</h2>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {/* Card 1 — Guides */}
-          <NextLink
+          <Link
             href="/boutique"
             aria-label="See the complete guides"
             className="group block rounded-xl border overflow-hidden transition
@@ -58,27 +67,41 @@ export default function Home() {
                 fill
                 className="object-cover transition transform-gpu group-hover:scale-[1.03]"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition" />
             </div>
             <div className="p-6">
               <h3 className="text-lg font-semibold transition group-hover:text-accent">
                 Complete guides
               </h3>
               <p className="mt-2 text-base opacity-80">
-                PDF e-books: Self-esteem, Depression, Anxiety, Relationships, Loneliness,
-                Sleep issues, Autism spectrum, Eating disorders, ADHD,
-                Procrastination and creativity, High potential.
+                PDF e-books: Self-esteem, Depression, Anxiety, Relationships, Loneliness, Sleep issues, ADHD...
               </p>
             </div>
-          </NextLink>
+          </Link>
 
-          {/* Card 2 — Humanist approach */}
-          <article className="rounded-xl border p-6 transition hover:shadow-md hover:border-accent/50">
+          {/* Card 2 — Blog */}
+          <Link
+            href="/blog"
+            aria-label="Go to blog"
+            className="group block rounded-xl border overflow-hidden transition
+                       hover:-translate-y-1 hover:shadow-xl hover:border-accent transform-gpu"
+          >
+            <div className="relative aspect-[3/2] bg-gray-100 flex items-center justify-center">
+              <h3 className="text-2xl font-semibold text-gray-700">Blog</h3>
+            </div>
+            <div className="p-6">
+              <p className="mt-2 text-base opacity-80">
+                Read articles and updates about psychology, guides, and practical insights.
+              </p>
+            </div>
+          </Link>
+
+          {/* Card 3 — Humanist approach */}
+          <div className="rounded-xl border p-6 transition hover:shadow-md hover:border-accent/50">
             <h3 className="text-lg font-semibold">Humanist approach</h3>
             <p className="mt-2 text-base opacity-80">
               Work without judgment, with logic and feeling. Become the healer of your own world.
             </p>
-          </article>
+          </div>
         </div>
       </section>
     </main>
