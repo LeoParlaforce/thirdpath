@@ -13,16 +13,27 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col gap-12">
+    <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col gap-16">
 
       {/* Header / Intro */}
       <section className="text-center">
         <h1 className="text-5xl font-bold mb-4">
           Third Path — Psychology guides
         </h1>
-        <p className="text-lg text-gray-700">
-          Practical, research-backed psychological guidance for personal growth and well-being.
+        <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          Practical, research-backed psychological guidance for personal growth, well-being, and understanding human behavior. Explore guides, articles, and exercises that help you reflect, grow, and apply psychology in daily life.
         </p>
+      </section>
+
+      {/* What you will find here */}
+      <section className="prose max-w-4xl mx-auto">
+        <h2>What You Will Find Here</h2>
+        <ul className="list-disc ml-6 space-y-2">
+          <li>Complete Guides – step-by-step evidence-based guides</li>
+          <li>Humanist Approach – insights for self-awareness and relationships</li>
+          <li>Articles – psychology, personal development, and mental health</li>
+          <li>Resources – exercises, reflections, and techniques</li>
+        </ul>
       </section>
 
       {/* Encadrés principaux */}
@@ -40,8 +51,8 @@ export default function HomePage() {
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
           />
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-2">Complete Guides</h2>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-1">Complete Guides</h3>
+            <p className="text-gray-600 text-sm">
               Step-by-step evidence-based guides for understanding psychological concepts and practices.
             </p>
           </div>
@@ -60,8 +71,8 @@ export default function HomePage() {
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
           />
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-2">Humanist Approach</h2>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-1">Humanist Approach</h3>
+            <p className="text-gray-600 text-sm">
               Learn how psychological insights can be applied to improve self-awareness and relationships.
             </p>
           </div>
@@ -80,11 +91,24 @@ export default function HomePage() {
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
           />
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-2">Articles</h2>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-1">Articles</h3>
+            <p className="text-gray-600 text-sm">
               Read individual articles on psychology, personal development, and mental health.
             </p>
           </div>
+        </Link>
+      </section>
+
+      {/* Closing / CTA */}
+      <section className="text-center max-w-3xl mx-auto">
+        <p className="text-gray-700">
+          Whether you are exploring self-esteem, anxiety, personal development, or relationships, our content is grounded in research and clinical expertise to help you apply psychology effectively in your life.
+        </p>
+        <Link
+          href="/articles"
+          className="mt-6 inline-block px-6 py-3 rounded bg-accent text-white font-medium hover:opacity-90 transition"
+        >
+          Explore Articles
         </Link>
       </section>
     </main>
