@@ -18,38 +18,34 @@ export const metadata: Metadata = {
     canonical: "https://thirdpath.cloud",
     languages: { en: "https://thirdpath.cloud", "fr-FR": "https://troisiemechemin.fr" },
   },
+  openGraph: {
+    title: "Third Path — Psychology guides",
+    description: "Practical, research-backed psychological guidance for personal growth and well-being.",
+    url: "https://thirdpath.cloud",
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const footerLinks = [
-    { href: "/mentions-legales", label: "Legal Notice" },
-    { href: "/editorial-standards", label: "Editorial Standards" },
-    { href: "/about-us", label: "About Us" },
-  ]
-
-  const headerLinks = [
-    { href: "/", label: "Home" },
-    { href: "/boutique", label: "Store" },
-    { href: "/blog", label: "Blog" },
-  ]
-
   return (
     <html lang="en">
       <body className={`${garamond.variable} font-serif min-h-screen flex flex-col`}>
+
         {/* Header */}
         <header className="sticky top-0 z-50 bg-header/95 backdrop-blur border-b border-muted shadow-sm">
           <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link
-                href="/"
-                className="text-lg font-semibold tracking-wide transition hover:text-accent hover:drop-shadow-[0_1px_0_rgba(124,58,237,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
-              >
-                thirdpath.cloud
-              </Link>
-            </div>
+            <Link
+              href="/"
+              className="text-lg font-semibold tracking-wide transition hover:text-accent hover:drop-shadow-[0_1px_0_rgba(124,58,237,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+            >
+              thirdpath.cloud
+            </Link>
 
-            <nav aria-label="Main navigation" className="flex gap-2 text-base">
-              {headerLinks.map((l) => (
+            <nav className="flex gap-2 text-base" aria-label="Main navigation">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/boutique", label: "Store" },
+                { href: "/articles", label: "Articles" },
+              ].map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -66,44 +62,41 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
 
         {/* Footer */}
-        <footer aria-label="Site footer" className="border-t border-muted bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-6 text-center text-sm flex flex-wrap md:flex-nowrap md:justify-between items-center gap-4">
-            
-            {/* Footer links */}
-            {footerLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="opacity-80 hover:opacity-100 transition"
+        <footer className="border-t border-muted bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row md:justify-between items-center gap-4 text-sm text-center md:text-left">
+
+            {/* Left links */}
+            <div className="flex flex-col md:flex-row gap-4">
+              <Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition">Legal Notice</Link>
+              <Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition">Editorial Standards</Link>
+              <Link href="/about-us" className="opacity-80 hover:opacity-100 transition">About Us</Link>
+            </div>
+
+            {/* Middle buttons */}
+            <div className="flex gap-2">
+              <a
+                href="mailto:leo.gayrard@gmail.com"
+                className="px-4 py-2 rounded bg-accent text-white text-sm font-medium transition hover:opacity-90"
               >
-                {l.label}
-              </Link>
-            ))}
+                Contact
+              </a>
+              <a
+                href="https://www.troisiemechemin.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10"
+              >
+                Vous parlez français ?
+              </a>
+            </div>
 
-            {/* Contact button */}
-            <a
-              href="mailto:leo.gayrard@gmail.com"
-              className="px-4 py-2 rounded bg-accent text-white text-sm font-medium transition hover:opacity-90"
-            >
-              Contact
-            </a>
-
-            {/* French site link */}
-            <a
-              href="https://www.troisiemechemin.fr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10"
-            >
-              Vous parlez français ?
-            </a>
-
-            {/* Copyright */}
+            {/* Right copyright */}
             <span className="opacity-60 text-sm mt-2 md:mt-0">
-              © {new Date().getFullYear()} thirdpath.cloud
+              © {new Date().getFullYear()} thirdpath.cloud — 1184 route de la Maurette, 83520 Roquebrune-sur-Argens, France
             </span>
           </div>
         </footer>
+
       </body>
     </html>
   )

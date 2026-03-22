@@ -1,108 +1,91 @@
 // src/app/page.tsx
 import Link from "next/link"
-import Image from "next/image"
 
-export default function Home() {
+export const metadata = {
+  title: "Third Path — Psychology guides",
+  description: "Practical, research-backed psychological guidance for personal growth and well-being.",
+  openGraph: {
+    title: "Third Path — Psychology guides",
+    description: "Practical, research-backed psychological guidance for personal growth and well-being.",
+    images: ["/articles.jpg"],
+  },
+}
+
+export default function HomePage() {
   return (
-    <main className="min-h-screen text-foreground">
-      {/* Hero */}
-      <section>
-        <div className="mx-auto max-w-6xl px-6 py-20 grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
-              Psychology: embody life, discover your world
-            </h1>
-            <p className="mt-5 text-xl/8 opacity-80">
-              Psychological support and practical guides. E-books and online resources.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                href="/boutique"
-                className="rounded-md bg-accent px-6 py-3 text-white text-base font-medium
-                           transition transform-gpu hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              >
-                Browse guides
-              </Link>
-              <Link
-                href="/blog"
-                className="rounded-md border px-6 py-3 text-base font-medium
-                           transition transform-gpu hover:-translate-y-1 hover:border-accent hover:text-accent hover:shadow-md
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              >
-                Blog
-              </Link>
-            </div>
-          </div>
+    <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col gap-12">
 
-          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl border">
-            <Image
-              src="/hero.jpg"
-              alt="Third Path — a clear gaze"
-              fill
-              className="object-cover object-[50%_20%] transition transform-gpu hover:scale-[1.03]"
-              priority
-              sizes="(min-width:768px) 50vw, 100vw"
-            />
-          </div>
-        </div>
+      {/* Header / Intro */}
+      <section className="text-center">
+        <h1 className="text-5xl font-bold mb-4">
+          Third Path — Psychology guides
+        </h1>
+        <p className="text-lg text-gray-700">
+          Practical, research-backed psychological guidance for personal growth and well-being.
+        </p>
       </section>
 
-      {/* 3 key points */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="text-3xl font-semibold">What you will find here</h2>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {/* Card 1 — Guides */}
-          <Link
-            href="/boutique"
-            aria-label="See the complete guides"
-            className="group block rounded-xl border overflow-hidden transition
-                       hover:-translate-y-1 hover:shadow-xl hover:border-accent transform-gpu"
-          >
-            <div className="relative aspect-[3/2]">
-              <Image
-                src="/guide.jpg"
-                alt="Complete guides"
-                fill
-                className="object-cover transition transform-gpu group-hover:scale-[1.03]"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-lg font-semibold transition group-hover:text-accent">
-                Complete guides
-              </h3>
-              <p className="mt-2 text-base opacity-80">
-                PDF e-books: Self-esteem, Depression, Anxiety, Relationships, Loneliness, Sleep issues, ADHD...
-              </p>
-            </div>
-          </Link>
-
-          {/* Card 2 — Blog */}
-          <Link
-            href="/blog"
-            aria-label="Go to blog"
-            className="group block rounded-xl border overflow-hidden transition
-                       hover:-translate-y-1 hover:shadow-xl hover:border-accent transform-gpu"
-          >
-            <div className="relative aspect-[3/2] bg-gray-100 flex items-center justify-center">
-              <h3 className="text-2xl font-semibold text-gray-700">Blog</h3>
-            </div>
-            <div className="p-6">
-              <p className="mt-2 text-base opacity-80">
-                Read articles and updates about psychology, guides, and practical insights.
-              </p>
-            </div>
-          </Link>
-
-          {/* Card 3 — Humanist approach */}
-          <div className="rounded-xl border p-6 transition hover:shadow-md hover:border-accent/50">
-            <h3 className="text-lg font-semibold">Humanist approach</h3>
-            <p className="mt-2 text-base opacity-80">
-              Work without judgment, with logic and feeling. Become the healer of your own world.
+      {/* Encadrés principaux */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Complete Guides */}
+        <Link
+          href="/complete-guides"
+          title="Complete Guides on Psychology"
+          className="group block border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+        >
+          <img
+            src="/complete-guide.jpg"
+            alt="Complete Guides on Psychology"
+            loading="lazy"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+          />
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold mb-2">Complete Guides</h2>
+            <p className="text-gray-600">
+              Step-by-step evidence-based guides for understanding psychological concepts and practices.
             </p>
           </div>
-        </div>
+        </Link>
+
+        {/* Humanist Approach */}
+        <Link
+          href="/humanist-approach"
+          title="Humanist Approach in Psychology"
+          className="group block border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+        >
+          <img
+            src="/humanist-approach.jpg"
+            alt="Humanist Approach in Psychology"
+            loading="lazy"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+          />
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold mb-2">Humanist Approach</h2>
+            <p className="text-gray-600">
+              Learn how psychological insights can be applied to improve self-awareness and relationships.
+            </p>
+          </div>
+        </Link>
+
+        {/* Articles */}
+        <Link
+          href="/articles"
+          title="Read Articles on Psychology"
+          className="group block border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+        >
+          <img
+            src="/articles.jpg"
+            alt="Articles on Psychology and Personal Development"
+            loading="lazy"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+          />
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold mb-2">Articles</h2>
+            <p className="text-gray-600">
+              Read individual articles on psychology, personal development, and mental health.
+            </p>
+          </div>
+        </Link>
       </section>
     </main>
   )
