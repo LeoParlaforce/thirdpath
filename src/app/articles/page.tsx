@@ -3,16 +3,24 @@ import Link from "next/link"
 import { getAllPosts, PostData } from "../../lib/posts"
 
 export const metadata = {
-  title: "Third Path Blog — Articles on Psychology & Personal Growth",
+  title: "Third Path — Articles on Psychology & Personal Growth",
   description: "Explore evidence-based psychology articles, self-improvement tips, and insights by certified psychologist Leo Gayrard.",
+  alternates: {
+    canonical: "https://thirdpath.cloud/articles",
+  },
+  openGraph: {
+    title: "Third Path — Articles on Psychology & Personal Growth",
+    description: "Explore evidence-based psychology articles, self-improvement tips, and insights by certified psychologist Leo Gayrard.",
+    url: "https://thirdpath.cloud/articles",
+  },
 }
 
-export default function BlogPage() {
+export default function ArticlesPage() {
   const posts: PostData[] = getAllPosts()
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-4xl font-bold mb-8">Blog</h1>
+      <h1 className="text-4xl font-bold mb-8">Articles</h1>
 
       {posts.length === 0 && <p>No articles yet.</p>}
 
@@ -20,7 +28,7 @@ export default function BlogPage() {
         {posts.map((post) => (
           <article key={post.slug} className="border rounded-lg p-6 hover:shadow-lg transition">
             <h2 className="text-2xl font-semibold">
-              <Link href={`/blog/${post.slug}`} className="hover:text-accent">
+              <Link href={`/articles/${post.slug}`} className="hover:text-accent">
                 {post.title || "Untitled"}
               </Link>
             </h2>
