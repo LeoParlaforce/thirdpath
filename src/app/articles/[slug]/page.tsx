@@ -1,4 +1,4 @@
-// src/app/blog/[slug]/page.tsx
+// src/app/articles/[slug]/page.tsx
 import { getPostBySlug, PostData } from "../../../lib/posts"
 
 type Props = { params: { slug: string } }

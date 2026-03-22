@@ -12,7 +12,7 @@ export type PostData = {
   image?: string
 }
 
-// Lire tous les articles (pour la page blog)
+// Lire tous les articles
 export function getAllPosts(): PostData[] {
   if (!fs.existsSync(postsDirectory)) return []
 

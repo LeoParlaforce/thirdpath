@@ -1,4 +1,4 @@
-// src/app/blog/page.tsx
+// src/app/articles/page.tsx
 import Link from "next/link"
 import { getAllPosts, PostData } from "../../lib/posts"
 
