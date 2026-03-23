@@ -1,155 +1,187 @@
+# Local SEO for Therapists: Why the Internet Is Still Geographic
+
+![Local SEO illustration](/articles/local-seo-therapists.jpg)
+*Photo by [Leandro Barreto](https://unsplash.com/fr/@lpbarreto) on Unsplash*
+
+## The paradox of the internet
+
+When therapists start working online, they often think:  
+“I can work with anyone, anywhere.”
+
+Technically, this is true.  
+But from a visibility standpoint, it is mostly false.
+
+Search engines — and now AI systems — do not show content globally by default. They prioritize **geographically relevant results**.
+
+According to multiple industry analyses, **around 46% of all Google searches have local intent** :contentReference[oaicite:0]{index=0}.  
+
+This means nearly half of all users are looking for something *near them* — including therapists.
+
 ---
-title: "Local SEO for Therapists: Why the Internet Is Still Territorial"
-date: "2026-03-23"
-summary: "Many therapists believe going online means reaching everyone. In reality, Google prioritizes local results. Learn how to use local SEO to get more clients."
-slug: "local-seo-therapists"
----
 
-# Local SEO for Therapists: Why the Internet Is Still Territorial
-
-The internet feels global. But search engines are not.
-
-If you are a therapist trying to get clients online, this misunderstanding will cost you visibility.
-
-## The Paradox of Online Therapy
-
-Most therapists think:
-
-> “I can work with anyone, anywhere.”
-
-Technically, yes.
-
-But in reality, if your SEO is not local, you will not be found.
-
-## How Google Really Works
+## How Google actually ranks therapists
 
 When someone searches:
 
-**“psychotherapist”**
+> “psychotherapist”
 
-Google does two things:
+Google does two things simultaneously:
 
-- Detects the user's location  
-- Shows local results first  
+1. Detects the user’s location (IP, history, device)
+2. Prioritizes geographically relevant results
 
-### Example
+This is why:
 
-A person in Marseille will see therapists in Marseille.
+- A user in Marseille sees Marseille therapists
+- Not a therapist based in Paris — even if they work online
 
-Not you — if you are based in Paris.
+This logic applies even more strongly to mobile searches, where **76% of “near me” searches lead to a visit within 24 hours** :contentReference[oaicite:1]{index=1}.
 
-## The Biggest SEO Mistake
+---
 
-Trying to rank for:
+## The mistake: “online therapist in France”
 
-- “online therapist”
-- “therapy France”
+Many therapists try to rank for:
+
+- “online therapist France”
 - “psychotherapist online”
 
-These keywords are:
+The issue:
 
-- Highly competitive  
-- Dominated by large websites  
-- Nearly impossible to rank quickly  
+- Extremely competitive keywords  
+- Dominated by large platforms  
+- Very low probability of ranking quickly  
 
-## What Actually Works
-
-Instead, target:
+In contrast:
 
 - “burnout therapist Lyon”
-- “anxiety therapist Bordeaux”
-- “psychotherapist Nantes”
+- “anxiety therapy Bordeaux”
 
-These are:
-
-- Easier to rank  
-- More specific  
+👉 These are:
+- Less competitive  
+- More precise  
 - Higher conversion  
 
-## The Winning Strategy
+---
 
-### 1. Anchor Yourself to One City
+## The winning strategy: local first, then expand
 
-Even if you work online:
+### 1. Anchor yourself to a city
 
-- Choose a main city  
-- Create a Google Business Profile  
-- Hide your exact address if needed  
+Even if you work online, choose a reference city.
 
-## 2. Optimize Your Website
+Why?
 
-Include your city in:
+Because Google needs **geographic signals** to rank you.
 
-- Titles  
-- Meta descriptions  
-- Headings  
-- Content  
+---
+
+### 2. Optimize your website locally
+
+Instead of:
+
+> “Psychotherapist specializing in burnout”
+
+Write:
+
+> “Burnout therapist in Nantes”
+
+This dramatically improves ranking potential.
+
+---
+
+### 3. Create local content
 
 Example:
 
-- ❌ “Burnout Therapist”  
-- ✅ “Burnout Therapist in Nantes”  
+> “Where to find a psychologist in Lyon for social anxiety?”
 
-## 3. Create Local Content
+This allows you to rank on:
+- location
+- problem
+- intent
 
-Example:
+---
 
-**“Where to find a psychologist in Lyon for social anxiety?”**
-
-This helps you rank for:
-
-- Location  
-- Problem  
-
-## 4. Expand Gradually
+### 4. Expand gradually
 
 Once you rank locally:
 
-- Target new cities  
-- Create dedicated pages  
+- Create pages for other cities  
 - Duplicate your structure  
+- Maintain consistency  
 
-## Google Business Profile: A Major Advantage
+---
 
-Even online, it matters.
+## Google Business Profile: the most underrated tool
 
-### Benefits
+A complete Google Business Profile significantly increases trust and visibility.
 
-- Appears in Google Maps  
-- Builds trust with reviews  
-- Improves local ranking  
+Data shows that:
 
-### Best Practices
+- Businesses with complete profiles are **2.7x more likely to be considered trustworthy** :contentReference[oaicite:2]{index=2}  
+- The top 3 local results get **over 120% more traffic** than lower rankings :contentReference[oaicite:3]{index=3}  
+
+### Best practices:
 
 - Set your main city  
-- Get client reviews  
-- Post regularly  
-- Reply to reviews  
+- Collect client reviews  
+- Respond to reviews  
+- Post updates regularly  
 
-## Can You Rank Nationally?
+---
 
-Yes — but indirectly.
+## AI (ChatGPT, Perplexity): what changes?
 
-You need:
+AI tools are increasingly used for search.
 
-- High-quality long-form content  
-- Presence on directories  
-- Media mentions  
+However:
 
-## What About AI (ChatGPT, Perplexity)?
+- They rely on indexed content  
+- They prioritize trusted sources  
+- They still use geographic relevance  
 
-To appear in AI results:
+Recent data suggests AI-driven search is rapidly growing, already capturing part of user queries :contentReference[oaicite:4]{index=4}.
 
-- Publish structured, high-quality content  
-- Clearly mention your specialty + location  
-- Be present on trusted platforms  
+👉 Meaning:
 
-But location still matters.
+Your content must be:
+- Clear
+- structured
+- geographically anchored
 
-## Conclusion
+---
 
-The internet does not remove geography.
+## Key insight
 
-It reorganizes it.
+> The internet does not remove geography.  
+> It reorganizes it.
 
-**Start local. Build authority. Then expand.**
+Even in a digital world:
+
+- visibility is local  
+- authority is built locally  
+- expansion comes after  
+
+---
+
+## Frequently Asked Questions
+
+### Does local SEO matter for online therapists?
+Yes. Even fully online services are ranked based on geographic relevance.
+
+### Can you rank nationally as a therapist?
+Yes, but only after building strong local authority.
+
+### Should you target multiple cities?
+Yes, but progressively — not all at once.
+
+---
+
+## References
+
+- Google. (2023). *How Search Works*.  
+- BrightLocal. (2025). *Local Consumer Review Survey*.  
+- SOCi. (2024). *Consumer Behavior Index*.  
+- Think With Google. (2023). *Local Search Behavior*.  
+- Backlinko. (2024). *Google Search CTR Study*.  
