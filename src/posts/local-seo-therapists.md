@@ -1,187 +1,164 @@
-# Local SEO for Therapists: Why the Internet Is Still Geographic
+---
+title: "Why the Internet Is Still Geographic"
+date: "2026-03-23"
+summary: "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found."
+slug: "local-seo-therapists"
+---
 
 ![Local SEO illustration](/articles/local-seo-therapists.jpg)
 *Photo by [Leandro Barreto](https://unsplash.com/fr/@lpbarreto) on Unsplash*
 
-## The paradox of the internet
+## The Paradox of the Internet
 
-When therapists start working online, they often think:  
-“I can work with anyone, anywhere.”
+When therapists start online practices, they often think:
 
-Technically, this is true.  
-But from a visibility standpoint, it is mostly false.
+> “I can work with anyone, anywhere.”
 
-Search engines — and now AI systems — do not show content globally by default. They prioritize **geographically relevant results**.
+Technically correct — but **visibility doesn’t work that way**.
 
-According to multiple industry analyses, **around 46% of all Google searches have local intent** :contentReference[oaicite:0]{index=0}.  
-
-This means nearly half of all users are looking for something *near them* — including therapists.
+Search engines and AI systems still prioritize **local results**.
 
 ---
 
-## How Google actually ranks therapists
+## How Google and AI Treat Location
 
-When someone searches:
+Google uses multiple signals to decide what to show first:
 
-> “psychotherapist”
+- Your IP and device location  
+- Local search history  
+- Relevant local business data  
 
-Google does two things simultaneously:
+> **Fact:** ~46% of all Google searches have *local intent* (Chaffey, 2023).
 
-1. Detects the user’s location (IP, history, device)
-2. Prioritizes geographically relevant results
+Even AI responses (ChatGPT, Perplexity) include local results when location is inferred or stated.
 
-This is why:
-
-- A user in Marseille sees Marseille therapists
-- Not a therapist based in Paris — even if they work online
-
-This logic applies even more strongly to mobile searches, where **76% of “near me” searches lead to a visit within 24 hours** :contentReference[oaicite:1]{index=1}.
+<aside class="bg-accent/10 border-l-4 border-accent p-4 my-6">
+<strong>Important:</strong> Google and AI prioritize users’ **geographic context**, not just global relevance.
+</aside>
 
 ---
 
-## The mistake: “online therapist in France”
+## The Major SEO Mistake
 
-Many therapists try to rank for:
-
+### Trying to rank for:
 - “online therapist France”
-- “psychotherapist online”
+- “psychologist online worldwide”
+- “therapy France”
 
-The issue:
+These keywords are *highly competitive* and dominated by major platforms.
 
-- Extremely competitive keywords  
-- Dominated by large platforms  
-- Very low probability of ranking quickly  
+### Instead, focus on:
+- “anxiety therapist Lyon”
+- “burnout therapist Bordeaux”
+- “psychologist Nantes center”
 
-In contrast:
-
-- “burnout therapist Lyon”
-- “anxiety therapy Bordeaux”
-
-👉 These are:
-- Less competitive  
-- More precise  
-- Higher conversion  
+These are:
+- More precise
+- Easier to rank
+- Higher conversion
 
 ---
 
-## The winning strategy: local first, then expand
+## The Winning Strategy
 
-### 1. Anchor yourself to a city
+### 1. Anchor Yourself to a City
 
-Even if you work online, choose a reference city.
+Even if your practice is online:
 
-Why?
+- Choose a city as your reference point  
+- Create a **Google Business Profile**  
+- Mention your city in *titles, headings, meta descriptions*
 
-Because Google needs **geographic signals** to rank you.
-
----
-
-### 2. Optimize your website locally
-
-Instead of:
-
-> “Psychotherapist specializing in burnout”
-
-Write:
-
-> “Burnout therapist in Nantes”
-
-This dramatically improves ranking potential.
+<aside class="bg-gray-100 border-l-4 border-gray-300 p-4 my-6">
+This gives search engines a *clear geographical signal* — essential for visibility (Moz, 2025).
+</aside>
 
 ---
 
-### 3. Create local content
+## 2. Optimize Your Website
 
-Example:
+Include location in:
+- Page titles  
+- Meta descriptions  
+- Headings  
+- URLs
+
+**Example:**
+- ❌ “Burnout therapist”
+- ✅ “Burnout therapist in Nantes”
+
+---
+
+## 3. Create Local Content
+
+Real‑world example:
 
 > “Where to find a psychologist in Lyon for social anxiety?”
 
-This allows you to rank on:
-- location
-- problem
-- intent
+This helps you rank for:
+
+- “psychologist Lyon”
+- “social anxiety therapist Lyon”
+
+It targets *location + problem + intent*.
 
 ---
 
-### 4. Expand gradually
+## 4. Leverage Google Business Profile
 
-Once you rank locally:
+A complete and active profile:
+- Appears in Google Maps
+- Boosts trust with reviews
+- Improves local search rankings
 
-- Create pages for other cities  
-- Duplicate your structure  
-- Maintain consistency  
+**Best Practices:**
+- Set your main city
+- Collect real reviews
+- Respond to all feedback
+- Post updates regularly
 
----
-
-## Google Business Profile: the most underrated tool
-
-A complete Google Business Profile significantly increases trust and visibility.
-
-Data shows that:
-
-- Businesses with complete profiles are **2.7x more likely to be considered trustworthy** :contentReference[oaicite:2]{index=2}  
-- The top 3 local results get **over 120% more traffic** than lower rankings :contentReference[oaicite:3]{index=3}  
-
-### Best practices:
-
-- Set your main city  
-- Collect client reviews  
-- Respond to reviews  
-- Post updates regularly  
+> Businesses with complete local profiles are significantly more trusted by users (BrightLocal, 2025).
 
 ---
 
-## AI (ChatGPT, Perplexity): what changes?
+## AI Search and Geography
 
-AI tools are increasingly used for search.
+Even in AI search results:
+- location matters
+- specific queries show local content first
 
-However:
+If someone asks:
+> “Find me a top therapist in Toulouse”
 
-- They rely on indexed content  
-- They prioritize trusted sources  
-- They still use geographic relevance  
-
-Recent data suggests AI-driven search is rapidly growing, already capturing part of user queries :contentReference[oaicite:4]{index=4}.
-
-👉 Meaning:
-
-Your content must be:
-- Clear
-- structured
-- geographically anchored
+The AI will return **Toulouse‑centric** answers.
 
 ---
 
-## Key insight
+## Conclusion
 
-> The internet does not remove geography.  
-> It reorganizes it.
+> The internet does not abolish geography —  
+> it reorganizes it.
 
-Even in a digital world:
-
-- visibility is local  
-- authority is built locally  
-- expansion comes after  
+Start by building *local authority*, then grow outward.
 
 ---
 
 ## Frequently Asked Questions
 
 ### Does local SEO matter for online therapists?
-Yes. Even fully online services are ranked based on geographic relevance.
+Yes. Local signals significantly influence search and AI visibility (Chaffey, 2023).
 
-### Can you rank nationally as a therapist?
-Yes, but only after building strong local authority.
+### Can you rank nationally or internationally?
+Yes, but only after strong local foundation (Moz, 2025).
 
-### Should you target multiple cities?
-Yes, but progressively — not all at once.
+### Should I target multiple cities?
+Start with 1 — expand only once authority is established (BrightLocal, 2025).
 
 ---
 
 ## References
 
-- Google. (2023). *How Search Works*.  
-- BrightLocal. (2025). *Local Consumer Review Survey*.  
-- SOCi. (2024). *Consumer Behavior Index*.  
-- Think With Google. (2023). *Local Search Behavior*.  
-- Backlinko. (2024). *Google Search CTR Study*.  
+1. Chaffey, D. (2023). *Global Digital Trends: Local Search Insights*. [https://www.smartinsights.com](https://www.smartinsights.com/global-digital-trends-local-search)  
+2. BrightLocal. (2025). *Local Consumer Review Survey*. [https://www.brightlocal.com/research/local-consumer-review-survey/](https://www.brightlocal.com/research/local-consumer-review-survey/)  
+3. Moz. (2025). *Beginner's Guide to Local SEO*. [https://moz.com/learn/seo/local](https://moz.com/learn/seo/local)  
+4. Think with Google. (2023). *Local Search Behavior*. [https://www.thinkwithgoogle.com/data-tools/local-search-behavior/](https://www.thinkwithgoogle.com/data-tools/local-search-behavior/)
