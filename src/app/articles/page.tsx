@@ -33,7 +33,7 @@ export default function ArticlesPage() {
             href={`/articles/${post.slug}`}
             className="group block relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
           >
-            {/* Image en background */}
+            {/* Image en background dans l'encadré */}
             <div
               className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition"
               style={{
@@ -45,10 +45,9 @@ export default function ArticlesPage() {
             <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
               <h2 className="text-2xl font-semibold">{post.title || "Untitled"}</h2>
 
-              {/* Résumé enrichi */}
+              {/* Résumé en anglais */}
               <p className="text-gray-700 mt-1">
-                Auto-entrepreneurs ambitieux voulant toucher le monde entier échouent souvent
-                parce que l’internet n’est pas si ouvert qu’il y paraît.
+                Ambitious self-employed entrepreneurs aiming to reach the entire world often fail because the internet isn’t as globally open as it seems.
               </p>
 
               {post.date && <p className="text-sm text-gray-400">{post.date}</p>}

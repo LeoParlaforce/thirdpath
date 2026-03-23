@@ -16,7 +16,6 @@ export interface PostData {
 
 const postsDirectory = path.join(process.cwd(), "src/posts")
 
-// Récupérer le contenu d'un post
 async function getPostContent(slug: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, `${slug}.md`)
   if (!fs.existsSync(fullPath)) notFound()
@@ -30,18 +29,17 @@ async function getPostContent(slug: string): Promise<PostData> {
     metadata[key.trim()] = rest.join(":").trim().replace(/^"|"$/g, "")
   })
 
-  const content = await remark().use(html).process(contentArr.join("---"))
+  const processedContent = await remark().use(html).process(contentArr.join("---"))
 
   return {
     slug,
     title: metadata.title || "Untitled",
     date: metadata.date || "",
     summary: metadata.summary || "",
-    contentHtml: content.toString(),
+    contentHtml: processedContent.toString(),
   }
 }
 
-// Générer les params pour les articles statiques
 export async function generateStaticParams() {
   const files = fs.readdirSync(postsDirectory).filter(f => f.endsWith(".md"))
   return files.map(f => ({ slug: f.replace(/\.md$/, "") }))
@@ -61,7 +59,11 @@ export default async function ArticlePage({ params }: Props) {
       <p className="text-sm text-gray-400">{post.date}</p>
 
       {/* Résumé */}
-      {post.summary && <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>}
+      {post.summary && (
+        <p className="text-gray-700 mt-4 text-lg italic">
+          {post.summary}
+        </p>
+      )}
 
       {/* Main image */}
       <div className="relative w-full h-64 rounded overflow-hidden my-6 shadow-lg">
