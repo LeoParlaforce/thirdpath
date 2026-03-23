@@ -1,61 +1,55 @@
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import { remark } from "remark"
-import html from "remark-html"
 
-const postsDirectory = path.join(process.cwd(), "src/posts")
-
-export type PostData = {
-  slug: string
+export type Post = {
   title: string
   date: string
   summary: string
-  contentHtml: string
+  slug: string
+  content: string
+  image: string
 }
 
-// Récupère tous les posts pour la liste
-export function getAllPosts(): PostData[] {
-  const fileNames = fs.readdirSync(postsDirectory).filter(f => f.endsWith(".md"))
+const postsDirectory = path.join(process.cwd(), "src/posts")
 
-  const posts = fileNames.map(fileName => {
+export function getAllPosts(): Post[] {
+  const fileNames = fs.readdirSync(postsDirectory)
+
+  const posts = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.md$/, "")
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, "utf8")
-    const { data } = matter(fileContents)
+
+    const { data, content } = matter(fileContents)
 
     return {
-      slug,
-      title: data.title || "Untitled",
-      date: data.date || "",
-      summary:
-        data.summary ||
-        "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found. Ambitious self-employed entrepreneurs are trying to reach the whole world, thinking logically that they are connected to the world wide web, and they fail. Here is what to do.",
-      contentHtml: "", // inutile pour la liste
+      title: data.title,
+      date: data.date,
+      summary: data.summary,
+      slug: data.slug || slug,
+      content,
+      image: `/articles/${data.slug || slug}.jpg`,
     }
   })
 
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
-// Récupère un post complet par slug
-export async function getPostData(slug: string): Promise<PostData> {
+export function getPostBySlug(slug: string): Post | null {
   const fullPath = path.join(postsDirectory, `${slug}.md`)
-  if (!fs.existsSync(fullPath)) throw new Error("Post not found")
+
+  if (!fs.existsSync(fullPath)) return null
 
   const fileContents = fs.readFileSync(fullPath, "utf8")
   const { data, content } = matter(fileContents)
 
-  const processedContent = await remark().use(html).process(content)
-  const contentHtml = processedContent.toString()
-
   return {
-    slug,
-    title: data.title || "Untitled",
-    date: data.date || "",
-    summary:
-      data.summary ||
-      "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found. Ambitious self-employed entrepreneurs are trying to reach the whole world, thinking logically that they are connected to the world wide web, and they fail. Here is what to do.",
-    contentHtml,
+    title: data.title,
+    date: data.date,
+    summary: data.summary,
+    slug: data.slug || slug,
+    content,
+    image: `/articles/${data.slug || slug}.jpg`,
   }
 }

@@ -1,60 +1,122 @@
-import { getPostData } from "../../../lib/posts"
+import { getPostBySlug, getAllPosts } from "@/lib/posts"
 import { notFound } from "next/navigation"
-import Link from "next/link"
+import ReactMarkdown from "react-markdown"
+import { ReactNode } from "react"
 
-interface Props {
-  params: { slug: string }
+export async function generateStaticParams() {
+  const posts = getAllPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }
 
-export default async function ArticlePage({ params }: Props) {
-  let post
-  try {
-    post = await getPostData(params.slug)
-  } catch {
-    notFound()
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const post = getPostBySlug(params.slug)
+  if (!post) return {}
+
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      images: [post.image],
+    },
+  }
+}
+
+export default function ArticlePage({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const post = getPostBySlug(params.slug)
+  if (!post) return notFound()
+
+  // ✅ JSON-LD (SEO invisible)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.summary,
+    image: [post.image],
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: "Third Path",
+    },
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16 flex flex-col gap-10">
-      <h1 className="text-5xl font-bold mb-2">{post.title}</h1>
-      {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
-
-      {post.summary && (
-        <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>
-      )}
-
-      <div className="relative w-full h-64 rounded overflow-hidden my-6 shadow-lg">
-        <img
-          src={`/articles/${post.slug}.jpg`}
-          alt={post.title}
-          className="w-full h-full object-cover"
+    <main className="max-w-3xl mx-auto px-4 py-12">
+      <article>
+        {/* ✅ SEO JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <p className="absolute bottom-2 right-2 text-xs text-gray-100 bg-black/50 px-2 py-1 rounded">
-          Photo by{" "}
-          <a
-            href="https://unsplash.com/fr/@lpbarreto"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
+
+        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <p className="text-gray-500 mb-8">{post.date}</p>
+
+        <img
+          src={post.image}
+          alt={post.title}
+          className="w-full rounded-xl mb-8"
+        />
+
+        <div className="prose prose-lg max-w-none">
+          <ReactMarkdown
+            components={{
+              aside: ({ children }: { children?: ReactNode }) => (
+                <div className="bg-gray-100 border-l-4 border-gray-300 p-4 my-6">
+                  {children}
+                </div>
+              ),
+            }}
           >
-            Leandro Barreto
+            {post.content}
+          </ReactMarkdown>
+        </div>
+
+        {/* ✅ CTA 1 — APP */}
+        <div className="mt-12 p-6 border rounded-xl bg-gray-50">
+          <p className="text-lg font-semibold">
+            You don’t just need visibility — you need direction.
+          </p>
+
+          <p className="mt-2 text-gray-600">
+            Get supervision on your practice and improve how you work online.
+          </p>
+
+          <a
+            href="https://chat.troisiemechemin.fr"
+            target="_blank"
+            className="inline-block mt-4 text-blue-600 font-semibold hover:underline"
+          >
+            Access the supervision app →
           </a>
-        </p>
-      </div>
+        </div>
 
-      <article
-        className="prose prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-      />
+        {/* ✅ CTA 2 — BOUTIQUE */}
+        <div className="mt-6 p-6 border rounded-xl">
+          <p className="text-lg font-semibold">
+            Want a structured system to get clients?
+          </p>
 
-      <section className="text-center mt-12">
-        <Link
-          href="/boutique"
-          className="inline-block px-6 py-3 bg-accent text-white rounded font-medium hover:opacity-90 transition"
-        >
-          Explore Our Store
-        </Link>
-      </section>
+          <p className="mt-2 text-gray-600">
+            Explore practical tools designed for therapists.
+          </p>
+
+          <a
+            href="https://www.thirdpath.cloud/boutique"
+            target="_blank"
+            className="inline-block mt-4 text-blue-600 font-semibold hover:underline"
+          >
+            View the resources →
+          </a>
+        </div>
+      </article>
     </main>
   )
 }

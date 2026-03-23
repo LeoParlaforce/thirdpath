@@ -1,37 +1,41 @@
 import Link from "next/link"
-import { getAllPosts, PostData } from "../../lib/posts"
+import { getAllPosts } from "@/lib/posts"
+
+export const metadata = {
+  title: "Local SEO & Client Acquisition for Therapists",
+  description:
+    "Actionable articles on local SEO and client acquisition for therapists. Learn how to turn visibility into real clients.",
+}
 
 export default function ArticlesPage() {
-  const posts: PostData[] = getAllPosts()
+  const posts = getAllPosts()
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16 flex flex-col gap-8">
-      <h1 className="text-4xl font-bold mb-8">Articles</h1>
-      {posts.length === 0 && <p>No articles yet.</p>}
+    <main className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold mb-10">Articles</h1>
 
-      <div className="flex flex-col gap-6">
+      <div className="grid md:grid-cols-2 gap-8">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/articles/${post.slug}`}
-            className="group block relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
+            className="group block border rounded-xl overflow-hidden hover:shadow-lg transition"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition"
-              style={{ backgroundImage: `url(/articles/${post.slug}.jpg)` }}
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-48 object-cover"
             />
 
-            <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
-              <h2 className="text-2xl font-semibold">{post.title}</h2>
-              <p
-                className="text-gray-700 mt-1"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    post.summary ||
-                    "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
-                }}
-              />
-              {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
+            <div className="p-5">
+              <h2 className="text-xl font-semibold group-hover:underline">
+                {post.title}
+              </h2>
+
+              <p className="text-sm text-gray-500 mt-2">{post.date}</p>
+
+              {/* 👉 TON summary réel */}
+              <p className="mt-3 text-gray-700">{post.summary}</p>
             </div>
           </Link>
         ))}
