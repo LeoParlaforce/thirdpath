@@ -11,8 +11,8 @@ const postsDirectory = path.join(process.cwd(), "src/posts")
 export type PostData = {
   slug: string
   title: string
-  date?: string
-  summary?: string
+  date: string
+  summary: string
   contentHtml: string
 }
 
@@ -29,20 +29,17 @@ export function getAllPosts(): PostData[] {
 
     return {
       slug,
-      title: matterResult.data.title || "",
+      title: matterResult.data.title || "Untitled",
       date: matterResult.data.date || "",
-      summary: matterResult.data.summary || "",
-      contentHtml: "", // pas utilisé ici
+      summary:
+        matterResult.data.summary ||
+        "Ambitious self-employed entrepreneurs aiming to reach the entire world often fail because the internet isn’t as globally open as it seems.",
+      contentHtml: "", // inutile ici pour la liste
     }
   })
 
   // Tri par date (plus récent en premier)
-  return allPostsData.sort((a, b) => {
-    if (a.date && b.date) {
-      return a.date < b.date ? 1 : -1
-    }
-    return 0
-  })
+  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
 // Récupérer un seul post (page article)
@@ -53,14 +50,15 @@ export function getPostData(slug: string): PostData {
   const matterResult = matter(fileContents)
 
   const processedContent = remark().use(html).processSync(matterResult.content)
-
   const contentHtml = processedContent.toString()
 
   return {
     slug,
-    title: matterResult.data.title || "",
+    title: matterResult.data.title || "Untitled",
     date: matterResult.data.date || "",
-    summary: matterResult.data.summary || "",
+    summary:
+      matterResult.data.summary ||
+      "Ambitious self-employed entrepreneurs aiming to reach the entire world often fail because the internet isn’t as globally open as it seems.",
     contentHtml,
   }
 }

@@ -27,33 +27,39 @@ export default function ArticlesPage() {
       {posts.length === 0 && <p>No articles yet.</p>}
 
       <div className="flex flex-col gap-6">
-        {posts.map((post) => (
-          <Link
-            key={post.slug}
-            href={`/articles/${post.slug}`}
-            className="group block relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
-          >
-            {/* Image en background dans l'encadré */}
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition"
-              style={{
-                backgroundImage: `url(/articles/${post.slug}.jpg)`,
-              }}
-            />
+        {posts.map((post) => {
+          const slug = post.slug
+          const title = post.title || "Untitled"
+          const summary = post.summary
+            ? `${post.summary} ` + "<strong>Here’s what to do instead.</strong>"
+            : "Ambitious self-employed entrepreneurs aiming to reach the entire world often fail because the internet isn’t as globally open as it seems. <strong>Here’s what to do instead.</strong>"
 
-            {/* Contenu texte */}
-            <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
-              <h2 className="text-2xl font-semibold">{post.title || "Untitled"}</h2>
+          return (
+            <Link
+              key={slug}
+              href={`/articles/${slug}`}
+              className="group block relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
+            >
+              {/* Image en background */}
+              <div
+                className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition"
+                style={{
+                  backgroundImage: `url(/articles/${slug}.jpg)`,
+                }}
+              />
 
-              {/* Résumé en anglais */}
-              <p className="text-gray-700 mt-1">
-                Ambitious self-employed entrepreneurs aiming to reach the entire world often fail because the internet isn’t as globally open as it seems.
-              </p>
-
-              {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
-            </div>
-          </Link>
-        ))}
+              {/* Contenu texte */}
+              <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
+                <h2 className="text-2xl font-semibold">{title}</h2>
+                <p
+                  className="text-gray-700 mt-1"
+                  dangerouslySetInnerHTML={{ __html: summary }}
+                />
+                {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
+              </div>
+            </Link>
+          )
+        })}
       </div>
     </main>
   )
