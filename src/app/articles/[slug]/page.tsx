@@ -1,73 +1,29 @@
-// src/app/articles/[slug]/page.tsx
-import fs from "fs"
-import path from "path"
+import { getPostData } from "../../../lib/posts"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { remark } from "remark"
-import html from "remark-html"
-
-export interface PostData {
-  title: string
-  date: string
-  summary: string
-  slug: string
-  contentHtml: string
-}
-
-const postsDirectory = path.join(process.cwd(), "src/posts")
-
-// Récupérer le contenu d'un post par slug
-async function getPostContent(slug: string): Promise<PostData> {
-  const fullPath = path.join(postsDirectory, `${slug}.md`)
-  if (!fs.existsSync(fullPath)) notFound()
-
-  const fileContents = fs.readFileSync(fullPath, "utf8")
-  const [_, metaRaw, ...contentArr] = fileContents.split("---")
-  const metaLines = metaRaw.split("\n").filter(Boolean)
-  const metadata: any = {}
-  metaLines.forEach(line => {
-    const [key, ...rest] = line.split(":")
-    metadata[key.trim()] = rest.join(":").trim().replace(/^"|"$/g, "")
-  })
-
-  const content = await remark().use(html).process(contentArr.join("---"))
-
-  return {
-    slug,
-    title: metadata.title || "Untitled",
-    date: metadata.date || "",
-    summary: metadata.summary || "",
-    contentHtml: content.toString(),
-  }
-}
-
-// Générer les params pour les articles statiques
-export async function generateStaticParams() {
-  const files = fs.readdirSync(postsDirectory).filter(f => f.endsWith(".md"))
-  return files.map(f => ({ slug: f.replace(/\.md$/, "") }))
-}
 
 interface Props {
   params: { slug: string }
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const post = await getPostContent(params.slug)
+  let post
+  try {
+    post = await getPostData(params.slug)
+  } catch {
+    notFound()
+  }
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16 flex flex-col gap-10">
-      {/* Title & Date */}
       <h1 className="text-5xl font-bold mb-2">{post.title}</h1>
-      <p className="text-sm text-gray-400">{post.date}</p>
+      {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
 
-      {/* Résumé */}
       {post.summary && (
-        <p className="text-gray-700 mt-4 text-lg italic">
-          {post.summary} <strong>Here’s what to do instead.</strong>
-        </p>
+        <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>
       )}
 
-      {/* Main image */}
+      {/* Image principale */}
       <div className="relative w-full h-64 rounded overflow-hidden my-6 shadow-lg">
         <img
           src={`/articles/${post.slug}.jpg`}
@@ -87,64 +43,13 @@ export default async function ArticlePage({ params }: Props) {
         </p>
       </div>
 
-      {/* Content */}
+      {/* Contenu */}
       <article
         className="prose prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
 
-      {/* References */}
-      <section className="mt-10">
-        <h2 className="text-2xl font-semibold mb-4">References</h2>
-        <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-          <li>
-            Chaffey, D. (2023). <em>Global Digital Trends: Local Search Insights</em>.{" "}
-            <a
-              href="https://www.smartinsights.com/global-digital-trends-local-search"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600"
-            >
-              https://www.smartinsights.com
-            </a>
-          </li>
-          <li>
-            BrightLocal. (2025). <em>Local Consumer Review Survey</em>.{" "}
-            <a
-              href="https://www.brightlocal.com/research/local-consumer-review-survey/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600"
-            >
-              https://www.brightlocal.com/research/local-consumer-review-survey/
-            </a>
-          </li>
-          <li>
-            Moz. (2025). <em>Beginner's Guide to Local SEO</em>.{" "}
-            <a
-              href="https://moz.com/learn/seo/local"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600"
-            >
-              https://moz.com/learn/seo/local
-            </a>
-          </li>
-          <li>
-            Think with Google. (2023). <em>Local Search Behavior</em>.{" "}
-            <a
-              href="https://www.thinkwithgoogle.com/data-tools/local-search-behavior/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600"
-            >
-              https://www.thinkwithgoogle.com/data-tools/local-search-behavior/
-            </a>
-          </li>
-        </ol>
-      </section>
-
-      {/* Discreet CTA to store */}
+      {/* CTA */}
       <section className="text-center mt-12">
         <Link
           href="/boutique"
