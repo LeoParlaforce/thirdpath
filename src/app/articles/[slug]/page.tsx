@@ -1,21 +1,53 @@
 // src/app/articles/[slug]/page.tsx
-import { getPostBySlug, PostData } from "../../../lib/posts"
 
-type Props = { params: { slug: string } }
+import { getPostData, getAllPosts, PostData } from "../../../lib/posts"
+import { notFound } from "next/navigation"
 
-export default async function PostPage({ params }: Props) {
-  try {
-    const post: PostData & { contentHtml?: string } = await getPostBySlug(params.slug)
+export function generateStaticParams() {
+  const posts: PostData[] = getAllPosts()
+  return posts.map((post: PostData) => ({
+    slug: post.slug,
+  }))
+}
 
-    return (
-      <main className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-4xl font-bold mb-4">{post.title || "Untitled"}</h1>
-        {post.date && <p className="text-sm text-gray-500 mb-8">{post.date}</p>}
-        {post.image && <img src={post.image} alt={post.title} className="mb-6 rounded" />}
-        <article className="prose prose-lg">{post.contentHtml || "No content yet."}</article>
-      </main>
-    )
-  } catch (error) {
-    return <p>Article not found.</p>
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const post = getPostData(params.slug)
+
+  if (!post) return {}
+
+  return {
+    title: post.title,
+    description: post.summary,
+    alternates: {
+      canonical: `https://thirdpath.cloud/articles/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: `https://thirdpath.cloud/articles/${post.slug}`,
+      type: "article",
+    },
   }
+}
+
+export default function ArticlePage({ params }: { params: { slug: string } }) {
+  const post = getPostData(params.slug)
+
+  if (!post) return notFound()
+
+  return (
+    <main className="mx-auto max-w-3xl px-6 py-16">
+      <article className="prose prose-lg max-w-none">
+
+        <h1>{post.title}</h1>
+
+        {post.date && (
+          <p className="text-sm text-gray-400">{post.date}</p>
+        )}
+
+        <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+
+      </article>
+    </main>
+  )
 }

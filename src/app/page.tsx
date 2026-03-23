@@ -96,19 +96,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Closing / CTA */}
-      <section className="text-center max-w-3xl mx-auto">
-        <p className="text-gray-700">
-          Whether you are exploring self-esteem, anxiety, personal development, or relationships, our content is grounded in research and clinical expertise to help you apply psychology effectively in your life.
-        </p>
-        <Link
-          href="/articles"
-          className="mt-6 inline-block px-6 py-3 rounded bg-accent text-white font-medium hover:opacity-90 transition"
-        >
-          Explore Articles
-        </Link>
-      </section>
     </main>
   )
 }
