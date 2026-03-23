@@ -5,15 +5,18 @@ import { notFound } from "next/navigation"
 
 export function generateStaticParams() {
   const posts: PostData[] = getAllPosts()
+
   return posts.map((post: PostData) => ({
     slug: post.slug,
   }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = getPostData(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
 
-  if (!post) return {}
+  if (!slug) return {}
+
+  const post = getPostData(slug)
 
   return {
     title: post.title,
@@ -30,10 +33,12 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   }
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const post = getPostData(params.slug)
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
 
-  if (!post) return notFound()
+  if (!slug) return notFound()
+
+  const post = getPostData(slug)
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
