@@ -11,17 +11,18 @@ export interface PostData {
   date: string
   summary: string
   slug: string
-  content: string
+  contentHtml: string
 }
 
 const postsDirectory = path.join(process.cwd(), "src/posts")
 
+// Récupérer le contenu d'un post
 async function getPostContent(slug: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, `${slug}.md`)
   if (!fs.existsSync(fullPath)) notFound()
-  const fileContents = fs.readFileSync(fullPath, "utf8")
 
-  const [metaRaw, ...contentArr] = fileContents.split("---").slice(1)
+  const fileContents = fs.readFileSync(fullPath, "utf8")
+  const [_, metaRaw, ...contentArr] = fileContents.split("---")
   const metaLines = metaRaw.split("\n").filter(Boolean)
   const metadata: any = {}
   metaLines.forEach(line => {
@@ -30,15 +31,17 @@ async function getPostContent(slug: string): Promise<PostData> {
   })
 
   const content = await remark().use(html).process(contentArr.join("---"))
+
   return {
     slug,
     title: metadata.title || "Untitled",
     date: metadata.date || "",
     summary: metadata.summary || "",
-    content: content.toString(),
+    contentHtml: content.toString(),
   }
 }
 
+// Générer les params pour les articles statiques
 export async function generateStaticParams() {
   const files = fs.readdirSync(postsDirectory).filter(f => f.endsWith(".md"))
   return files.map(f => ({ slug: f.replace(/\.md$/, "") }))
@@ -56,6 +59,8 @@ export default async function ArticlePage({ params }: Props) {
       {/* Title & Date */}
       <h1 className="text-5xl font-bold mb-2">{post.title}</h1>
       <p className="text-sm text-gray-400">{post.date}</p>
+
+      {/* Résumé */}
       {post.summary && <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>}
 
       {/* Main image */}
@@ -66,14 +71,22 @@ export default async function ArticlePage({ params }: Props) {
           className="w-full h-full object-cover"
         />
         <p className="absolute bottom-2 right-2 text-xs text-gray-100 bg-black/50 px-2 py-1 rounded">
-          Photo by <a href="https://unsplash.com/fr/@lpbarreto" target="_blank" rel="noopener noreferrer" className="underline">Leandro Barreto</a>
+          Photo by{" "}
+          <a
+            href="https://unsplash.com/fr/@lpbarreto"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Leandro Barreto
+          </a>
         </p>
       </div>
 
       {/* Content */}
       <article
         className="prose prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
 
       {/* References */}
@@ -82,25 +95,45 @@ export default async function ArticlePage({ params }: Props) {
         <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
           <li>
             Chaffey, D. (2023). <em>Global Digital Trends: Local Search Insights</em>.{" "}
-            <a href="https://www.smartinsights.com/global-digital-trends-local-search" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
+            <a
+              href="https://www.smartinsights.com/global-digital-trends-local-search"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600"
+            >
               https://www.smartinsights.com
             </a>
           </li>
           <li>
             BrightLocal. (2025). <em>Local Consumer Review Survey</em>.{" "}
-            <a href="https://www.brightlocal.com/research/local-consumer-review-survey/" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
+            <a
+              href="https://www.brightlocal.com/research/local-consumer-review-survey/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600"
+            >
               https://www.brightlocal.com/research/local-consumer-review-survey/
             </a>
           </li>
           <li>
             Moz. (2025). <em>Beginner's Guide to Local SEO</em>.{" "}
-            <a href="https://moz.com/learn/seo/local" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
+            <a
+              href="https://moz.com/learn/seo/local"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600"
+            >
               https://moz.com/learn/seo/local
             </a>
           </li>
           <li>
             Think with Google. (2023). <em>Local Search Behavior</em>.{" "}
-            <a href="https://www.thinkwithgoogle.com/data-tools/local-search-behavior/" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
+            <a
+              href="https://www.thinkwithgoogle.com/data-tools/local-search-behavior/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600"
+            >
               https://www.thinkwithgoogle.com/data-tools/local-search-behavior/
             </a>
           </li>

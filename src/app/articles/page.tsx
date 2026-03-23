@@ -44,38 +44,14 @@ export default function ArticlesPage() {
             {/* Contenu texte */}
             <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
               <h2 className="text-2xl font-semibold">{post.title || "Untitled"}</h2>
-              {post.summary && <p className="text-gray-700 mt-1">{post.summary}</p>}
-              {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
 
-              {/* Partage réseaux sociaux */}
-              <div className="flex gap-3 mt-4">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                    post.title
-                  )}&url=https://thirdpath.cloud/articles/${post.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-500 hover:underline"
-                >
-                  Twitter
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=https://thirdpath.cloud/articles/${post.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-700 hover:underline"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=https://thirdpath.cloud/articles/${post.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  Facebook
-                </a>
-              </div>
+              {/* Résumé enrichi */}
+              <p className="text-gray-700 mt-1">
+                Auto-entrepreneurs ambitieux voulant toucher le monde entier échouent souvent
+                parce que l’internet n’est pas si ouvert qu’il y paraît.
+              </p>
+
+              {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
             </div>
           </Link>
         ))}
