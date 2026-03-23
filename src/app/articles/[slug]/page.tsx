@@ -20,9 +20,7 @@ export default async function ArticlePage({ params }: Props) {
       {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
 
       {post.summary && (
-        <p className="text-gray-700 mt-4 text-lg italic">
-          {post.summary}
-        </p>
+        <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>
       )}
 
       <div className="relative w-full h-64 rounded overflow-hidden my-6 shadow-lg">

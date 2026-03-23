@@ -1,7 +1,7 @@
 ---
 title: "Why the Internet Is Still Geographic"
 date: "2026-03-23"
-summary: "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found."
+summary: "Ambitious self-employed entrepreneurs are trying to reach the whole world, thinking the web makes them globally visible — but visibility is still local. Discover the proven local SEO strategies for therapists to attract real clients."
 slug: "local-seo-therapists"
 ---
 

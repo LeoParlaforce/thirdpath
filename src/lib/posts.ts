@@ -14,11 +14,11 @@ export type PostData = {
   contentHtml: string
 }
 
-// Liste tous les posts
+// Récupère tous les posts pour la liste
 export function getAllPosts(): PostData[] {
   const fileNames = fs.readdirSync(postsDirectory).filter(f => f.endsWith(".md"))
 
-  const posts = fileNames.map((fileName) => {
+  const posts = fileNames.map(fileName => {
     const slug = fileName.replace(/\.md$/, "")
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, "utf8")
@@ -30,7 +30,7 @@ export function getAllPosts(): PostData[] {
       date: data.date || "",
       summary:
         data.summary ||
-        "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
+        "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found. Ambitious self-employed entrepreneurs are trying to reach the whole world, thinking logically that they are connected to the world wide web, and they fail. Here is what to do.",
       contentHtml: "", // inutile pour la liste
     }
   })
@@ -55,7 +55,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     date: data.date || "",
     summary:
       data.summary ||
-      "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
+      "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found. Ambitious self-employed entrepreneurs are trying to reach the whole world, thinking logically that they are connected to the world wide web, and they fail. Here is what to do.",
     contentHtml,
   }
 }
