@@ -16,7 +16,6 @@ export default function ArticlesPage() {
             href={`/articles/${post.slug}`}
             className="group block relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
           >
-            {/* Image en background */}
             <div
               className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition"
               style={{ backgroundImage: `url(/articles/${post.slug}.jpg)` }}
@@ -24,12 +23,14 @@ export default function ArticlesPage() {
 
             <div className="relative p-6 flex flex-col gap-2 bg-white/90 dark:bg-gray-900/80">
               <h2 className="text-2xl font-semibold">{post.title}</h2>
-              {post.summary && (
-                <p
-                  className="text-gray-700 mt-1"
-                  dangerouslySetInnerHTML={{ __html: post.summary }}
-                />
-              )}
+              <p
+                className="text-gray-700 mt-1"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    post.summary ||
+                    "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
+                }}
+              />
               {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
             </div>
           </Link>

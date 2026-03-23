@@ -20,10 +20,11 @@ export default async function ArticlePage({ params }: Props) {
       {post.date && <p className="text-sm text-gray-400">{post.date}</p>}
 
       {post.summary && (
-        <p className="text-gray-700 mt-4 text-lg italic">{post.summary}</p>
+        <p className="text-gray-700 mt-4 text-lg italic">
+          {post.summary}
+        </p>
       )}
 
-      {/* Image principale */}
       <div className="relative w-full h-64 rounded overflow-hidden my-6 shadow-lg">
         <img
           src={`/articles/${post.slug}.jpg`}
@@ -43,13 +44,11 @@ export default async function ArticlePage({ params }: Props) {
         </p>
       </div>
 
-      {/* Contenu */}
       <article
         className="prose prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
 
-      {/* CTA */}
       <section className="text-center mt-12">
         <Link
           href="/boutique"

@@ -28,7 +28,9 @@ export function getAllPosts(): PostData[] {
       slug,
       title: data.title || "Untitled",
       date: data.date || "",
-      summary: data.summary || "",
+      summary:
+        data.summary ||
+        "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
       contentHtml: "", // inutile pour la liste
     }
   })
@@ -51,7 +53,9 @@ export async function getPostData(slug: string): Promise<PostData> {
     slug,
     title: data.title || "Untitled",
     date: data.date || "",
-    summary: data.summary || "",
+    summary:
+      data.summary ||
+      "Even online, Google and AI still treat geography as a priority. Local SEO for therapists remains the best strategy to be found.",
     contentHtml,
   }
 }
