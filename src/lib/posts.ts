@@ -1,3 +1,4 @@
+// src/lib/posts.ts
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
@@ -9,11 +10,13 @@ export type Post = {
   slug: string
   content: string
   image: string
+  imageCredit?: string // Ajout de la propriété optionnelle
 }
 
 const postsDirectory = path.join(process.cwd(), "./src/posts")
 
 export function getAllPosts(): Post[] {
+  if (!fs.existsSync(postsDirectory)) return []
   const fileNames = fs.readdirSync(postsDirectory)
 
   const posts = fileNames.map((fileName) => {
@@ -27,9 +30,10 @@ export function getAllPosts(): Post[] {
       title: data.title,
       date: data.date,
       summary: data.summary,
-      slug, // on force le slug à partir du filename
+      slug,
       content,
-      image: `/articles/${slug}.jpg`, // idem
+      image: data.image || `/articles/${slug}.jpg`,
+      imageCredit: data.imageCredit || null, // On récupère le crédit s'il existe
     }
   })
 
@@ -48,8 +52,9 @@ export function getPostBySlug(slug: string): Post | null {
     title: data.title,
     date: data.date,
     summary: data.summary,
-    slug, // on force le slug à partir du filename
+    slug,
     content,
-    image: `/articles/${slug}.jpg`, // idem
+    image: data.image || `/articles/${slug}.jpg`,
+    imageCredit: data.imageCredit || null, // On récupère le crédit ici aussi
   }
 }

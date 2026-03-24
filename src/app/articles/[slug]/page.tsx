@@ -1,7 +1,7 @@
+// src/app/articles/[slug]/page.tsx
 import { getPostBySlug } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import ReactMarkdown from "react-markdown"
-import { ReactNode } from "react"
 
 export async function generateMetadata({ params }: { params: any }) {
   const { slug } = await params
@@ -63,17 +63,31 @@ export default async function ArticlePage({ params }: { params: any }) {
           </p>
         </header>
 
-        {/* Featured Image */}
-        <div className="w-full h-150 rounded-4xl overflow-hidden shadow-2xl mb-24 relative">
+        {/* Featured Image - Marge réduite en bas pour le crédit */}
+        <div className="w-full h-150 rounded-4xl overflow-hidden shadow-2xl mb-6 relative">
           <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
         </div>
+
+        {/* Crédit Photo - NOUVEAU BLOC AJOUTÉ */}
+        {post.imageCredit && (
+          <div className="max-w-3xl mx-auto text-center mb-24 text-sm text-slate-400 font-sans italic">
+            <ReactMarkdown 
+              components={{
+                p: ({node, ...props}) => <span {...props} />,
+                a: ({node, ...props}) => <a {...props} className="underline hover:text-violet-600 transition-colors" />
+              }}
+            >
+              {post.imageCredit}
+            </ReactMarkdown>
+          </div>
+        )}
 
         {/* Main Content Body */}
         <div className="max-w-3xl mx-auto">
           <div className="prose-xl">
             <ReactMarkdown components={markdownComponents}>{contentParts[0]}</ReactMarkdown>
 
-            {/* Middle Call-to-Action - Design Épuré */}
+            {/* Middle Call-to-Action */}
             {contentParts.length > 1 && (
               <a href="https://chat.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" 
                  className="block my-16 h-48 relative rounded-3xl overflow-hidden group shadow-lg transition-transform hover:scale-[1.01]">
@@ -98,7 +112,7 @@ export default async function ArticlePage({ params }: { params: any }) {
           </div>
         </div>
 
-        {/* Footer Grid CTAs - Textes Épurés */}
+        {/* Footer Grid CTAs */}
         <footer className="max-w-5xl mx-auto mt-40 grid md:grid-cols-2 gap-8">
           <a href="https://chat.troisiemechemin.fr" className="group h-125 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl transition hover:-translate-y-2 duration-300">
             <div className="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110" style={{ backgroundImage: "url('/humanist-approach.jpg')" }} />
