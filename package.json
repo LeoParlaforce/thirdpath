@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-email/render": "^2.0.4",
+    "@vercel/analytics": "^2.0.1",
     "autoprefixer": "^10.4.27",
     "gray-matter": "^4.0.3",
     "next": "^16.2.1",

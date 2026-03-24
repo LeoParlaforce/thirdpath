@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { EB_Garamond } from "next/font/google"
+import Script from "next/script" // <--- 1. AJOUT DE L'IMPORT
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -29,6 +30,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${garamond.variable} font-serif min-h-screen flex flex-col`}>
+        
+        {/* --- 2. DEBUT DU CODE GOOGLE ANALYTICS --- */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-QYNZ30WC5X"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-QYNZ30WC5X');
+          `}
+        </Script>
+        {/* --- FIN DU CODE GOOGLE ANALYTICS --- */}
 
         {/* Header */}
         <header className="sticky top-0 z-50 bg-header/95 backdrop-blur border-b border-muted shadow-sm">
