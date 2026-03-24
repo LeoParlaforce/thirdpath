@@ -103,7 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 rel="noopener noreferrer"
                 className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10"
               >
-                Vous parlez français ?
+                Vous parlez le français ?
               </a>
             </div>
 
