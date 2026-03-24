@@ -3,9 +3,8 @@ title: "Why the Internet Is Still Geographic (Local SEO for Therapists)"
 date: "2026-03-23"
 summary: "Most therapists believe the internet gives them global visibility. In reality, search engines and AI still prioritize geographic relevance. Learn how local SEO can help you attract real clients."
 slug: "local-seo-therapists"
+image: "/local-seo-cover.jpg"
 ---
-
-*Photo by [Leandro Barreto](https://unsplash.com/fr/@lpbarreto) on Unsplash*
 
 ## The Paradox of the Internet
 
@@ -38,6 +37,8 @@ These terms are:
 - Easier to rank for in search results  
 - More likely to convert into booked sessions  
 - Attracting clients actively seeking local support
+
+[CTA-APP]
 
 ## The Winning Strategy
 
