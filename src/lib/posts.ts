@@ -11,7 +11,7 @@ export type Post = {
   image: string
 }
 
-const postsDirectory = path.join(process.cwd(), "src/posts")
+const postsDirectory = path.join(process.cwd(), "./src/posts")
 
 export function getAllPosts(): Post[] {
   const fileNames = fs.readdirSync(postsDirectory)
@@ -27,9 +27,9 @@ export function getAllPosts(): Post[] {
       title: data.title,
       date: data.date,
       summary: data.summary,
-      slug: data.slug || slug,
+      slug, // on force le slug à partir du filename
       content,
-      image: `/articles/${data.slug || slug}.jpg`,
+      image: `/articles/${slug}.jpg`, // idem
     }
   })
 
@@ -48,8 +48,8 @@ export function getPostBySlug(slug: string): Post | null {
     title: data.title,
     date: data.date,
     summary: data.summary,
-    slug: data.slug || slug,
+    slug, // on force le slug à partir du filename
     content,
-    image: `/articles/${data.slug || slug}.jpg`,
+    image: `/articles/${slug}.jpg`, // idem
   }
 }

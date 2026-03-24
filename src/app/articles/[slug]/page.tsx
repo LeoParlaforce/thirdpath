@@ -1,39 +1,24 @@
-import { getPostBySlug, getAllPosts } from "@/lib/posts"
+import { getPostBySlug } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import ReactMarkdown from "react-markdown"
 import { ReactNode } from "react"
 
 export async function generateStaticParams() {
-  const posts = getAllPosts()
-  return posts.map((post) => ({
+  const { getAllPosts } = await import("@/lib/posts")
+  const allPosts = getAllPosts()
+  return allPosts.map((post: any) => ({
     slug: post.slug,
   }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug)
-  if (!post) return {}
+export default async function ArticlePage({ params }: { params: any }) {
+  const resolvedParams = await params
+  const slug = resolvedParams.slug
+  if (!slug) return notFound()
 
-  return {
-    title: post.title,
-    description: post.summary,
-    openGraph: {
-      title: post.title,
-      description: post.summary,
-      images: [post.image],
-    },
-  }
-}
-
-export default function ArticlePage({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const post = getPostBySlug(params.slug)
+  const post = getPostBySlug(slug)
   if (!post) return notFound()
 
-  // ✅ JSON-LD (SEO invisible)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -48,28 +33,53 @@ export default function ArticlePage({
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
-      <article>
-        {/* ✅ SEO JSON-LD */}
+    <main className="max-w-3xl mx-auto px-4 py-16">
+      <article className="space-y-12">
+        {/* JSON-LD SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-        <p className="text-gray-500 mb-8">{post.date}</p>
+        {/* Title */}
+        <h1 className="text-5xl font-extrabold text-center mb-8">
+          {post.title}
+        </h1>
 
+        <p className="text-gray-500 text-center mb-12">
+          {post.date}
+        </p>
+
+        {/* Main Image */}
         <img
           src={post.image}
           alt={post.title}
-          className="w-full rounded-xl mb-8"
+          className="w-full rounded-xl mb-12"
         />
 
-        <div className="prose prose-lg max-w-none">
+        {/* Markdown Content */}
+        <div className="prose prose-lg max-w-none space-y-8">
           <ReactMarkdown
             components={{
+              h2: ({ node, ...props }) => (
+                <h2 {...props} className="text-3xl font-bold text-center my-8" />
+              ),
+              h3: ({ node, ...props }) => (
+                <h3 {...props} className="text-2xl font-semibold text-center my-6" />
+              ),
+              p: ({ node, ...props }) => (
+                <p {...props} className="my-4 leading-relaxed" />
+              ),
+              a: ({ node, ...props }) => (
+                <a
+                  {...props}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline hover:text-blue-800 transition-colors"
+                />
+              ),
               aside: ({ children }: { children?: ReactNode }) => (
-                <div className="bg-gray-100 border-l-4 border-gray-300 p-4 my-6">
+                <div className="bg-blue-50 border-l-4 border-blue-300 p-4 my-6 rounded-md">
                   {children}
                 </div>
               ),
@@ -79,43 +89,46 @@ export default function ArticlePage({
           </ReactMarkdown>
         </div>
 
-        {/* ✅ CTA 1 — APP */}
-        <div className="mt-12 p-6 border rounded-xl bg-gray-50">
-          <p className="text-lg font-semibold">
-            You don’t just need visibility — you need direction.
-          </p>
-
-          <p className="mt-2 text-gray-600">
-            Get supervision on your practice and improve how you work online.
-          </p>
-
+        {/* CTA Sections */}
+        <div className="space-y-6 mt-12">
+          {/* Supervision App */}
           <a
             href="https://chat.troisiemechemin.fr"
             target="_blank"
-            className="inline-block mt-4 text-blue-600 font-semibold hover:underline"
+            rel="noopener noreferrer"
+            className="block rounded-xl overflow-hidden cursor-pointer transform transition-transform duration-300 hover:scale-105"
+            style={{
+              backgroundImage: "url('/humanist-approach.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            Access the supervision app →
+            <div className="bg-black/50 p-6 text-center text-white">
+              <h3 className="text-2xl font-bold mb-2">Supervision App</h3>
+              <p>Get feedback on your positioning, messaging, and online practice.</p>
+            </div>
           </a>
-        </div>
 
-        {/* ✅ CTA 2 — BOUTIQUE */}
-        <div className="mt-6 p-6 border rounded-xl">
-          <p className="text-lg font-semibold">
-            Want a structured system to get clients?
-          </p>
-
-          <p className="mt-2 text-gray-600">
-            Explore practical tools designed for therapists.
-          </p>
-
+          {/* Structured System */}
           <a
             href="https://www.thirdpath.cloud/boutique"
             target="_blank"
-            className="inline-block mt-4 text-blue-600 font-semibold hover:underline"
+            rel="noopener noreferrer"
+            className="block rounded-xl overflow-hidden cursor-pointer transform transition-transform duration-300 hover:scale-105"
+            style={{
+              backgroundImage: "url('/complete-guide.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            View the resources →
+            <div className="bg-black/50 p-6 text-center text-white">
+              <h3 className="text-2xl font-bold mb-2">Structured System</h3>
+              <p>Explore practical tools designed specifically for therapists to get clients.</p>
+            </div>
           </a>
         </div>
+
+        {/* References supprimées */}
       </article>
     </main>
   )
