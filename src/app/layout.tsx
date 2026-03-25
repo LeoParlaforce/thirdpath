@@ -3,7 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { EB_Garamond } from "next/font/google"
-import Script from "next/script" // <--- 1. AJOUT DE L'IMPORT
+import Script from "next/script"
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -13,7 +13,10 @@ const garamond = EB_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thirdpath.cloud"),
-  title: "Third Path — Psychology guides",
+  title: {
+    default: "Third Path — Psychology guides",
+    template: "%s | Third Path"
+  },
   description: "English psychology guides and practical online resources.",
   alternates: {
     canonical: "https://thirdpath.cloud",
@@ -23,6 +26,13 @@ export const metadata: Metadata = {
     title: "Third Path — Psychology guides",
     description: "Practical, research-backed psychological guidance for personal growth and well-being.",
     url: "https://thirdpath.cloud",
+    siteName: "Third Path",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -31,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${garamond.variable} font-serif min-h-screen flex flex-col`}>
         
-        {/* --- 2. DEBUT DU CODE GOOGLE ANALYTICS --- */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QYNZ30WC5X"
           strategy="afterInteractive"
@@ -41,11 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-QYNZ30WC5X');
           `}
         </Script>
-        {/* --- FIN DU CODE GOOGLE ANALYTICS --- */}
 
         {/* Header */}
         <header className="sticky top-0 z-50 bg-header/95 backdrop-blur border-b border-muted shadow-sm">
@@ -75,45 +83,56 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        {/* Main content */}
         <main className="flex-1">{children}</main>
 
-        {/* Footer */}
         <footer className="border-t border-muted bg-background">
           <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row md:justify-between items-center gap-4 text-sm text-center md:text-left">
-
-            {/* Left links */}
             <div className="flex flex-col md:flex-row gap-4">
               <Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition">Legal Notice</Link>
               <Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition">Editorial Standards</Link>
               <Link href="/about-us" className="opacity-80 hover:opacity-100 transition">About Us</Link>
             </div>
 
-            {/* Middle buttons */}
             <div className="flex gap-2">
-              <a
-                href="mailto:leo.gayrard@gmail.com"
-                className="px-4 py-2 rounded bg-accent text-white text-sm font-medium transition hover:opacity-90"
-              >
-                Contact
-              </a>
-              <a
-                href="https://www.troisiemechemin.fr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10"
-              >
-                Vous parlez le français ?
-              </a>
+              <a href="mailto:leo.gayrard@gmail.com" className="px-4 py-2 rounded bg-accent text-white text-sm font-medium transition hover:opacity-90">Contact</a>
+              <a href="https://www.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10">Vous parlez le français ?</a>
             </div>
 
-            {/* Right copyright */}
             <span className="opacity-60 text-sm mt-2 md:mt-0">
               © {new Date().getFullYear()} thirdpath.cloud — 1184 route de la Maurette, 83520 Roquebrune-sur-Argens, France
             </span>
           </div>
         </footer>
 
+        {/* AJOUT : Données structurées JSON-LD pour l'autorité (E-E-A-T) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Third Path",
+              "url": "https://thirdpath.cloud",
+              "founder": {
+                "@type": "Person",
+                "name": "Leo Gayrard",
+                "jobTitle": "Licensed Psychologist",
+                "sameAs": [
+                  "https://www.troisiemechemin.fr",
+                  "https://parlaforce.com"
+                ]
+              },
+              "description": "Practical, research-backed psychological guidance and resources.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "1184 route de la Maurette",
+                "addressLocality": "Roquebrune-sur-Argens",
+                "postalCode": "83520",
+                "addressCountry": "FR"
+              }
+            })
+          }}
+        />
       </body>
     </html>
   )
