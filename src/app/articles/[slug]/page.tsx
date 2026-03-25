@@ -4,11 +4,39 @@ import ReactMarkdown from "react-markdown"
 import Link from "next/link"
 import ShareActions from "@/components/ShareActions"
 
+// CORRECTION CRUCIALE : Configuration des balises pour Facebook/LinkedIn
 export async function generateMetadata({ params }: { params: any }) {
   const { slug } = await params
   const post = getPostBySlug(slug) as any
   if (!post) return {}
-  return { title: `${post.title} | Third Path`, description: post.summary }
+
+  const url = `https://thirdpath.cloud/articles/${slug}`
+
+  return {
+    title: `${post.title} | Third Path`,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: url,
+      siteName: 'Third Path',
+      images: [
+        {
+          url: post.image, // L'image de ton article apparaîtra sur Facebook
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: 'en_US',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.summary,
+      images: [post.image],
+    },
+  }
 }
 
 export async function generateStaticParams() {
@@ -47,10 +75,6 @@ export default async function ArticlePage({ params }: { params: any }) {
   if (!post) return notFound()
 
   const contentParts = (post.content || "").split("[CTA-APP]")
-
-  // --- C'est ici que la magie opère pour le VRAI LIEN ---
-  // On utilise l'URL de base du projet (à configurer dans tes variables d'environnement idéalement)
-  // Sinon, on construit le chemin relatif qui fonctionne avec les outils de partage une fois en ligne
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://thirdpath.cloud"
   const articleUrl = `${baseUrl}/articles/${slug}`
 
@@ -70,7 +94,6 @@ export default async function ArticlePage({ params }: { params: any }) {
           <p className="text-2xl font-light text-slate-500 italic max-w-2xl mx-auto leading-snug">{post.summary}</p>
         </header>
 
-        {/* Premier partage avec la VRAIE URL */}
         <ShareActions url={articleUrl} title={post.title} />
 
         <div className="max-w-5xl mx-auto mb-10">
@@ -112,7 +135,6 @@ export default async function ArticlePage({ params }: { params: any }) {
           </div>
         </div>
 
-        {/* Deuxième partage avec la VRAIE URL */}
         <div className="mt-20">
           <ShareActions url={articleUrl} title={post.title} />
         </div>
