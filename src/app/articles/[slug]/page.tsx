@@ -1,4 +1,3 @@
-// src/app/articles/[slug]/page.tsx
 import { getPostBySlug, getAllPosts } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import ReactMarkdown from "react-markdown"
@@ -9,7 +8,7 @@ export async function generateMetadata({ params }: { params: any }) {
   const { slug } = await params
   const post = getPostBySlug(slug) as any
   if (!post) return {}
-  return { title: `${post.title} | Troisième Chemin`, description: post.summary }
+  return { title: `${post.title} | Third Path`, description: post.summary }
 }
 
 export async function generateStaticParams() {
@@ -48,7 +47,12 @@ export default async function ArticlePage({ params }: { params: any }) {
   if (!post) return notFound()
 
   const contentParts = (post.content || "").split("[CTA-APP]")
-  const articleUrl = `https://troisiemechemin.fr/articles/${slug}`
+
+  // --- C'est ici que la magie opère pour le VRAI LIEN ---
+  // On utilise l'URL de base du projet (à configurer dans tes variables d'environnement idéalement)
+  // Sinon, on construit le chemin relatif qui fonctionne avec les outils de partage une fois en ligne
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://thirdpath.cloud"
+  const articleUrl = `${baseUrl}/articles/${slug}`
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
@@ -66,20 +70,16 @@ export default async function ArticlePage({ params }: { params: any }) {
           <p className="text-2xl font-light text-slate-500 italic max-w-2xl mx-auto leading-snug">{post.summary}</p>
         </header>
 
-        {/* PREMIER PARTAGE (SOUS LE HEADER) */}
+        {/* Premier partage avec la VRAIE URL */}
         <ShareActions url={articleUrl} title={post.title} />
 
         <div className="max-w-5xl mx-auto mb-10">
           <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 p-2 bg-white">
-             <img 
-               src={post.image} 
-               alt={post.title} 
-               className="w-full h-auto max-h-150 object-cover rounded-2xl block" 
-             />
+             <img src={post.image} alt={post.title} className="w-full h-auto max-h-150 object-cover rounded-2xl block" />
           </div>
           {post.imageCredit && (
             <div className="text-center text-[10px] text-slate-400 italic font-sans tracking-widest uppercase mt-4">
-              <ReactMarkdown components={{ p: ({node, ...p}) => <span {...p} />, a: ({node, ...p}) => <a {...p} className="underline hover:text-blue-600" /> }}>
+              <ReactMarkdown components={{ p: ({node, ...p}) => <span {...p} />, a: ({node, ...p}) => <a {...p} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600" /> }}>
                 {post.imageCredit}
               </ReactMarkdown>
             </div>
@@ -91,14 +91,14 @@ export default async function ArticlePage({ params }: { params: any }) {
             <ReactMarkdown components={markdownComponents}>{contentParts[0]}</ReactMarkdown>
 
             {contentParts.length > 1 && (
-              <a href="https://chat.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="block my-16 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all">
+              <a href="https://chat.thirdpath.cloud" target="_blank" rel="noopener noreferrer" className="block my-16 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all">
                 <div className="bg-white rounded-[22px] p-3 flex flex-col md:flex-row items-center gap-6 md:gap-8">
                   <div className="w-full md:w-48 aspect-video md:aspect-square rounded-xl overflow-hidden shadow-sm border border-slate-100">
-                    <img src="/humanist-approach.jpg" alt="Troisième chemin" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1]" />
+                    <img src="/humanist-approach.jpg" alt="Third Path" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1]" />
                   </div>
                   <div className="font-serif text-center md:text-left flex-1 py-4 md:py-0">
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">Human Connection</h3>
-                    <p className="text-2xl md:text-3xl italic text-slate-800 leading-tight">Troisième chemin App</p>
+                    <p className="text-2xl md:text-3xl italic text-slate-800 leading-tight">Third Path App</p>
                     <p className="text-sm text-slate-500 mt-2 font-sans font-light">The space for supervision and clinical practice.</p>
                   </div>
                   <div className="pr-0 md:pr-6 pb-4 md:pb-0">
@@ -112,7 +112,7 @@ export default async function ArticlePage({ params }: { params: any }) {
           </div>
         </div>
 
-        {/* DEUXIÈME PARTAGE (FIN D'ARTICLE) */}
+        {/* Deuxième partage avec la VRAIE URL */}
         <div className="mt-20">
           <ShareActions url={articleUrl} title={post.title} />
         </div>
@@ -128,23 +128,23 @@ export default async function ArticlePage({ params }: { params: any }) {
             </div>
           </Link>
 
-          <Link href="/boutique" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
+          <Link href="/shop" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
             <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('/complete-guide.jpg')" }} />
             <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/50 transition-colors" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Shop</h4>
-              <p className="text-3xl font-serif italic mb-2">The Shop</p>
+              <p className="text-3xl font-serif italic mb-2">The Store</p>
               <p className="text-sm font-light opacity-80">Clinical guides and theoretical frameworks.</p>
             </div>
           </Link>
 
-          <Link href="https://chat.troisiemechemin.fr" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
+          <Link href="https://chat.thirdpath.cloud" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
             <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('/humanist-approach.jpg')" }} />
             <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/50 transition-colors" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Platform</h4>
               <p className="text-3xl font-serif italic mb-2">The App</p>
-              <p className="text-sm font-light opacity-80">Supervision & human connection.</p>
+              <p className="text-sm font-light opacity-80">Supervision & connection.</p>
             </div>
           </Link>
         </footer>
