@@ -56,7 +56,7 @@ export default function BuyButton({
         body: JSON.stringify({ 
           slug, 
           image, 
-          currency: activeCurrency // On envoie "EUR" ou "USD" à l'API
+          currency: activeCurrency 
         }),
       })
       
@@ -74,12 +74,14 @@ export default function BuyButton({
   }
 
   return (
-    <div className="flex flex-col gap-3 items-start">
+    <div className="relative flex flex-col items-start">
+      {/* Prix en position absolue pour ne pas décaler les boutons du dessous */}
       {displayPrice && (
-        <span className="text-2xl font-light text-purple-600 italic">
+        <span className="absolute -top-8 left-0 text-2xl font-light text-purple-600 italic whitespace-nowrap">
           {displayPrice}
         </span>
       )}
+      
       <button
         type="button"
         onMouseEnter={() => setHover(true)}
@@ -87,7 +89,7 @@ export default function BuyButton({
         onClick={go}
         disabled={loading}
         style={{ cursor }}
-        className={`rounded-md px-8 py-3 text-base font-bold uppercase tracking-tight bg-purple-600 text-white transition transform-gpu hover:-translate-y-1 hover:shadow-lg active:scale-95 ${loading ? "opacity-70" : ""}`}
+        className={`h-13 rounded-md px-8 text-base font-bold uppercase tracking-tight bg-purple-600 text-white transition transform-gpu hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center ${loading ? "opacity-70" : ""}`}
       >
         {loading ? "Redirecting…" : isFree ? "Free Access" : "Order Now"}
       </button>
