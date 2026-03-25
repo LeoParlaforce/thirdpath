@@ -1,59 +1,96 @@
 "use client"
 import { useState, useEffect } from "react"
 
-interface BuyButtonProps {
-  slug: string
-  priceEUR: string
-  priceUSD: string
+function svgCursor(emoji: string) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>${emoji}</text></svg>`
+  return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}") 0 0, auto`
 }
 
-export default function BuyButton({ slug, priceEUR, priceUSD }: BuyButtonProps) {
+export default function BuyButton({
+  slug,
+  priceEUR,
+  priceUSD,
+  image,
+}: { 
+  slug: string; 
+  priceEUR: string; 
+  priceUSD: string;
+  image: string;
+}) {
   const [loading, setLoading] = useState(false)
-  const [currency, setCurrency] = useState({ code: 'EUR', label: priceEUR })
+  const [hover, setHover] = useState(false)
+  const [displayPrice, setDisplayPrice] = useState<string>("")
+  const [activeCurrency, setActiveCurrency] = useState<string>("EUR")
 
   useEffect(() => {
-    const isEuroZone = Intl.DateTimeFormat().resolvedOptions().timeZone.includes('Europe')
-    if (!isEuroZone) {
-      setCurrency({ code: 'USD', label: priceUSD })
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const isUSZone = timeZone.includes("America") || timeZone.includes("US") || timeZone.includes("Canada")
+    
+    if (slug === "introduction-aux-guides") {
+      setDisplayPrice("Free")
+    } else {
+      if (isUSZone) {
+        setDisplayPrice(priceUSD)
+        setActiveCurrency("USD")
+      } else {
+        setDisplayPrice(priceEUR)
+        setActiveCurrency("EUR")
+      }
     }
-  }, [priceEUR, priceUSD])
+  }, [priceEUR, priceUSD, slug])
 
-  // Le guide d'introduction est gratuit
   const isFree = slug === "introduction-aux-guides"
+  const cursor = loading ? svgCursor("⏳") : hover ? svgCursor("✨") : svgCursor("🪄")
 
   async function go() {
     if (isFree) {
-      // Ouvre le PDF stocké dans /public/
       window.open("/introduction-guides.pdf", "_blank")
       return
     }
 
     try {
       setLoading(true)
-      const res = await fetch("/api/checkout/ebook", {
+      const r = await fetch("/api/checkout/ebook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, currency: currency.code }),
+        body: JSON.stringify({ 
+          slug, 
+          image, 
+          currency: activeCurrency // On envoie "EUR" ou "USD" à l'API
+        }),
       })
-      const data = await res.json()
-      if (data.url) window.location.href = data.url
+      
+      const data = await r.json()
+      if (r.ok && data.url) { 
+        window.location.href = data.url
+        return 
+      }
+      alert("An error occurred during checkout access.")
     } catch (e) {
-      console.error("Checkout error")
+      alert("Purchase unavailable at the moment.")
     } finally {
       setLoading(false)
     }
   }
 
-  const labelText = loading ? "Redirecting…" : isFree ? "Access for free" : `Buy now — ${currency.label}`
-
   return (
-    <button
-      type="button"
-      onClick={go}
-      disabled={loading}
-      className="relative overflow-hidden group rounded-md bg-accent px-6 py-3 text-white text-base font-medium transition transform-gpu hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
-    >
-      <span className="relative z-10 font-bold uppercase tracking-tight">{labelText}</span>
-    </button>
+    <div className="flex flex-col gap-3 items-start">
+      {displayPrice && (
+        <span className="text-2xl font-light text-purple-600 italic">
+          {displayPrice}
+        </span>
+      )}
+      <button
+        type="button"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={go}
+        disabled={loading}
+        style={{ cursor }}
+        className={`rounded-md px-8 py-3 text-base font-bold uppercase tracking-tight bg-purple-600 text-white transition transform-gpu hover:-translate-y-1 hover:shadow-lg active:scale-95 ${loading ? "opacity-70" : ""}`}
+      >
+        {loading ? "Redirecting…" : isFree ? "Free Access" : "Order Now"}
+      </button>
+    </div>
   )
 }

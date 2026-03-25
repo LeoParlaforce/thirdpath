@@ -14,7 +14,7 @@ function mustGet(n: string) {
 const stripe = new Stripe(mustGet("STRIPE_SECRET_KEY"))
 
 export async function POST(req: Request) {
-  const { slug } = (await req.json()) as { slug?: string }
+  const { slug, currency } = (await req.json()) as { slug?: string; currency?: string }
   if (!slug) return NextResponse.json({ error: "missing_slug" }, { status: 400 })
 
   const p = products.find((x) => x.slug === slug)
@@ -22,12 +22,17 @@ export async function POST(req: Request) {
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
   const isPack = slug === "pack-integral"
-
-  const unit_amount = Number(
-    process.env[isPack ? "PACK_PRICE_USD_CENTS" : "GUIDE_PRICE_USD_CENTS"]
-  )
-  if (!unit_amount)
-    return NextResponse.json({ error: "price_missing" }, { status: 500 })
+  
+  // On détermine la devise finale (USD par défaut si rien n'est reçu)
+  const finalCurrency = currency?.toLowerCase() === "eur" ? "eur" : "usd"
+  
+  // Sélection du montant basé sur la devise ET le produit
+  let unit_amount: number
+  if (finalCurrency === "eur") {
+    unit_amount = isPack ? 5450 : 950 // Montants fixes en centimes d'Euros
+  } else {
+    unit_amount = isPack ? 5950 : 1050 // Montants fixes en centimes de Dollars
+  }
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -38,7 +43,7 @@ export async function POST(req: Request) {
       {
         quantity: 1,
         price_data: {
-          currency: "usd",
+          currency: finalCurrency,
           unit_amount,
           product_data: { name: p.title },
         },
