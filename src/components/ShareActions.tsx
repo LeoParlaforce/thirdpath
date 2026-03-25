@@ -15,10 +15,10 @@ const IconWrapper = ({ children, className = "" }: { children: React.ReactNode, 
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="1.5"
+    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={`transition-colors duration-200 ${className}`}
+    className={`transition-all duration-300 ${className}`}
   >
     {children}
   </svg>
@@ -29,10 +29,7 @@ export default function ShareActions({ url, title }: ShareActionsProps) {
   const handleNativeShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: title,
-          url: url,
-        });
+        await navigator.share({ title, url });
       } catch (error) {
         console.error("Share error:", error);
       }
@@ -49,41 +46,38 @@ export default function ShareActions({ url, title }: ShareActionsProps) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-10 gap-y-6 mb-10 py-8 border-y border-slate-100 text-slate-400">
-      <span className="opacity-40 italic font-serif lowercase tracking-normal text-sm">Share the article:</span>
+    <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-10 gap-y-6 mb-10 py-8 border-y border-slate-100">
+      <span className="opacity-40 italic font-serif lowercase tracking-normal text-sm text-slate-500">Share the article:</span>
       
       <div className="flex items-center gap-8">
+        {/* X (Twitter) - Official Blue */}
         <a 
           href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          title="Share on X"
-          className="hover:text-blue-600"
+          target="_blank" rel="noopener noreferrer" title="Share on X" 
+          className="text-[#1DA1F2] opacity-80 hover:opacity-100 hover:scale-110 transition-all"
         >
           <IconWrapper>
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
           </IconWrapper>
         </a>
         
+        {/* Facebook - Official Blue */}
         <a 
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          title="Share on Facebook"
-          className="hover:text-blue-600"
+          target="_blank" rel="noopener noreferrer" title="Share on Facebook" 
+          className="text-[#1877F2] opacity-80 hover:opacity-100 hover:scale-110 transition-all"
         >
           <IconWrapper>
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
           </IconWrapper>
         </a>
         
+        {/* LinkedIn - Official Blue */}
         <a 
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          title="Share on LinkedIn"
-          className="hover:text-blue-600"
+          target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" 
+          className="text-[#0A66C2] opacity-80 hover:opacity-100 hover:scale-110 transition-all"
         >
           <IconWrapper>
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -92,10 +86,11 @@ export default function ShareActions({ url, title }: ShareActionsProps) {
           </IconWrapper>
         </a>
 
+        {/* Instagram / Share - Official Pink/Red */}
         <button 
-          onClick={handleNativeShare}
-          className="hover:text-pink-500 transition-colors cursor-pointer"
-          title="Instagram / Native Share"
+          onClick={handleNativeShare} 
+          className="text-[#E4405F] opacity-80 hover:opacity-100 hover:scale-110 transition-all cursor-pointer" 
+          title="Share"
         >
           <IconWrapper>
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -106,9 +101,10 @@ export default function ShareActions({ url, title }: ShareActionsProps) {
 
         <div className="w-px h-4 bg-slate-200 mx-2 hidden md:block" />
         
+        {/* Copy Link - Blue 500 */}
         <button 
-          onClick={copyToClipboard}
-          className="hover:text-blue-500 transition-colors cursor-pointer"
+          onClick={copyToClipboard} 
+          className="text-blue-500 opacity-80 hover:opacity-100 hover:scale-110 transition-all cursor-pointer" 
           title="Copy link"
         >
           <IconWrapper>
