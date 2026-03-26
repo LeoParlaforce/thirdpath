@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Lien vers ton sitemap dynamique
+Sitemap: https://thirdpath.cloud/sitemap.xml
