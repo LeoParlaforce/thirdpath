@@ -25,8 +25,8 @@ export default async function EbookPage({ params }: PageProps) {
   if (!p) return notFound()
 
   return (
-    <main className="min-h-screen text-foreground bg-transparent">
-      {/* JSON-LD PRODUCT (SEO Blindage) */}
+    <main className="min-h-screen text-slate-900 bg-transparent">
+      {/* Schéma SEO - Product */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -53,13 +53,15 @@ export default async function EbookPage({ params }: PageProps) {
         </Link>
 
         <div className="mt-6 grid gap-12 md:grid-cols-2 md:items-stretch">
-          <div className="relative min-h-100 h-full overflow-hidden rounded-xl border bg-white/10 backdrop-blur-sm shadow-2xl flex">
+          {/* Image avec les classes canoniques suggérées */}
+          <div className="relative aspect-3/4 md:min-h-125 overflow-hidden rounded-xl border bg-white/10 backdrop-blur-sm shadow-2xl flex">
             <Image 
               src={p.image} 
               alt={`Psychology guide: ${p.title}`} 
               fill 
               className="object-cover" 
               priority 
+              sizes="(min-width: 1024px) 50vw, 100vw"
             />
           </div>
 
@@ -80,21 +82,28 @@ export default async function EbookPage({ params }: PageProps) {
               </div>
             )}
 
-            <div className="mt-12 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-              <BuyButton slug={p.slug} priceEUR={p.priceEUR} priceUSD={p.priceUSD} image={p.image} />
+            {/* Alignement parfait : items-end permet d'aligner la base du bouton "Join" 
+                sur la base du bouton "Order Now", même avec le prix au-dessus. */}
+            <div className="mt-12 flex flex-col sm:flex-row gap-4 items-end">
+              <div className="w-full sm:flex-1">
+                <BuyButton 
+                  slug={p.slug} 
+                  priceEUR={p.priceEUR} 
+                  priceUSD={p.priceUSD} 
+                  image={p.image} 
+                />
+              </div>
               <a
                 href="https://chat.troisiemechemin.fr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 sm:flex-none flex items-center justify-center px-8 h-13 rounded-md border-2 border-blue-600 text-blue-600 font-bold uppercase tracking-tight hover:bg-blue-600 hover:text-white transition duration-200 text-sm"
+                className="w-full sm:w-auto flex items-center justify-center px-8 h-13 rounded-md border-2 border-blue-600 text-blue-600 font-bold uppercase tracking-tight hover:bg-blue-600 hover:text-white transition duration-200 text-sm"
               >
-                Join the therapy app
+                Join the app
               </a>
             </div>
           </div>
         </div>
-
-        {/* FAQ Section conservée... */}
       </section>
     </main>
   )

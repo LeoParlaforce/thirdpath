@@ -11,17 +11,17 @@ export default function ArticlesPage() {
   const posts = getAllPosts()
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-16 font-serif">
-      <header className="mb-16 border-b border-slate-100 pb-8">
-        <h1 className="text-5xl font-medium italic tracking-tight text-slate-900 mb-4">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 font-serif w-full overflow-hidden">
+      <header className="mb-12 md:mb-16 border-b border-slate-200 pb-8">
+        <h1 className="text-4xl md:text-5xl font-medium italic tracking-tight text-slate-900 mb-4">
           Library of Thoughts
         </h1>
-        <p className="text-lg text-slate-600 font-sans italic opacity-80">
+        <p className="text-base md:text-lg text-slate-600 font-sans italic opacity-90">
           Reflections on psychology, clinical practice, and the human experience.
         </p>
       </header>
 
-      <div className="grid md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {posts.map((post) => (
           <Link
             key={post.slug}
@@ -29,8 +29,7 @@ export default function ArticlesPage() {
             className="group block transition-all"
           >
             <article className="flex flex-col gap-4">
-              {/* Correction ici : aspect-video au lieu de aspect-[16/9] */}
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-100 shadow-sm transition group-hover:shadow-md">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition group-hover:shadow-md bg-white">
                 <img
                   src={post.image}
                   alt={post.title}
@@ -38,14 +37,14 @@ export default function ArticlesPage() {
                 />
               </div>
               
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-xs font-sans uppercase tracking-[0.2em] text-blue-600 font-bold">
+              <div className="space-y-3 px-1">
+                <div className="flex items-center gap-3 text-[10px] md:text-xs font-sans uppercase tracking-[0.2em] text-blue-600 font-bold">
                   <span>{post.date}</span>
                   <span className="text-slate-300">/</span>
                   <span>Insights</span>
                 </div>
                 
-                <h2 className="text-2xl font-semibold leading-tight text-slate-900 group-hover:text-blue-900 transition-colors">
+                <h2 className="text-xl md:text-2xl font-semibold leading-tight text-slate-900 group-hover:text-blue-800 transition-colors">
                   {post.title}
                 </h2>
                 
@@ -54,7 +53,7 @@ export default function ArticlesPage() {
                 </p>
                 
                 <div className="pt-2">
-                  <span className="text-xs font-bold uppercase border-b border-slate-900 pb-1 group-hover:border-blue-600 group-hover:text-blue-600 transition-all">
+                  <span className="text-xs font-bold uppercase border-b border-slate-900 pb-1 group-hover:border-blue-600 group-hover:text-blue-600 transition-all text-slate-900">
                     Read Inquiry →
                   </span>
                 </div>

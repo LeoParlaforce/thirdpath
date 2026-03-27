@@ -53,21 +53,15 @@ export default function BuyButton({
       const r = await fetch("/api/checkout/ebook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          slug, 
-          image, 
-          currency: activeCurrency 
-        }),
+        body: JSON.stringify({ slug, image, currency: activeCurrency }),
       })
-      
       const data = await r.json()
       if (r.ok && data.url) { 
         window.location.href = data.url
         return 
       }
-      alert("An error occurred during checkout access.")
     } catch (e) {
-      alert("Purchase unavailable at the moment.")
+      alert("Purchase unavailable.")
     } finally {
       setLoading(false)
     }
@@ -75,9 +69,8 @@ export default function BuyButton({
 
   return (
     <div className="relative flex flex-col items-start">
-      {/* Prix en position absolue pour ne pas décaler les boutons du dessous */}
       {displayPrice && (
-        <span className="absolute -top-8 left-0 text-2xl font-light text-purple-600 italic whitespace-nowrap">
+        <span className="mb-2 text-2xl font-light text-slate-900 italic whitespace-nowrap">
           {displayPrice}
         </span>
       )}
@@ -89,9 +82,9 @@ export default function BuyButton({
         onClick={go}
         disabled={loading}
         style={{ cursor }}
-        className={`h-13 rounded-md px-8 text-base font-bold uppercase tracking-tight bg-purple-600 text-white transition transform-gpu hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center ${loading ? "opacity-70" : ""}`}
+        className={`h-13 rounded-md px-8 text-base font-bold uppercase tracking-tight bg-slate-900 text-white transition transform-gpu hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center ${loading ? "opacity-70" : ""}`}
       >
-        {loading ? "Redirecting…" : isFree ? "Free Access" : "Order Now"}
+        {loading ? "..." : isFree ? "Free Access" : "Order Now"}
       </button>
     </div>
   )

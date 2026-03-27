@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Boutique() {
   return (
-    <main className="min-h-screen text-foreground bg-transparent">
+    <main className="min-h-screen text-slate-900 bg-transparent">
       <section className="mx-auto max-w-6xl px-6 py-14">
         <h1 className="font-serif text-4xl md:text-5xl font-bold">Store</h1>
 
@@ -22,7 +22,7 @@ export default function Boutique() {
             <a
               key={p.slug}
               href={`/boutique/${p.slug}`}
-              className="group block relative overflow-hidden rounded-xl border bg-white/40 backdrop-blur-md transition-all duration-300 hover:shadow-xl hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="group block relative overflow-hidden rounded-xl border bg-white/40 backdrop-blur-md transition-all duration-300 hover:shadow-xl hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-600"
             >
               <div className="relative aspect-3/4 w-full overflow-hidden">
                 <Image

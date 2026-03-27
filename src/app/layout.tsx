@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "./globals.css"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -36,10 +35,15 @@ export const metadata: Metadata = {
   },
 }
 
+// Définition de la texture grainée subtile
+const grainBg = {
+  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")`
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${garamond.variable} font-serif min-h-screen flex flex-col`}>
+    <html lang="en" className="overflow-x-hidden w-full">
+      <body className={`${garamond.variable} font-serif min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full antialiased`}>
         
         {/* Google Analytics */}
         <Script
@@ -55,17 +59,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* Header */}
-        <header className="sticky top-0 z-50 bg-header/95 backdrop-blur border-b border-muted shadow-sm">
-          <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
+        {/* Header avec grain */}
+        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none" style={grainBg}></div>
+          <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6 py-3 flex items-center justify-between">
             <Link
               href="/"
-              className="text-lg font-semibold tracking-wide transition hover:text-accent hover:drop-shadow-[0_1px_0_rgba(124,58,237,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+              className="text-lg font-semibold tracking-wide transition hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded"
             >
               thirdpath.cloud
             </Link>
 
-            <nav className="flex gap-2 text-base" aria-label="Main navigation">
+            <nav className="flex gap-1 md:gap-2 text-base" aria-label="Main navigation">
               {[
                 { href: "/", label: "Home" },
                 { href: "/boutique", label: "Store" },
@@ -74,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="px-3 py-1.5 rounded-md opacity-90 transition hover:opacity-100 hover:text-accent hover:bg-accent/15 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transform-gpu"
+                  className="px-2 md:px-3 py-1.5 rounded-md opacity-90 transition hover:opacity-100 hover:text-blue-700 hover:bg-blue-50 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 transform-gpu"
                 >
                   {l.label}
                 </Link>
@@ -83,19 +88,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full max-w-full">{children}</main>
 
-        <footer className="border-t border-muted bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row md:justify-between items-center gap-4 text-sm text-center md:text-left">
+        {/* Footer avec grain */}
+        <footer className="relative border-t border-slate-200 bg-white overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none" style={grainBg}></div>
+          <div className="relative z-10 mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row md:justify-between items-center gap-4 text-sm text-center md:text-left">
             <div className="flex flex-col md:flex-row gap-4">
               <Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition">Legal Notice</Link>
               <Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition">Editorial Standards</Link>
               <Link href="/about-us" className="opacity-80 hover:opacity-100 transition">About Us</Link>
             </div>
 
-            <div className="flex gap-2">
-              <a href="mailto:leo.gayrard@gmail.com" className="px-4 py-2 rounded bg-accent text-white text-sm font-medium transition hover:opacity-90">Contact</a>
-              <a href="https://www.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded border border-accent text-sm font-medium transition hover:bg-accent/10">Vous parlez le français ?</a>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <a href="mailto:leo.gayrard@gmail.com" className="px-4 py-2 rounded bg-blue-600 text-white text-sm font-medium transition hover:bg-blue-700">Contact</a>
+              <a href="https://www.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded border border-blue-600 text-blue-700 text-sm font-medium transition hover:bg-blue-50">Vous parlez le français ?</a>
             </div>
 
             <span className="opacity-60 text-sm mt-2 md:mt-0">
@@ -104,7 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
-        {/* AJOUT : Données structurées JSON-LD pour l'autorité (E-E-A-T) */}
+        {/* Données structurées JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

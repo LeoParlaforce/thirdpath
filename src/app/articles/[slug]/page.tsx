@@ -72,8 +72,7 @@ export default async function ArticlePage({ params }: { params: any }) {
   const articleUrl = `${baseUrl}/articles/${slug}`
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-10">
-      {/* JSON-LD ARTICLE (SEO Blindage) */}
+    <main className="max-w-7xl mx-auto px-6 py-10 text-slate-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -167,7 +166,7 @@ export default async function ArticlePage({ params }: { params: any }) {
               <p className="text-sm font-light opacity-80">Continue your reading.</p>
             </div>
           </Link>
-          {/* Card Store & App conservées à l'identique... */}
+          {/* Les autres cartes du footer peuvent être ajoutées ici */}
         </footer>
       </article>
     </main>
