@@ -1,6 +1,13 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /admin/
 
-# Lien vers ton sitemap dynamique
+# Optimization for Search Engines
+Crawl-delay: 1
+
+# Metadata for international SEO
 Sitemap: https://thirdpath.cloud/sitemap.xml
+Host: https://thirdpath.cloud
