@@ -10,7 +10,9 @@ export type Post = {
   slug: string
   content: string
   image: string
-  imageCredit?: string // Ajout de la propriété optionnelle
+  imageCredit?: string
+  faqs?: Array<{ question: string; answer: string }> // On déclare officiellement la FAQ ici
+  [key: string]: any // Permet d'accepter d'autres champs sans erreur TypeScript
 }
 
 const postsDirectory = path.join(process.cwd(), "./src/posts")
@@ -19,23 +21,23 @@ export function getAllPosts(): Post[] {
   if (!fs.existsSync(postsDirectory)) return []
   const fileNames = fs.readdirSync(postsDirectory)
 
-  const posts = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, "")
-    const fullPath = path.join(postsDirectory, fileName)
-    const fileContents = fs.readFileSync(fullPath, "utf8")
+  const posts = fileNames
+    .filter((fileName) => fileName.endsWith(".md")) // Sécurité : on ne prend que le markdown
+    .map((fileName) => {
+      const slug = fileName.replace(/\.md$/, "")
+      const fullPath = path.join(postsDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, "utf8")
 
-    const { data, content } = matter(fileContents)
+      const { data, content } = matter(fileContents)
 
-    return {
-      title: data.title,
-      date: data.date,
-      summary: data.summary,
-      slug,
-      content,
-      image: data.image || `/articles/${slug}.jpg`,
-      imageCredit: data.imageCredit || null, // On récupère le crédit s'il existe
-    }
-  })
+      // On retourne TOUTES les données (data) + le contenu et le slug
+      return {
+        ...data,
+        slug,
+        content,
+        image: data.image || `/articles/${slug}.jpg`,
+      } as Post
+    })
 
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1))
 }
@@ -49,12 +51,9 @@ export function getPostBySlug(slug: string): Post | null {
   const { data, content } = matter(fileContents)
 
   return {
-    title: data.title,
-    date: data.date,
-    summary: data.summary,
+    ...data,
     slug,
     content,
     image: data.image || `/articles/${slug}.jpg`,
-    imageCredit: data.imageCredit || null, // On récupère le crédit ici aussi
-  }
+  } as Post
 }

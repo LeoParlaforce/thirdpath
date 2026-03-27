@@ -1,15 +1,53 @@
 import Link from "next/link"
+import { Metadata } from "next"
 
-export const metadata = {
-  title: "Third Path — Human-Centered Psychology",
-  description: "Explore research-backed psychology guides and join Troisième Chemin, the human-only therapy app.",
+export const metadata: Metadata = {
+  title: "Third Path — Human-Centered Psychology | Clinical Guides",
+  description: "Practical, research-backed psychological guidance for personal growth, well-being, and understanding human behavior. 100% human-authored content.",
+  openGraph: {
+    title: "Third Path — Human-Centered Psychology",
+    description: "Explore research-backed psychology guides and clinical protocols.",
+    url: "https://thirdpath.cloud",
+    siteName: "Third Path",
+    images: [{ url: "https://thirdpath.cloud/og-home.jpg", width: 1200, height: 630 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Third Path — Psychology",
+    description: "Research-backed psychology guides for human growth.",
+    images: ["https://thirdpath.cloud/og-home.jpg"],
+  },
 }
 
 export default function HomePage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-16 flex flex-col gap-12 min-h-screen font-serif w-full text-slate-900">
+      
+      {/* JSON-LD : Données structurées pour l'organisation */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Third Path",
+            "url": "https://thirdpath.cloud",
+            "description": "Practical, research-backed psychological guidance.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Third Path",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://thirdpath.cloud/logo.png"
+              }
+            }
+          })
+        }}
+      />
 
-      {/* Header / Intro - Sans fond blanc, s'intègre à votre arrière-plan */}
+      {/* Header / Intro */}
       <section className="text-center mt-8">
         <h1 className="text-4xl md:text-5xl font-medium mb-4 tracking-tight text-slate-900">
           Third Path — Psychology
@@ -18,25 +56,24 @@ export default function HomePage() {
           Practical, research-backed psychological guidance for personal growth, well-being, and understanding human behavior.
         </p>
         
-        {/* Badge "No AI" */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/80 border border-blue-100 text-blue-800 text-xs font-sans font-medium tracking-wide shadow-sm backdrop-blur-sm">
-          <span className="text-blue-500">✦</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100/50 border border-blue-200 text-blue-800 text-xs font-sans font-medium tracking-wide shadow-sm backdrop-blur-sm">
+          <span className="text-blue-600">✦</span>
           100% Human Intelligence. No AI.
         </div>
       </section>
 
-      {/* Grid Section - Les cartes sont les seuls éléments avec un fond pour créer l'effet d'encadré */}
+      {/* Grid Section */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto w-full">
         
         {/* Card 1 - Boutique */}
         <Link
           href="/boutique"
-          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/90 backdrop-blur-sm"
+          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
             <img
               src="/complete-guide.jpg"
-              alt="Complete Guides"
+              alt="Psychology Clinical Guides - Third Path"
               className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
             />
           </div>
@@ -51,12 +88,12 @@ export default function HomePage() {
         {/* Card 2 - Articles */}
         <Link
           href="/articles"
-          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/90 backdrop-blur-sm"
+          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
             <img
               src="/articles.jpg"
-              alt="Articles"
+              alt="Psychology Articles and Insights"
               className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
             />
           </div>
@@ -68,17 +105,17 @@ export default function HomePage() {
           </div>
         </Link>
 
-        {/* Card 3 - App Link (Couleur bleue distinctive) */}
+        {/* Card 3 - App Link */}
         <a
           href="https://chat.troisiemechemin.fr"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/80 shadow-sm backdrop-blur-sm"
+          className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/80 shadow-sm backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-blue-100">
             <img
               src="/humanist-approach.jpg"
-              alt="Troisième chemin App"
+              alt="Troisième chemin - Human Therapy App"
               className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
             />
           </div>
@@ -93,7 +130,6 @@ export default function HomePage() {
           </div>
         </a>
       </section>
-
     </main>
   )
 }

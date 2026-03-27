@@ -1,18 +1,56 @@
 import Image from "next/image"
 import { products } from "./data"
+import { Metadata } from "next"
 
-export const metadata = {
-  title: "Store | Third Path",
-  description: "Clinical protocols and psychological restructuring guides.",
+export const metadata: Metadata = {
+  title: "Store | Clinical Protocols & Psychology Guides | Third Path",
+  description: "Browse our collection of research-backed clinical protocols and psychological restructuring guides. Professional resources for growth.",
 }
 
 export default function Boutique() {
+  // FAQs Globales pour la boutique
+  const storeFaqs = [
+    { 
+      question: "Are these guides suitable for clinical practice?", 
+      answer: "Yes, our protocols are specifically designed to be integrated into therapeutic settings, offering structured frameworks for practitioners." 
+    },
+    { 
+      question: "How do I receive my purchase?", 
+      answer: "Immediately after checkout, you will receive a secure download link via email for your digital guides (PDF format)." 
+    }
+  ];
+
   return (
     <main className="min-h-screen text-slate-900">
+      {/* JSON-LD : CollectionPage + FAQPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "name": "Third Path Psychology Store",
+              "description": "Clinical protocols and psychological restructuring guides.",
+              "url": "https://thirdpath.cloud/boutique"
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": storeFaqs.map((f) => ({
+                "@type": "Question",
+                "name": f.question,
+                "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+              }))
+            }
+          ])
+        }}
+      />
+
       <section className="mx-auto max-w-6xl px-6 py-14">
         <h1 className="font-serif text-4xl md:text-5xl font-bold text-slate-900">Store</h1>
 
-        <p className="mt-4 text-lg text-slate-700 max-w-2xl">
+        <p className="mt-4 text-lg text-slate-700 max-w-2xl font-serif italic">
           Psychology is not only theory. It matters in practice.
           Read clearly, apply concretely, and tend to your world.
         </p>
@@ -27,7 +65,7 @@ export default function Boutique() {
               <div className="relative aspect-3/4 w-full overflow-hidden">
                 <Image
                   src={p.image}
-                  alt={p.title}
+                  alt={`Psychology Guide: ${p.title}`}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
@@ -39,8 +77,8 @@ export default function Boutique() {
                   
                   {p.chapters.length > 0 && (
                     <div className="mt-6">
-                      <span className="text-[10px] font-bold uppercase tracking-widest opacity-50">Chapters</span>
-                      <ul className="mt-2 space-y-1 text-sm">
+                      <span className="text-[10px] font-bold uppercase tracking-widest opacity-50 font-sans">Chapters</span>
+                      <ul className="mt-2 space-y-1 text-sm font-serif italic">
                         {p.chapters.slice(0, 6).map((c, i) => (
                           <li key={i} className="flex items-baseline opacity-80">
                             <span className="mr-2">/</span> {c}
@@ -53,11 +91,31 @@ export default function Boutique() {
               </div>
 
               <div className="p-6 border-t border-slate-100 bg-white">
-                <h3 className="font-serif text-lg font-bold text-slate-900">{p.title}</h3>
+                <h3 className="font-serif text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{p.title}</h3>
               </div>
             </a>
           ))}
         </div>
+
+        {/* Accordéon FAQ Boutique */}
+        <section className="mt-20 border-t border-slate-100 pt-12 max-w-3xl">
+          <h2 className="text-3xl font-serif italic mb-8 text-slate-900">Store Inquiry</h2>
+          <div className="space-y-4">
+            {storeFaqs.map((faq, i) => (
+              <details key={i} className="group border border-slate-200 rounded-2xl bg-white/50 transition-all">
+                <summary className="flex items-center justify-between p-6 cursor-pointer list-none font-serif text-lg font-medium text-slate-800">
+                  {faq.question}
+                  <span className="text-blue-500 transition-transform group-open:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </span>
+                </summary>
+                <div className="px-6 pb-6 text-slate-600 italic font-sans border-t border-slate-50 pt-4">
+                  {faq.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
       </section>
     </main>
   )

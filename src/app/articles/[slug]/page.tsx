@@ -4,30 +4,30 @@ import ReactMarkdown from "react-markdown"
 import Link from "next/link"
 import ShareActions from "@/components/ShareActions"
 
-export async function generateMetadata({ params }: { params: any }) {
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params
   const post = getPostBySlug(slug) as any
   if (!post) return {}
-
   const url = `https://thirdpath.cloud/articles/${slug}`
-
   return {
     title: `${post.title} | Third Path`,
     description: post.summary,
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.summary,
       url: url,
-      siteName: 'Third Path',
-      images: [{ url: post.image, width: 1200, height: 630 }],
-      locale: 'en_US',
+      images: [{ url: post.image }],
       type: 'article',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.summary,
-      images: [post.image],
     },
   }
 }
@@ -62,46 +62,46 @@ const markdownComponents = {
   ),
 };
 
-export default async function ArticlePage({ params }: { params: any }) {
+export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params
   const post = getPostBySlug(slug) as any
   if (!post) return notFound()
 
   const contentParts = (post.content || "").split("[CTA-APP]")
-  const baseUrl = "https://thirdpath.cloud"
-  const articleUrl = `${baseUrl}/articles/${slug}`
+  const articleUrl = `https://thirdpath.cloud/articles/${slug}`
+  const faqs: FAQItem[] = post.faqs || [];
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10 text-slate-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": post.summary,
-            "image": post.image,
-            "datePublished": post.date,
-            "author": {
-              "@type": "Person",
-              "name": "Leo Gayrard",
-              "url": "https://thirdpath.cloud/about-us"
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": post.title,
+              "image": post.image,
+              "datePublished": post.date,
+              "author": { "@type": "Person", "name": "Leo Gayrard" }
             },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Third Path",
-              "logo": { "@type": "ImageObject", "url": "https://thirdpath.cloud/logo.png" }
-            }
-          })
+            ...(faqs.length > 0 ? [{
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": faqs.map((f: FAQItem) => ({
+                "@type": "Question",
+                "name": f.question,
+                "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+              }))
+            }] : [])
+          ])
         }}
       />
 
       <article>
         <nav className="max-w-5xl mx-auto mb-10">
           <Link href="/articles" className="group inline-flex items-center text-xs font-sans uppercase tracking-[0.2em] text-blue-600 font-bold">
-            <span className="mr-2 transition-transform group-hover:-translate-x-1">←</span>
-            Back to articles
+            <span className="mr-2 transition-transform group-hover:-translate-x-1">←</span> Back to articles
           </Link>
         </nav>
 
@@ -117,13 +117,6 @@ export default async function ArticlePage({ params }: { params: any }) {
           <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 p-2 bg-white/90 backdrop-blur-sm">
              <img src={post.image} alt={post.title} className="w-full h-auto max-h-150 object-cover rounded-2xl block" />
           </div>
-          {post.imageCredit && (
-            <div className="text-center text-[10px] text-slate-400 italic font-sans tracking-widest uppercase mt-4">
-              <ReactMarkdown components={{ p: ({node, ...p}) => <span {...p} />, a: ({node, ...p}) => <a {...p} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600" /> }}>
-                {post.imageCredit}
-              </ReactMarkdown>
-            </div>
-          )}
         </div>
 
         <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100">
@@ -131,18 +124,17 @@ export default async function ArticlePage({ params }: { params: any }) {
             <ReactMarkdown components={markdownComponents}>{contentParts[0]}</ReactMarkdown>
 
             {contentParts.length > 1 && (
-              <a href="https://chat.thirdpath.cloud" target="_blank" rel="noopener noreferrer" className="block my-16 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all">
+              <a href="https://chat.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="block my-12 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all">
                 <div className="bg-white rounded-[22px] p-3 flex flex-col md:flex-row items-center gap-6 md:gap-8 border border-slate-50">
-                  <div className="w-full md:w-48 aspect-video md:aspect-square rounded-xl overflow-hidden shadow-sm border border-slate-100">
-                    <img src="/humanist-approach.jpg" alt="Third Path" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1]" />
+                  <div className="w-full md:w-48 aspect-square rounded-xl overflow-hidden">
+                    <img src="/humanist-approach.jpg" alt="App" className="w-full h-full object-cover" />
                   </div>
-                  <div className="font-serif text-center md:text-left flex-1 py-4 md:py-0">
+                  <div className="flex-1 py-4">
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">Human Connection</h3>
-                    <p className="text-2xl md:text-3xl italic text-slate-800 leading-tight">Third Path App</p>
-                    <p className="text-sm text-slate-500 mt-2 font-sans font-light">The space for supervision and clinical practice.</p>
+                    <p className="text-2xl italic text-slate-800 leading-tight">Third Path App</p>
                   </div>
-                  <div className="pr-0 md:pr-6 pb-4 md:pb-0">
-                    <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-sans font-bold text-sm group-hover:bg-blue-600 transition-all whitespace-nowrap">Join →</span>
+                  <div className="pr-6">
+                    <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-blue-600 transition-all">Join →</span>
                   </div>
                 </div>
               </a>
@@ -150,21 +142,57 @@ export default async function ArticlePage({ params }: { params: any }) {
 
             {contentParts.length > 1 && <ReactMarkdown components={markdownComponents}>{contentParts[1]}</ReactMarkdown>}
           </div>
+
+          {faqs.length > 0 && (
+            <section className="mt-12 border-t border-slate-100 pt-10">
+              <h2 className="text-3xl font-serif italic mb-6 text-slate-900">Questions & Insights</h2>
+              <div className="space-y-4">
+                {faqs.map((faq: FAQItem, i: number) => (
+                  <details key={i} className="group border border-slate-200 rounded-2xl bg-slate-50/50 transition-all">
+                    <summary className="flex items-center justify-between p-5 cursor-pointer list-none font-serif text-lg text-slate-800 hover:text-blue-600">
+                      {faq.question}
+                      <span className="ml-4 transition-transform group-open:rotate-180 text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      </span>
+                    </summary>
+                    <div className="px-5 pb-5 text-slate-600 italic font-sans border-t border-slate-100 pt-4">{faq.answer}</div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div className="mt-10 pt-8 border-t border-slate-50">
+            <ShareActions url={articleUrl} title={post.title} />
+          </div>
         </div>
 
-        <div className="mt-20">
-          <ShareActions url={articleUrl} title={post.title} />
-        </div>
+        <footer className="max-w-7xl mx-auto mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 text-white">
+          <Link href="/articles" className="group h-80 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl bg-slate-900">
+             <img src="/articles.jpg" alt="Library" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+             <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors z-10" />
+             <div className="absolute inset-0 p-10 flex flex-col justify-end z-20">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Library</h4>
+                <p className="text-3xl font-serif italic leading-tight">More Articles</p>
+             </div>
+          </Link>
 
-        <footer className="max-w-7xl mx-auto mt-24 grid md:grid-cols-3 gap-6 font-sans border-t border-slate-100 pt-16 mb-20 text-slate-900">
-          <Link href="/articles" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
-            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url(${post.image})` }} />
-            <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/50 transition-colors" />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2 font-sans">Library</h4>
-              <p className="text-3xl font-serif italic mb-2">More Articles</p>
-              <p className="text-sm font-light opacity-80 font-sans">Continue your reading.</p>
-            </div>
+          <a href="https://chat.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="group h-80 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl bg-blue-900">
+             <img src="/humanist-approach.jpg" alt="App" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+             <div className="absolute inset-0 bg-blue-900/60 group-hover:bg-blue-900/40 transition-colors z-10" />
+             <div className="absolute inset-0 p-10 flex flex-col justify-end z-20">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200 mb-2">Community</h4>
+                <p className="text-3xl font-serif italic leading-tight">Join the App</p>
+             </div>
+          </a>
+
+          <Link href="/boutique" className="group h-80 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl bg-slate-900 md:col-span-2 lg:col-span-1">
+             <img src="/complete-guide.jpg" alt="Store" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+             <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors z-10" />
+             <div className="absolute inset-0 p-10 flex flex-col justify-end z-20">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Store</h4>
+                <p className="text-3xl font-serif italic leading-tight">Clinical Guides</p>
+             </div>
           </Link>
         </footer>
       </article>
