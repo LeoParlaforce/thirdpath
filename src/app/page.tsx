@@ -7,9 +7,9 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-16 flex flex-col gap-12 min-h-screen font-serif w-full">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-16 flex flex-col gap-12 min-h-screen font-serif w-full text-slate-900">
 
-      {/* Header / Intro - Italique supprimé */}
+      {/* Header / Intro - Sans fond blanc, s'intègre à votre arrière-plan */}
       <section className="text-center mt-8">
         <h1 className="text-4xl md:text-5xl font-medium mb-4 tracking-tight text-slate-900">
           Third Path — Psychology
@@ -19,19 +19,19 @@ export default function HomePage() {
         </p>
         
         {/* Badge "No AI" */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-800 text-xs font-sans font-medium tracking-wide">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/80 border border-blue-100 text-blue-800 text-xs font-sans font-medium tracking-wide shadow-sm backdrop-blur-sm">
           <span className="text-blue-500">✦</span>
           100% Human Intelligence. No AI.
         </div>
       </section>
 
-      {/* Grid Section */}
+      {/* Grid Section - Les cartes sont les seuls éléments avec un fond pour créer l'effet d'encadré */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto w-full">
         
-        {/* Card 1 - Italique supprimé */}
+        {/* Card 1 - Boutique */}
         <Link
           href="/boutique"
-          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white"
+          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/90 backdrop-blur-sm"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
             <img
@@ -48,10 +48,10 @@ export default function HomePage() {
           </div>
         </Link>
 
-        {/* Card 2 - Italique supprimé */}
+        {/* Card 2 - Articles */}
         <Link
           href="/articles"
-          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white"
+          className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/90 backdrop-blur-sm"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
             <img
@@ -68,12 +68,12 @@ export default function HomePage() {
           </div>
         </Link>
 
-        {/* Card 3 - App Link - Italique supprimé */}
+        {/* Card 3 - App Link (Couleur bleue distinctive) */}
         <a
           href="https://chat.troisiemechemin.fr"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/30 shadow-sm"
+          className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/80 shadow-sm backdrop-blur-sm"
         >
           <div className="h-40 overflow-hidden border-b border-blue-100">
             <img

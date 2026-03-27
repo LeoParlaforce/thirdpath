@@ -25,8 +25,7 @@ export default async function EbookPage({ params }: PageProps) {
   if (!p) return notFound()
 
   return (
-    <main className="min-h-screen text-slate-900 bg-transparent">
-      {/* Schéma SEO - Product */}
+    <main className="min-h-screen text-slate-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -48,13 +47,12 @@ export default async function EbookPage({ params }: PageProps) {
       />
 
       <section className="mx-auto max-w-5xl px-6 py-14">
-        <Link href="/boutique" className="text-sm underline opacity-60 hover:opacity-100 transition-opacity">
+        <Link href="/boutique" className="text-sm underline text-slate-500 hover:text-slate-900 transition-colors">
           ← Back to Store
         </Link>
 
         <div className="mt-6 grid gap-12 md:grid-cols-2 md:items-stretch">
-          {/* Image avec les classes canoniques suggérées */}
-          <div className="relative aspect-3/4 md:min-h-125 overflow-hidden rounded-xl border bg-white/10 backdrop-blur-sm shadow-2xl flex">
+          <div className="relative aspect-3/4 md:min-h-125 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl flex">
             <Image 
               src={p.image} 
               alt={`Psychology guide: ${p.title}`} 
@@ -65,16 +63,16 @@ export default async function EbookPage({ params }: PageProps) {
             />
           </div>
 
-          <div className="flex flex-col p-8 rounded-2xl bg-white/30 backdrop-blur-md border border-white/20 h-full text-slate-900">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight italic">{p.title}</h1>
-            <p className="mt-6 text-lg opacity-90 leading-relaxed font-serif">{p.summary}</p>
+          <div className="flex flex-col p-8 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200 shadow-sm h-full text-slate-900">
+            <h1 className="font-serif text-4xl md:text-5xl font-bold leading-tight italic text-slate-900">{p.title}</h1>
+            <p className="mt-6 text-lg text-slate-700 leading-relaxed font-serif">{p.summary}</p>
 
             {p.chapters.length > 0 && (
               <div className="mt-8 grow">
-                <h2 className="text-xs font-bold uppercase tracking-widest opacity-50 text-blue-600">Contents</h2>
+                <h2 className="text-xs font-bold uppercase tracking-widest text-blue-600 opacity-60">Contents</h2>
                 <ul className="mt-4 space-y-2">
                   {p.chapters.map((c, i) => (
-                    <li key={i} className="flex items-baseline text-sm opacity-80 italic">
+                    <li key={i} className="flex items-baseline text-sm text-slate-600 italic">
                       <span className="mr-3 text-blue-600 font-bold">/</span> {c}
                     </li>
                   ))}
@@ -82,22 +80,15 @@ export default async function EbookPage({ params }: PageProps) {
               </div>
             )}
 
-            {/* Alignement parfait : items-end permet d'aligner la base du bouton "Join" 
-                sur la base du bouton "Order Now", même avec le prix au-dessus. */}
             <div className="mt-12 flex flex-col sm:flex-row gap-4 items-end">
               <div className="w-full sm:flex-1">
-                <BuyButton 
-                  slug={p.slug} 
-                  priceEUR={p.priceEUR} 
-                  priceUSD={p.priceUSD} 
-                  image={p.image} 
-                />
+                <BuyButton slug={p.slug} priceEUR={p.priceEUR} priceUSD={p.priceUSD} image={p.image} />
               </div>
               <a
                 href="https://chat.troisiemechemin.fr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center px-8 h-13 rounded-md border-2 border-blue-600 text-blue-600 font-bold uppercase tracking-tight hover:bg-blue-600 hover:text-white transition duration-200 text-sm"
+                className="w-full sm:w-auto flex items-center justify-center px-8 h-13 rounded-md border-2 border-blue-600 text-blue-600 font-bold uppercase tracking-tight hover:bg-blue-600 hover:text-white transition-all text-sm"
               >
                 Join the app
               </a>

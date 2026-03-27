@@ -1,4 +1,3 @@
-// src/app/articles/page.tsx
 import Link from "next/link"
 import { getAllPosts } from "@/lib/posts"
 
@@ -11,7 +10,7 @@ export default function ArticlesPage() {
   const posts = getAllPosts()
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 font-serif w-full overflow-hidden">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 font-serif w-full overflow-hidden text-slate-900">
       <header className="mb-12 md:mb-16 border-b border-slate-200 pb-8">
         <h1 className="text-4xl md:text-5xl font-medium italic tracking-tight text-slate-900 mb-4">
           Library of Thoughts
@@ -29,7 +28,7 @@ export default function ArticlesPage() {
             className="group block transition-all"
           >
             <article className="flex flex-col gap-4">
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition group-hover:shadow-md bg-white">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition group-hover:shadow-md bg-white/90 backdrop-blur-sm">
                 <img
                   src={post.image}
                   alt={post.title}

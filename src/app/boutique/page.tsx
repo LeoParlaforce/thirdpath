@@ -8,11 +8,11 @@ export const metadata = {
 
 export default function Boutique() {
   return (
-    <main className="min-h-screen text-slate-900 bg-transparent">
+    <main className="min-h-screen text-slate-900">
       <section className="mx-auto max-w-6xl px-6 py-14">
-        <h1 className="font-serif text-4xl md:text-5xl font-bold">Store</h1>
+        <h1 className="font-serif text-4xl md:text-5xl font-bold text-slate-900">Store</h1>
 
-        <p className="mt-4 text-lg opacity-80 max-w-2xl">
+        <p className="mt-4 text-lg text-slate-700 max-w-2xl">
           Psychology is not only theory. It matters in practice.
           Read clearly, apply concretely, and tend to your world.
         </p>
@@ -22,7 +22,7 @@ export default function Boutique() {
             <a
               key={p.slug}
               href={`/boutique/${p.slug}`}
-              className="group block relative overflow-hidden rounded-xl border bg-white/40 backdrop-blur-md transition-all duration-300 hover:shadow-xl hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="group block relative overflow-hidden rounded-xl border border-slate-200 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
             >
               <div className="relative aspect-3/4 w-full overflow-hidden">
                 <Image
@@ -52,8 +52,8 @@ export default function Boutique() {
                 </div>
               </div>
 
-              <div className="p-6 border-t border-white/10">
-                <h3 className="font-serif text-lg font-bold">{p.title}</h3>
+              <div className="p-6 border-t border-slate-100 bg-white">
+                <h3 className="font-serif text-lg font-bold text-slate-900">{p.title}</h3>
               </div>
             </a>
           ))}

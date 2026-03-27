@@ -114,7 +114,7 @@ export default async function ArticlePage({ params }: { params: any }) {
         <ShareActions url={articleUrl} title={post.title} />
 
         <div className="max-w-5xl mx-auto mb-10">
-          <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 p-2 bg-white">
+          <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 p-2 bg-white/90 backdrop-blur-sm">
              <img src={post.image} alt={post.title} className="w-full h-auto max-h-150 object-cover rounded-2xl block" />
           </div>
           {post.imageCredit && (
@@ -126,13 +126,13 @@ export default async function ArticlePage({ params }: { params: any }) {
           )}
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100">
           <div className="prose-xl">
             <ReactMarkdown components={markdownComponents}>{contentParts[0]}</ReactMarkdown>
 
             {contentParts.length > 1 && (
               <a href="https://chat.thirdpath.cloud" target="_blank" rel="noopener noreferrer" className="block my-16 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all">
-                <div className="bg-white rounded-[22px] p-3 flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                <div className="bg-white rounded-[22px] p-3 flex flex-col md:flex-row items-center gap-6 md:gap-8 border border-slate-50">
                   <div className="w-full md:w-48 aspect-video md:aspect-square rounded-xl overflow-hidden shadow-sm border border-slate-100">
                     <img src="/humanist-approach.jpg" alt="Third Path" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1]" />
                   </div>
@@ -156,17 +156,16 @@ export default async function ArticlePage({ params }: { params: any }) {
           <ShareActions url={articleUrl} title={post.title} />
         </div>
 
-        <footer className="max-w-7xl mx-auto mt-24 grid md:grid-cols-3 gap-6 font-sans border-t border-slate-100 pt-16 mb-20">
+        <footer className="max-w-7xl mx-auto mt-24 grid md:grid-cols-3 gap-6 font-sans border-t border-slate-100 pt-16 mb-20 text-slate-900">
           <Link href="/articles" className="group h-96 relative rounded-4xl overflow-hidden border border-slate-200 shadow-xl">
             <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url(${post.image})` }} />
             <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/50 transition-colors" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Library</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2 font-sans">Library</h4>
               <p className="text-3xl font-serif italic mb-2">More Articles</p>
-              <p className="text-sm font-light opacity-80">Continue your reading.</p>
+              <p className="text-sm font-light opacity-80 font-sans">Continue your reading.</p>
             </div>
           </Link>
-          {/* Les autres cartes du footer peuvent être ajoutées ici */}
         </footer>
       </article>
     </main>
