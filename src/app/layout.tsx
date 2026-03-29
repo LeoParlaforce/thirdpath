@@ -8,34 +8,36 @@ const garamond = EB_Garamond({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-garamond",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thirdpath.cloud"),
   title: {
-    default: "Third Path — Psychology guides",
+    default: "Third Path — Psychology Guides",
     template: "%s | Third Path"
   },
-  description: "English psychology guides and practical online resources.",
+  description: "Practical, research-backed psychological guidance for personal growth and well-being. Written by a licensed psychologist.",
   alternates: {
     canonical: "https://thirdpath.cloud",
-    languages: { 
-      en: "https://thirdpath.cloud", 
-      "fr-FR": "https://troisiemechemin.fr" 
+    languages: {
+      en: "https://thirdpath.cloud",
+      "fr-FR": "https://troisiemechemin.fr"
     },
   },
   openGraph: {
-    title: "Third Path — Psychology guides",
+    title: "Third Path — Psychology Guides",
     description: "Practical, research-backed psychological guidance for personal growth and well-being.",
     url: "https://thirdpath.cloud",
     siteName: "Third Path",
     locale: "en_US",
     type: "website",
+    images: [{ url: "https://thirdpath.cloud/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Third Path — Psychology",
-    description: "Research-backed psychology guides.",
+    description: "Research-backed psychology guides by a licensed psychologist.",
     images: ["https://thirdpath.cloud/og-image.jpg"],
   },
   robots: {
@@ -49,9 +51,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: "votre-code-de-verification",
-  },
 }
 
 const grainBg = {
@@ -59,11 +58,75 @@ const grainBg = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://thirdpath.cloud/#organization",
+        "name": "Third Path",
+        "url": "https://thirdpath.cloud",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://thirdpath.cloud/#logo",
+          "url": "https://thirdpath.cloud/logo.png",
+        },
+        "description": "Practical, research-backed psychological guidance and resources.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1184 route de la Maurette",
+          "addressLocality": "Roquebrune-sur-Argens",
+          "postalCode": "83520",
+          "addressCountry": "FR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "leo.gayrard@gmail.com",
+          "contactType": "customer support"
+        },
+        "sameAs": [
+          "https://parlaforce.com",
+          "https://troisiemechemin.fr",
+          "https://chat.troisiemechemin.fr"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://thirdpath.cloud/#website",
+        "url": "https://thirdpath.cloud",
+        "name": "Third Path",
+        "description": "Practical, research-backed psychological guidance for personal growth.",
+        "publisher": { "@id": "https://thirdpath.cloud/#organization" },
+        "inLanguage": "en-US",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://thirdpath.cloud/articles?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://thirdpath.cloud/#author",
+        "name": "Leo Gayrard",
+        "jobTitle": "Licensed Psychologist",
+        "url": "https://thirdpath.cloud",
+        "worksFor": { "@id": "https://thirdpath.cloud/#organization" },
+        "knowsAbout": ["Psychology", "Clinical Therapy", "Self-esteem", "Anxiety", "Depression", "ADHD"],
+        "sameAs": [
+          "https://parlaforce.com/#author",
+          "https://troisiemechemin.fr"
+        ]
+      }
+    ]
+  }
+
   return (
     <html lang="en" className="overflow-x-hidden w-full" style={{ colorScheme: 'light' }}>
       <body className={`${garamond.variable} font-serif min-h-screen flex flex-col overflow-x-hidden w-full antialiased text-slate-900`}>
-        
-        {/* Google Analytics */}
+
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QYNZ30WC5X"
           strategy="afterInteractive"
@@ -73,15 +136,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-QYNZ30WC5X', {
-              page_path: window.location.pathname,
-            });
+            gtag('config', 'G-QYNZ30WC5X', { page_path: window.location.pathname });
           `}
         </Script>
 
-        {/* Header avec Grain Subtil - Fond blanc semi-opaque pour préserver le design */}
+        {/* HEADER */}
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg}></div>
+          <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg} aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6 py-3 flex items-center justify-between">
             <Link
               href="/"
@@ -90,11 +151,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               thirdpath.cloud
             </Link>
 
-            <nav className="flex gap-1 md:gap-2 text-base" aria-label="Main navigation">
+            <nav aria-label="Main navigation" className="flex gap-1 md:gap-2 text-base">
               {[
                 { href: "/", label: "Home" },
                 { href: "/boutique", label: "Store" },
                 { href: "/articles", label: "Articles" },
+                // AJOUT : lien vers la page thérapeutes dans la navigation principale
+                { href: "/for-therapists", label: "Therapists" },
               ].map((l) => (
                 <Link
                   key={l.href}
@@ -108,26 +171,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        {/* Main en Transparent pour laisser passer votre arrière-plan global */}
-        <main className="flex-1 w-full max-w-full relative z-0">
+        <div className="flex-1 w-full max-w-full relative z-0">
           {children}
-        </main>
+        </div>
 
-        {/* Footer avec Grain - Fond blanc pour la lisibilité des mentions */}
-        <footer className="relative border-t border-slate-200 bg-white overflow-hidden text-slate-900">
-          <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg}></div>
+        {/* FOOTER */}
+        <footer className="relative border-t border-slate-200 bg-white overflow-hidden text-slate-900" role="contentinfo">
+          <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg} aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row md:justify-between items-center gap-8 text-sm text-center md:text-left">
-            <div className="flex flex-col md:flex-row gap-6">
-              <Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Legal Notice</Link>
-              <Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Editorial Standards</Link>
-              <Link href="/about-us" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">About Us</Link>
-            </div>
+
+            <nav aria-label="Legal navigation">
+              <ul className="flex flex-col md:flex-row gap-4 md:gap-6 list-none p-0">
+                <li><Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Legal Notice</Link></li>
+                <li><Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Editorial Standards</Link></li>
+                <li><Link href="/about-us" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">About Us</Link></li>
+                {/* AJOUT : lien footer vers page thérapeutes */}
+                <li><Link href="/for-therapists" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">For Therapists</Link></li>
+              </ul>
+            </nav>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="mailto:leo.gayrard@gmail.com" className="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:bg-blue-600 shadow-sm">
+              <a
+                href="mailto:leo.gayrard@gmail.com"
+                className="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:bg-blue-600 shadow-sm"
+              >
                 Contact
               </a>
-              <a href="https://www.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="px-6 py-2 rounded-full border border-slate-300 bg-slate-50 text-slate-700 text-sm font-medium transition hover:bg-white">
+              <a
+                href="https://www.troisiemechemin.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 rounded-full border border-slate-300 bg-slate-50 text-slate-700 text-sm font-medium transition hover:bg-white"
+              >
                 Vous parlez le français ?
               </a>
             </div>
@@ -137,47 +212,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 © {new Date().getFullYear()} thirdpath.cloud
               </span>
               <span className="opacity-40 text-[9px] font-sans">
-                1184 route de la Maurette, 83520 Roquebrune-sur-Argens, France
+                Leo Gayrard · Licensed Psychologist · Roquebrune-sur-Argens, France
               </span>
             </div>
           </div>
         </footer>
 
-        {/* Données structurées JSON-LD complètes */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Third Path",
-              "url": "https://thirdpath.cloud",
-              "logo": "https://thirdpath.cloud/logo.png",
-              "founder": {
-                "@type": "Person",
-                "name": "Leo Gayrard",
-                "jobTitle": "Licensed Psychologist",
-                "sameAs": [
-                  "https://www.troisiemechemin.fr",
-                  "https://parlaforce.com",
-                  "https://linkedin.com/in/leogayrard"
-                ]
-              },
-              "description": "Practical, research-backed psychological guidance and resources.",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "1184 route de la Maurette",
-                "addressLocality": "Roquebrune-sur-Argens",
-                "postalCode": "83520",
-                "addressCountry": "FR"
-              },
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "leo.gayrard@gmail.com",
-                "contactType": "customer support"
-              }
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </body>
     </html>

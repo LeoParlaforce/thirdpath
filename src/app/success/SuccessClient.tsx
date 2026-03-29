@@ -1,160 +1,184 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { products } from "@/app/boutique/data"
 
-type TrackId = "t1-en" | "t2-en"
-
-const TRACK_GCAL: Record<TrackId, { title: string; start: string; end: string }> = {
-  "t1-en": { title: "Group Theme 1 — ENG", start: "20260110T190000", end: "20260110T203000" },
-  "t2-en": { title: "Group Theme 2 — ENG", start: "20260117T190000", end: "20260117T203000" },
-}
-
-function gcalUrl(p: {
-  title: string
-  start: string
-  end: string
-  details?: string
-  location?: string
-  ctz?: string
-  recur?: string
-}) {
-  const q = new URLSearchParams()
-  q.set("text", p.title)
-  q.set("dates", `${p.start}/${p.end}`)
-  if (p.details) q.set("details", p.details)
-  if (p.location) q.set("location", p.location)
-  q.set("ctz", p.ctz || "Europe/Paris")
-  if (p.recur) q.set("recur", `RRULE:${p.recur}`)
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&${q.toString()}`
-}
+// FIX : suppression complète de tout le code groupes/tracks/Zoom/Jitsi/Calendar
+// (TrackId, TRACK_GCAL, gcalUrl, sending, welcomeEmail, PortalButton, etc.)
+// Ce code est mort depuis l'arrêt des groupes thérapeutiques.
+// Il reste uniquement : vérification paiement → téléchargement PDF → suggestions upsell.
 
 export default function SuccessClient() {
   const sp = useSearchParams()
   const sid = sp.get("session_id") || sp.get("id")
 
-  const [track, setTrack] = useState<TrackId | null>(null)
-  const [email, setEmail] = useState<string | null>(null)
   const [slug, setSlug] = useState<string | null>(null)
-  const [sending, setSending] = useState(false)
+  const [email, setEmail] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    if (!sid) return
-    ;(async () => {
-      const r = await fetch(`/api/checkout?id=${encodeURIComponent(sid)}`, { cache: "no-store" })
-      if (!r.ok) return
-      const data: { track?: TrackId; email?: string; slug?: string } = await r.json()
-      setTrack(data.track ?? null)
-      setEmail(data.email ?? null)
-      setSlug(data.slug ?? null)
-      if (data.email && data.track) {
-        setSending(true)
-        await fetch("/api/tracks/send-welcome", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: data.email, track: data.track }),
-        })
-        setSending(false)
-      }
-    })()
+    if (!sid) {
+      setLoading(false)
+      setError(true)
+      return
+    }
+    // FIX : appel unifié vers /api/checkout (suppression du doublon /api/checkout/success)
+    fetch(`/api/checkout?id=${encodeURIComponent(sid)}`, { cache: "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error()
+        return r.json()
+      })
+      .then(data => {
+        setSlug(data.slug ?? null)
+        setEmail(data.email ?? null)
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false))
   }, [sid])
 
-  const gcal = useMemo(() => {
-    if (!track) return ""
-    const m = TRACK_GCAL[track]
-    return gcalUrl({
-      title: m.title,
-      start: m.start,
-      end: m.end,
-      details: "Online group session. The access link has been sent to your email.",
-      location: "Zoom",
-      ctz: "Europe/Paris",
-      recur: "FREQ=WEEKLY;INTERVAL=2",
-    })
-  }, [track])
-
-  const suggestions = useMemo(() => {
-    return products.filter(p => p.slug !== slug).slice(0, 6)
-  }, [slug])
-
   async function handleDownload() {
-    if (!slug) return
+    if (!slug || !sid) return
+    const url = `/api/download?session_id=${encodeURIComponent(sid)}&slug=${encodeURIComponent(slug)}`
     const link = document.createElement("a")
-    link.href = `/boutique/${slug}?download=1`
-    link.download = `${slug}.pdf`
+    link.href = url
+    link.target = "_blank"
+    document.body.appendChild(link)
     link.click()
+    link.remove()
   }
 
+  // Suggestions upsell : autres guides sauf celui acheté
+  const suggestions = products
+    .filter(p => p.slug !== slug && p.slug !== "introduction-aux-guides")
+    .slice(0, 3)
+
   return (
-    <main className="max-w-5xl mx-auto px-6 py-16 text-foreground">
-      <h1 className="text-3xl font-bold">Payment confirmed</h1>
-      {email && (
-        <p className="mt-2 opacity-80">
-          Confirmation sent to <span className="font-medium">{email}</span>.
-        </p>
+    <main className="max-w-3xl mx-auto px-6 py-16 font-serif">
+
+      {/* ÉTAT : CHARGEMENT */}
+      {loading && (
+        <div className="text-center py-20">
+          <p className="text-slate-400 italic animate-pulse">Verifying your session…</p>
+        </div>
       )}
 
-      {/* Group sessions */}
-      {track && (
-        <div className="mt-6 space-y-3">
-          <p className="opacity-80">
-            Subscription confirmed for <strong>{track}</strong>.
+      {/* ÉTAT : ERREUR */}
+      {!loading && (error || !slug) && (
+        <div className="text-center py-20 space-y-6">
+          <h1 className="text-3xl font-bold italic">Something went wrong.</h1>
+          <p className="text-slate-500 italic">
+            If you were charged, contact us and we will resolve it immediately.
           </p>
           <a
-            href={gcal}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-md border px-4 py-2 text-sm transition hover:scale-[1.02] hover:border-accent hover:text-accent"
+            href="mailto:leo.gayrard@gmail.com?subject=Download issue — Third Path&body=My session ID is: "
+            className="inline-block px-8 py-3 bg-slate-900 text-white rounded-full text-sm font-bold hover:bg-blue-600 transition"
           >
-            Add to Google Calendar
+            Contact Support →
           </a>
-          {sending && <p className="text-xs opacity-60">Sending welcome email…</p>}
         </div>
       )}
 
-      {/* E-book download */}
-      {!track && slug && (
-        <div className="mt-8">
-          <button
-            onClick={handleDownload}
-            className="rounded-md bg-purple-600 text-white px-4 py-2 text-sm hover:bg-purple-700 transition"
-          >
-            Download now
-          </button>
-        </div>
-      )}
+      {/* ÉTAT : SUCCÈS */}
+      {!loading && !error && slug && (
+        <div className="space-y-12">
 
-      {/* Guide suggestions */}
-      {!track && suggestions.length > 0 && (
-        <section className="mt-12">
-          <h2 className="text-2xl font-semibold">Other guides you might like</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {suggestions.map(p => (
-              <article key={p.slug} className="border rounded-lg overflow-hidden">
-                {p.image && (
-                  <Image
-                    src={p.image}
-                    alt={p.title}
-                    width={400}
-                    height={200}
-                    className="w-full h-40 object-cover"
-                  />
-                )}
-                <div className="p-4">
-                  <h3 className="font-medium">{p.title}</h3>
-                  <a
-                    href={`/boutique/${p.slug}`}
-                    className="inline-block mt-3 text-sm text-purple-600 hover:underline"
-                  >
-                    View guide
-                  </a>
-                </div>
-              </article>
-            ))}
+          {/* CONFIRMATION */}
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+              <span className="text-green-600 text-xl">✓</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold italic tracking-tight">
+              Payment confirmed.
+            </h1>
+            {email && (
+              <p className="text-slate-500 italic text-sm">
+                Confirmation sent to <span className="text-slate-700 font-medium">{email}</span>
+              </p>
+            )}
           </div>
-        </section>
+
+          {/* DOWNLOAD */}
+          <div className="border border-slate-200 rounded-2xl p-8 bg-white/80 backdrop-blur-sm text-center space-y-4">
+            <p className="text-slate-600 italic leading-relaxed">
+              Your guide is ready. Download it now — the secure link is valid for 1 hour.
+            </p>
+            <button
+              onClick={handleDownload}
+              className="inline-block px-10 py-4 bg-slate-900 text-white rounded-full font-bold text-sm hover:bg-blue-600 transition hover:-translate-y-0.5 transform-gpu shadow-sm"
+            >
+              Download PDF →
+            </button>
+            <p className="text-slate-400 text-xs italic">
+              Check your spam folder if you don't receive the confirmation email.
+            </p>
+          </div>
+
+          {/* UPSELL : app chat */}
+          <div className="border border-blue-200 rounded-2xl p-8 bg-blue-50/50 text-center space-y-4">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-blue-500">Go further</p>
+            <h2 className="text-2xl font-bold italic text-slate-900">
+              Want to work through this with a real psychologist?
+            </h2>
+            <p className="text-slate-500 italic text-sm max-w-md mx-auto">
+              Direct 1:1 access via the Third Path app. Human, encrypted, no AI.
+            </p>
+            <a
+              href="https://chat.troisiemechemin.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-bold text-sm hover:bg-slate-900 transition"
+            >
+              Open the App →
+            </a>
+          </div>
+
+          {/* UPSELL : autres guides */}
+          {suggestions.length > 0 && (
+            <section className="space-y-6">
+              <h2 className="text-2xl font-bold italic text-slate-900 text-center">
+                You might also like
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {suggestions.map(p => (
+                  <Link
+                    key={p.slug}
+                    href={`/boutique/${p.slug}`}
+                    className="group block border border-slate-200 rounded-xl overflow-hidden bg-white/80 hover:border-blue-300 hover:shadow-md transition"
+                  >
+                    <div className="relative aspect-3/4 w-full overflow-hidden">
+                      <Image
+                        src={p.image}
+                        alt={p.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-bold italic text-slate-900 group-hover:text-blue-600 transition-colors text-sm">
+                        {p.title}
+                      </h3>
+                      <p className="text-blue-600 text-xs font-bold mt-1">{p.priceEUR}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div className="text-center pt-4">
+            <Link
+              href="/boutique"
+              className="text-slate-400 hover:text-blue-600 text-sm italic transition underline underline-offset-4"
+            >
+              ← Back to Store
+            </Link>
+          </div>
+        </div>
       )}
     </main>
   )

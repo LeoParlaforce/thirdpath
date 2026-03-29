@@ -1,52 +1,32 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
 import { getAllPosts } from "@/lib/posts"
 import { products } from "@/app/boutique/data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://thirdpath.cloud'
-  const lastMod = new Date()
+  const base = 'https://thirdpath.cloud'
+  const now = new Date()
 
-  // 1. Pages Statiques
   const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: lastMod,
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/vision`,
-      lastModified: lastMod,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/articles`,
-      lastModified: lastMod,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/boutique`,
-      lastModified: lastMod,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
+    { url: base, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${base}/boutique`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/articles`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/for-therapists`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/about-us`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${base}/editorial-standards`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${base}/mentions-legales`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
   ]
 
-  // 2. Pages Articles Dynamiques
-  const postEntries: MetadataRoute.Sitemap = getAllPosts().map((post: any) => ({
-    url: `${baseUrl}/articles/${post.slug}`,
-    lastModified: new Date(post.date), // Utilise la date de l'article si possible
-    changeFrequency: 'monthly',
-    priority: 0.7,
+  const postEntries: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${base}/articles/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
   }))
 
-  // 3. Pages Produits Dynamiques
   const productEntries: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${baseUrl}/boutique/${product.slug}`,
-    lastModified: lastMod,
-    changeFrequency: 'monthly',
+    url: `${base}/boutique/${product.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
