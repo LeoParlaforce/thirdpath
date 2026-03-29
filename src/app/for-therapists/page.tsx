@@ -35,20 +35,20 @@ const problems = [
 const useCases = [
   {
     number: "01",
-    title: "Daily therapeutic continuity",
-    description: "Your patients don't disappear between sessions. Third Path gives them a structured, encrypted space to process, reflect, and stay connected to the work — every day. You maintain clinical presence without multiplying appointments.",
+    title: "Daily therapeutic sessions",
+    description: "Historically, effective therapy meant daily contact. Today, economic constraints have reduced that to one hour a week — which is clinically insufficient. Third Path restores daily therapeutic work at a price patients can afford. Each exchange is a real session, not a supplement.",
     tag: "For all practitioners"
   },
   {
     number: "02",
     title: "Supervised clinical practice",
-    description: "Direct supervision with Leo Gayrard, licensed psychologist. Discuss complex cases, sharpen your theoretical framework, and develop your clinical identity — through the same app, asynchronously or in real time.",
+    description: "Direct supervision with Leo Gayrard, licensed psychologist — entirely via chat. Discuss complex cases, sharpen your theoretical framework, and develop your clinical identity at your own pace, asynchronously.",
     tag: "For licensed & trainee therapists"
   },
   {
     number: "03",
-    title: "Patient acquisition",
-    description: "Patients seeking therapy discover practitioners through the Third Path network. Your profile becomes a clinical introduction — your approach, your specializations, your availability. A referral channel that works while you work.",
+    title: "Patient acquisition — and revenue",
+    description: "Patients seeking therapy discover practitioners through the Third Path network. Your profile becomes a clinical introduction — your approach, your specializations, your availability. Every patient you invite to the app or find through it generates direct revenue for you.",
     tag: "For private practice"
   },
 ]
@@ -56,8 +56,8 @@ const useCases = [
 const profiles = [
   {
     title: "Private practice therapist",
-    pain: "Full calendar, but patients drop out. No tool to maintain continuity between sessions.",
-    gain: "Daily patient contact. Lower dropout. Stronger therapeutic alliance."
+    pain: "Limited to one session per week per patient. Clinically insufficient, economically constraining for both sides.",
+    gain: "Daily sessions via the app. Each patient you bring or find generates revenue. More impact, more income."
   },
   {
     title: "Therapist in training",
@@ -79,7 +79,7 @@ const profiles = [
 const faqs = [
   {
     q: "Is this a replacement for in-person sessions?",
-    a: "No — and this distinction matters clinically. Third Path is a continuity tool. It extends the therapeutic relationship into the daily life of the patient, between sessions. In-person or video sessions remain the core of the work."
+    a: "Yes — and this is the point. Historically, effective therapy required daily contact. Third Path makes that possible again at a price patients can actually afford. Each exchange is a real therapeutic session, not a supplement to one."
   },
   {
     q: "Is the platform clinically secure?",
@@ -87,7 +87,7 @@ const faqs = [
   },
   {
     q: "What does supervision look like in practice?",
-    a: "Supervision with Leo Gayrard happens through the app — asynchronous written exchanges or scheduled real-time sessions. You present cases, discuss theoretical frameworks, and receive structured clinical feedback."
+    a: "Supervision with Leo Gayrard happens entirely via chat — asynchronous written exchanges through the app. You present cases, discuss theoretical frameworks, and receive structured clinical feedback at your own pace."
   },
   {
     q: "Can I use this alongside my existing practice management tools?",
@@ -159,7 +159,7 @@ export default function ForTherapists() {
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-500 italic font-light leading-relaxed max-w-2xl mb-12">
-          Historically, effective therapy meant daily contact. The economic reality of modern practice has made that impossible — until now.
+          Historically, effective therapy meant daily contact. Third Path makes that possible again — real sessions, every day, at a price patients can actually afford.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -287,8 +287,9 @@ export default function ForTherapists() {
 
           <ul className="space-y-3 text-left max-w-sm mx-auto">
             {[
-              "Daily patient channel (encrypted)",
-              "Clinical supervision with Leo Gayrard",
+              "Daily patient sessions (encrypted chat)",
+              "Revenue for every patient you bring or find",
+              "Clinical supervision with Leo Gayrard (chat)",
               "Patient acquisition via the network",
               "No AI — 100% human exchanges",
               "Cancel anytime, no commitment",
@@ -350,11 +351,11 @@ export default function ForTherapists() {
       {/* ── FINAL CTA ── */}
       <section className="max-w-4xl mx-auto px-6 py-16 md:py-24 text-center">
         <h2 className="text-4xl md:text-6xl font-bold italic tracking-tighter mb-6 leading-tight">
-          Your patients need more than{" "}
-          <span className="text-blue-600">one hour a week.</span>
+          Therapy was always meant to be{" "}
+          <span className="text-blue-600">daily.</span>
         </h2>
         <p className="text-slate-500 italic text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-          Third Path is the infrastructure for daily therapeutic work. Built by a psychologist, for psychologists.
+          Third Path restores what therapy was always supposed to be — frequent, accessible, human. Built by a psychologist, for psychologists.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
