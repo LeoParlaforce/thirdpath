@@ -78,8 +78,8 @@ const profiles = [
 
 const faqs = [
   {
-    q: "Is this a replacement for in-person sessions?",
-    a: "Yes — and this is the point. Historically, effective therapy required daily contact. Third Path makes that possible again at a price patients can actually afford. Each exchange is a real therapeutic session, not a supplement to one."
+    q: "Are chat exchanges real therapy sessions?",
+    a: "Yes. Each exchange on Third Path is a therapeutic session in its own right — not a supplement, not a chatbot, not homework. Historically, effective therapy required daily contact. Third Path makes that clinically and economically possible again."
   },
   {
     q: "Is the platform clinically secure?",
