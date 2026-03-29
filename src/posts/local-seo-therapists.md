@@ -1,6 +1,8 @@
 ---
 title: "Why the Internet Is Still Geographic (Local SEO for Therapists)"
 date: "2026-03-23"
+category: "Professional Development"
+author: "Leo Gayrard"
 summary: "Most therapists believe the internet gives them global visibility. In reality, search engines and AI still prioritize geographic relevance. Learn how local SEO can help you attract real clients."
 slug: "local-seo-therapists"
 image: "/articles/local-seo-therapists.jpg"
@@ -9,7 +11,7 @@ faqs:
   - question: "Can a therapist attract local patients without a physical office?"
     answer: "Absolutely. Digital strategy for therapists now prioritizes 'Service Areas'. By anchoring your Google Business Profile and website content to a specific city, you signal clinical relevance to local algorithms even if your practice is 100% online."
   - question: "Why is 'Therapist Near Me' the most competitive keyword in clinical SEO?"
-    answer: "It’s a high-intent search. Patients using this term are ready to book. To compete, your local SEO must include geographic markers in your H1 tags and Meta Descriptions, transforming your site into a localized clinical resource."
+    answer: "It's a high-intent search. Patients using this term are ready to book. To compete, your local SEO must include geographic markers in your H1 tags and Meta Descriptions, transforming your site into a localized clinical resource."
   - question: "How long does it take to see results from Local SEO for a new practice?"
     answer: "With a precise digital strategy, initial indexing for local keywords typically takes 3 to 6 months. Consistency in clinical content and local citations is key to outranking large platforms."
   - question: "Does local content improve patient trust more than global content?"
