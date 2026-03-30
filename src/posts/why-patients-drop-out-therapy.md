@@ -16,6 +16,8 @@ faqs:
     answer: "Patients often disengage precisely when something begins to move — not because the therapy isn't working, but because it is starting to. The gap between sessions gives unprocessed material time to solidify into avoidance. This is a structural problem, not a motivational one."
   - question: "Does more frequent contact reduce dropout?"
     answer: "Yes. Research consistently shows that regular contact between sessions strengthens the therapeutic alliance, which is the primary predictor of treatment outcomes. Time-limited or more frequent formats have been shown to reduce dropout by up to 50% in some studies."
+  - question: "What can a therapist do this week to reduce dropout?"
+    answer: "Start by auditing your last six months of cases and counting how many patients left within the first seven sessions. Then identify what was happening in the session immediately before each exit. Most therapists find a pattern — a moment where something was touched and the patient was left to carry it alone for a week. That gap is the structural problem. Addressing it directly, rather than adjusting technique, is where the most leverage is."
 ---
 
 ## The Patient Who Stopped Showing Up
@@ -96,9 +98,26 @@ The patients who stay are not the ones who are more motivated or better suited. 
 
 Changing the frame is not about working more. It is about working in a way that matches the actual nature of the distress it is trying to hold.
 
+## What to Do This Week
+
+If this resonates with your clinical experience, here is where to start — not as a theoretical exercise, but as a concrete audit of your current practice.
+
+**Count your early exits.** Go back through the last six months of your caseload and identify every patient who left within the first seven sessions. Do not rationalize the exits — just count them, and note what was happening in the session immediately before each one. Most therapists find a pattern they had not consciously registered.
+
+**Look at what you leave unfinished.** In your next three sessions, pay attention to the moments where something is touched but not fully processed before the end of the hour. These are the moments your patient will carry alone for six days. Ask yourself: is there any way to acknowledge that this material is being left open, and to give the patient something to hold onto until the next session?
+
+**Audit the between-session space.** For each of your current patients, ask honestly: what does the space between our sessions look like for them? Do they have any contact with the therapeutic relationship between appointments, or does the work exist only in the fifty-minute window? For patients with fragile engagement, that six-day silence is not neutral — it is where the dropout decision is made.
+
+**Consider what continuity would look like.** You do not need to increase the number of sessions to increase relational continuity. A brief written exchange, a structured reflection prompt, a simple acknowledgment that the work continues between sessions — these are not replacements for clinical work, but they change the shape of the frame. They signal that the relationship does not go dormant the moment the session ends.
+
+**Get supervision on your dropout cases.** The hardest part of structural dropout to address alone is that the patterns maintaining it are largely invisible from the inside. Supervision specifically focused on the between-session experience — rather than on technique within sessions — often surfaces dynamics that are otherwise easy to miss.
+
+The dropout rate in your practice is not a fixed feature of your patient population. It is, at least in part, a function of the frame you offer them. That frame is something you can examine, and change.
+
 ## References
 
 - Swift, J. K., & Greenberg, R. P. (2012). Premature discontinuation in adult psychotherapy: A meta-analysis. *Journal of Consulting and Clinical Psychology*, 80(4), 547–559.
 - Carpallo-González, A., et al. (2023). Dropout from anxiety treatment. *Clinical Psychology Review.*
 - Harvard Health Publishing. (2014). Dropping out of psychotherapy. *Harvard Medical School.*
 - Schwartz, B., & Flowers, J. (2010). *How to Fail as a Therapist*. New Harbinger Publications.
+- Stucki, G., & Grawe, K. (2007). Alliance and dropout in psychotherapy. *Psychotherapy Research.*
