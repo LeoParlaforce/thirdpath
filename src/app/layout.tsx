@@ -156,7 +156,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: "/", label: "Home" },
                 { href: "/boutique", label: "Store" },
                 { href: "/articles", label: "Articles" },
-                // AJOUT : lien vers la page thérapeutes dans la navigation principale
                 { href: "/for-therapists", label: "Therapists" },
               ].map((l) => (
                 <Link
@@ -171,7 +170,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        <div className="flex-1 w-full max-w-full relative z-0">
+        {/* FIX MOBILE LISIBILITÉ : fond blanc semi-transparent sur mobile pour que les textes
+            slate-900 soient lisibles sur le fond marbre sombre.
+            Sur desktop, transparent pour laisser passer le fond marbre. */}
+        <div className="flex-1 w-full max-w-full relative z-0 bg-white/85 md:bg-transparent">
           {children}
         </div>
 
@@ -185,7 +187,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <li><Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Legal Notice</Link></li>
                 <li><Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Editorial Standards</Link></li>
                 <li><Link href="/about-us" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">About Us</Link></li>
-                {/* AJOUT : lien footer vers page thérapeutes */}
                 <li><Link href="/for-therapists" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">For Therapists</Link></li>
               </ul>
             </nav>
