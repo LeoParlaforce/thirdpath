@@ -41,10 +41,10 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="text-center mt-8">
-        <h1 className="text-4xl md:text-5xl font-medium mb-4 tracking-tight text-slate-900 max-md:text-white transition-colors duration-300">
+        <h1 className="text-4xl md:text-5xl font-medium mb-4 tracking-tight text-slate-900">
           Third Path — Psychology
         </h1>
-        <p className="text-base md:text-lg text-slate-700 max-md:text-slate-300 max-w-2xl mx-auto leading-relaxed font-sans opacity-90 mb-6 px-2 transition-colors duration-300">
+        <p className="text-base md:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed font-sans opacity-90 mb-6 px-2">
           Practical, research-backed psychological guidance for personal growth, well-being, and understanding human behavior.
         </p>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100/50 border border-blue-200 text-blue-800 text-xs font-sans font-medium tracking-wide shadow-sm backdrop-blur-sm">
@@ -53,24 +53,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CARDS : patients */}
+      {/* CARDS */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto w-full">
         <Link
           href="/boutique"
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
-            <img
-              src="/complete-guide.jpg"
-              alt="Psychology Clinical Guides"
-              className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
-            />
+            <img src="/complete-guide.jpg" alt="Psychology Clinical Guides" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-medium mb-2 text-slate-900">Complete Guides</h2>
-            <p className="text-slate-600 text-sm md:text-xs leading-relaxed font-sans">
-              Evidence-based frameworks for psychological understanding and clinical practice.
-            </p>
+            <p className="text-slate-600 text-sm md:text-xs leading-relaxed font-sans">Evidence-based frameworks for psychological understanding and clinical practice.</p>
           </div>
         </Link>
 
@@ -79,17 +73,11 @@ export default function HomePage() {
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-slate-100">
-            <img
-              src="/articles.jpg"
-              alt="Psychology Articles"
-              className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
-            />
+            <img src="/articles.jpg" alt="Psychology Articles" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-medium mb-2 text-slate-900">Articles</h2>
-            <p className="text-slate-600 text-sm md:text-xs leading-relaxed font-sans">
-              In-depth exploration of human behavior, mental health, and personal development.
-            </p>
+            <p className="text-slate-600 text-sm md:text-xs leading-relaxed font-sans">In-depth exploration of human behavior, mental health, and personal development.</p>
           </div>
         </Link>
 
@@ -100,48 +88,28 @@ export default function HomePage() {
           className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/80 shadow-sm backdrop-blur-md"
         >
           <div className="h-40 overflow-hidden border-b border-blue-100">
-            <img
-              src="/humanist-approach.jpg"
-              alt="Third Path App"
-              className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
-            />
+            <img src="/humanist-approach.jpg" alt="Third Path App" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-bold mb-1 text-blue-900">Daily Therapy App</h2>
-            <p className="text-blue-800 text-[10px] font-bold mb-3 uppercase tracking-widest font-sans flex items-center gap-1">
-              <span className="text-blue-500">✦</span> 100% Human · No AI
-            </p>
-            <p className="text-slate-700 text-sm md:text-xs leading-relaxed font-sans">
-              A dedicated space for therapy, supervision, and genuine human connection — every day.
-            </p>
+            <p className="text-blue-800 text-[10px] font-bold mb-3 uppercase tracking-widest font-sans flex items-center gap-1"><span className="text-blue-500">✦</span> 100% Human · No AI</p>
+            <p className="text-slate-700 text-sm md:text-xs leading-relaxed font-sans">A dedicated space for therapy, supervision, and genuine human connection — every day.</p>
           </div>
         </a>
       </section>
 
-      {/* SÉPARATEUR */}
       <div className="max-w-5xl mx-auto w-full border-t border-slate-200/60" />
 
-      {/* BLOC THÉRAPEUTES — AJOUT */}
-      {/* Ce bloc cible les praticiens qui arrivent sur la homepage.
-          Il les oriente immédiatement vers la page dédiée /for-therapists
-          sans encombrer le parcours patient. */}
+      {/* BLOC THÉRAPEUTES */}
       <section className="max-w-5xl mx-auto w-full">
         <Link
           href="/for-therapists"
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-blue-300 hover:shadow-lg transition-all duration-300 bg-white/80 backdrop-blur-md"
         >
           <div className="flex flex-col md:flex-row items-center gap-0">
-
-            {/* IMAGE */}
             <div className="w-full md:w-64 h-48 md:h-full shrink-0 overflow-hidden border-b md:border-b-0 md:border-r border-slate-100">
-              <img
-                src="/humanist-approach.jpg"
-                alt="For therapists"
-                className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700"
-              />
+              <img src="/humanist-approach.jpg" alt="For therapists" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
             </div>
-
-            {/* CONTENU */}
             <div className="flex-1 p-8 md:p-10 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/60 border border-blue-200 text-blue-700 text-[10px] font-sans font-bold uppercase tracking-widest">
                 <span className="text-blue-500">✦</span> For Practitioners
@@ -157,7 +125,6 @@ export default function HomePage() {
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
-
           </div>
         </Link>
       </section>
