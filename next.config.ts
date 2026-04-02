@@ -12,16 +12,6 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '**.thirdpath.cloud' },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.thirdpath.cloud' }],
-        destination: 'https://thirdpath.cloud/:path*',
-        permanent: true,
-      },
-    ]
-  },
   async headers() {
     return [
       {
