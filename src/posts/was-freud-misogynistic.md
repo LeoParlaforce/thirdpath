@@ -124,11 +124,17 @@ Lacan's rereading of Freud was not a polite addition. It was a clarification of 
 
 This is not a defense based on selective reading. It is what the theory says. Freud, as Lacan clarified, was not a 19th century gynecologist making claims about female bodies. He was the founder of a clinical practice and a theoretical framework that refused to reduce the subject to anatomy — at a moment when that reduction was being performed surgically, in operating theaters, on women.
 
-## What Remains
+## Pour Aller Plus Loin
 
-There are real critiques of Freud. He was a man of his time. Some of his casual remarks about women, made outside the framework of his theoretical concepts, are dated. Some of his clinical decisions are questionable by contemporary standards. He was not a saint, and there is no need to make him one.
+Si vous êtes arrivé jusqu'ici, c'est que ce genre de questions vous intéressent vraiment. Les pièges de la lecture rapide, les concepts qui demandent à être pensés en propre, le travail clinique qui ne se réduit ni à la technique ni au consensus — c'est ce que ce site explore.
 
-But the theoretical framework — castration, the phallus, sexual difference, the unconscious — is not misogynistic. Read through Lacan's clarification, it is one of the few clinical frameworks that explicitly refuses to reduce subjects to their anatomy. It treats every speaking being as a subject of desire and language, organized by symbolic structures that any subject can occupy in different ways.
+Pour aller plus loin :
+
+- **Other articles on Third Path** approach related questions — what therapy actually is, why patients leave it, why AI cannot replace it, how the symptom relates to desire.
+- **The clinical guides** are the long form of this work. Detailed, applied, written for therapists and serious readers who want to put the framework to work.
+- **The Third Path supervision app** is the place to do the personal work itself. Daily, encrypted, human, with a real clinician — not an AI.
+
+The framework is here for those who want to use it. Reading is one thing. Applying it to your own practice or your own subjective work is another.
 
 The accusation of misogyny against Freud, as a totalizing judgment, is wrong. It depends on a misreading. Once the symbolic and the real are kept distinct — which is the foundational gesture of psychoanalysis — the accusation has no purchase.
 
