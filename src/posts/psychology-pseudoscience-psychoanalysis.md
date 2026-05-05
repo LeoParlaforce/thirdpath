@@ -2,13 +2,14 @@
 title: "Latest Discoveries Show That Psychology Might Be a Pseudo-Science, While Psychoanalysis Is Not"
 slug: "psychology-pseudoscience-psychoanalysis"
 description: "The accusation that psychoanalysis is a pseudo-science assumes psychoanalysis claims to be one. It does not. The real pseudo-science is what calls itself psychology today — and the suffering it produces is everywhere visible."
+summary: "The accusation that psychoanalysis is a pseudo-science assumes psychoanalysis claims to be one. It does not. The real pseudo-science is what calls itself psychology today — and the suffering it produces is everywhere visible."
 canonical: "https://thirdpath.cloud/articles/psychology-pseudoscience-psychoanalysis"
 date: "2026-05-04"
 author: "Léo Gayrard"
 category: "Theory"
 image: "/articles/psychology-pseudoscience.jpeg"
 tags: ["psychoanalysis", "psychology", "pseudoscience", "Lacan", "DSM", "critique"]
-faq:
+faqs:
   - question: "Is psychoanalysis a science?"
     answer: "No, and it never claimed to be. Lacan was explicit: psychoanalysis operates on the subject of science but is not itself a science. It addresses what science forecloses — the symbolic dimension, the unconscious, desire. The accusation of 'pseudo-science' assumes a claim psychoanalysis never made."
   - question: "Why is modern psychology described as pseudo-scientific?"
@@ -18,8 +19,6 @@ faq:
   - question: "But didn't Freud want psychoanalysis to be a science?"
     answer: "Yes, Freud explicitly claimed psychoanalysis was a natural science, from the 1895 Project to the 1938 Outline. He was mistaken about the nature of his own discovery — and what he discovered was greater than what he thought he was discovering. Columbus set out for the Indies and found a continent. We do not say Columbus failed. Lacan is the one who finished the cartography, naming what Freud had found: the symbolic order, the unconscious structured like a language."
 ---
-
-# Latest Discoveries Show That Psychology Might Be a Pseudo-Science, While Psychoanalysis Is Not
 
 The accusation has been repeated for decades. *Psychoanalysis is a pseudo-science.* It cannot be falsified. Its claims are unverifiable. Its results cannot be reproduced under controlled conditions. Therefore, it should be discarded.
 
@@ -142,71 +141,3 @@ The cost is paid by patients, who suffer twice — once from the original sympto
 If you have read this far and you recognize something of your own experience in what is described — the diagnosis that explained nothing, the medication that silenced something that needed to speak, the *learning to live with it* that felt like giving up — there is another way. The clinic of speech still exists. It is what we practice.
 
 *Léo Gayrard, clinical psychologist and Lacanian psychoanalyst*
-
----
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Latest Discoveries Show That Psychology Might Be a Pseudo-Science, While Psychoanalysis Is Not",
-  "description": "The accusation that psychoanalysis is a pseudo-science assumes psychoanalysis claims to be one. It does not. The real pseudo-science is what calls itself psychology today — and the suffering it produces is everywhere visible.",
-  "author": {
-    "@type": "Person",
-    "name": "Léo Gayrard",
-    "url": "https://thirdpath.cloud"
-  },
-  "datePublished": "2026-05-04",
-  "image": "https://thirdpath.cloud/articles/psychology-pseudoscience.jpeg",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Third Path",
-    "url": "https://thirdpath.cloud"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://thirdpath.cloud/articles/psychology-pseudoscience-psychoanalysis"
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is psychoanalysis a science?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No, and it never claimed to be. Lacan was explicit: psychoanalysis operates on the subject of science but is not itself a science. It addresses what science forecloses — the symbolic dimension, the unconscious, desire. The accusation of 'pseudo-science' assumes a claim psychoanalysis never made."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why is modern psychology described as pseudo-scientific?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Because it imitates the form of science — measurement, classification, statistics — while operating on a domain that science by construction cannot reach: the speaking subject. It produces descriptions in place of explanations, classifications in place of interpretations, and confuses the symptom for what it points to."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why does this matter for patients?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It matters because the dominant psychological model produces a specific form of suffering: patients are taught to 'live with' their symptoms, classified into categories that explain nothing, and medicated to silence what was trying to speak. The clinic of speech is being replaced by the clinic of description."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "But didn't Freud want psychoanalysis to be a science?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, Freud explicitly claimed psychoanalysis was a natural science, from the 1895 Project to the 1938 Outline. He was mistaken about the nature of his own discovery — and what he discovered was greater than what he thought he was discovering. Columbus set out for the Indies and found a continent. We do not say Columbus failed. Lacan is the one who finished the cartography, naming what Freud had found: the symbolic order, the unconscious structured like a language."
-      }
-    }
-  ]
-}
-</script>
