@@ -112,11 +112,17 @@ export default async function ArticlePage({ params }: PageProps) {
   const post = getPostBySlug(slug) as any
   if (!post) return notFound()
 
-  const contentParts = (post.content || "").split("[CTA-APP]")
   const articleUrl = `https://thirdpath.cloud/articles/${slug}`
   const faqs: FAQItem[] = post.faqs || []
   const therapistArticle = isForTherapists(post.category || "")
   const relatedPosts = getRelatedPosts(slug, post.category || "")
+
+  // Découpage du contenu en segments selon les marqueurs CTA
+  // Format possible : texte [CTA-APP] texte [CTA-STORE] texte
+  // On split sur les deux marqueurs et on garde leur ordre via une regex de capture
+  const rawContent = post.content || ""
+  const segments = rawContent.split(/(\[CTA-APP\]|\[CTA-STORE\])/g)
+  // segments alterne : texte, marqueur, texte, marqueur, texte...
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 text-slate-900">
@@ -207,62 +213,97 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="max-w-3xl mx-auto bg-white p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl shadow-sm border border-slate-100">
           <div className="prose-lg md:prose-xl max-w-none">
 
-            <ReactMarkdown components={markdownComponents}>{contentParts[0]}</ReactMarkdown>
+            {segments.map((seg: string, idx: number) => {
+              if (seg === "[CTA-APP]") {
+                // CTA APP — routing intelligent selon la catégorie
+                return therapistArticle ? (
+                  <Link
+                    key={`cta-app-${idx}`}
+                    href="/for-therapists"
+                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
+                  >
+                    <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
+                        <img src="/articles.jpg" alt="For Therapists" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">For Practitioners</h3>
+                        <p className="text-xl md:text-2xl italic text-slate-800 leading-tight">Third Path — For Therapists</p>
+                        <p className="text-sm text-slate-500 italic mt-2 font-sans">Daily sessions, supervision, patient acquisition.</p>
+                      </div>
+                      <div className="md:pr-4 pb-2 md:pb-0">
+                        <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-blue-600 transition-all inline-block font-sans">
+                          Discover →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ) : (
+                  <a
+                    key={`cta-app-${idx}`}
+                    href="https://chat.troisiemechemin.fr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all"
+                  >
+                    <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
+                        <img src="/humanist-approach.jpg" alt="App" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">Human Connection</h3>
+                        <p className="text-xl md:text-2xl italic text-slate-800 leading-tight">Third Path App</p>
+                        <p className="text-sm text-slate-500 italic mt-2 font-sans">Daily therapy. Human, encrypted, no AI.</p>
+                      </div>
+                      <div className="md:pr-4 pb-2 md:pb-0">
+                        <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-blue-600 transition-all inline-block font-sans">
+                          Join →
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                )
+              }
 
-            {/* CTA MID-ARTICLE — routing intelligent selon la catégorie */}
-            {contentParts.length > 1 && (
-              therapistArticle ? (
-                // Articles "Professional Development" → page thérapeutes
-                <Link
-                  href="/for-therapists"
-                  className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
-                >
-                  <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
-                    <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
-                      <img src="/articles.jpg" alt="For Therapists" className="w-full h-full object-cover" />
+              if (seg === "[CTA-STORE]") {
+                // CTA STORE — vers les guides cliniques
+                return (
+                  <Link
+                    key={`cta-store-${idx}`}
+                    href="/boutique"
+                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-amber-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
+                  >
+                    <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
+                        <img src="/complete-guide.jpg" alt="Clinical Guides" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-600 mb-2 font-sans">Go Deeper</h3>
+                        <p className="text-xl md:text-2xl italic text-slate-800 leading-tight">Clinical Guides</p>
+                        <p className="text-sm text-slate-500 italic mt-2 font-sans">The long form of this work — for therapists and serious readers.</p>
+                      </div>
+                      <div className="md:pr-4 pb-2 md:pb-0">
+                        <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-amber-600 transition-all inline-block font-sans">
+                          Browse →
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">For Practitioners</h3>
-                      <p className="text-xl md:text-2xl italic text-slate-800 leading-tight">Third Path — For Therapists</p>
-                      <p className="text-sm text-slate-500 italic mt-2 font-sans">Daily sessions, supervision, patient acquisition.</p>
-                    </div>
-                    <div className="md:pr-4 pb-2 md:pb-0">
-                      <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-blue-600 transition-all inline-block font-sans">
-                        Discover →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                // Tous les autres articles → app chat
-                <a
-                  href="https://chat.troisiemechemin.fr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all"
-                >
-                  <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
-                    <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
-                      <img src="/humanist-approach.jpg" alt="App" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">Human Connection</h3>
-                      <p className="text-xl md:text-2xl italic text-slate-800 leading-tight">Third Path App</p>
-                      <p className="text-sm text-slate-500 italic mt-2 font-sans">Daily therapy. Human, encrypted, no AI.</p>
-                    </div>
-                    <div className="md:pr-4 pb-2 md:pb-0">
-                      <span className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm group-hover:bg-blue-600 transition-all inline-block font-sans">
-                        Join →
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              )
-            )}
+                  </Link>
+                )
+              }
 
-            {contentParts.length > 1 && (
-              <ReactMarkdown components={markdownComponents}>{contentParts[1]}</ReactMarkdown>
-            )}
+              // Segment de texte markdown
+              if (seg.trim()) {
+                return (
+                  <ReactMarkdown key={`md-${idx}`} components={markdownComponents}>
+                    {seg}
+                  </ReactMarkdown>
+                )
+              }
+
+              return null
+            })}
+
           </div>
 
           {/* FAQ */}

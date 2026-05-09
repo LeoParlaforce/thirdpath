@@ -6,7 +6,7 @@ summary: "The dominant discourse urges us to love ourselves and presents this as
 date: "2026-05-09"
 category: "Clinical"
 author: "Leo Gayrard"
-image: "/articles/narcissism.jpg"
+image: "/articles/narcissisme.jpg"
 imageCredit: "Photo by [Harald Attila](https://unsplash.com/fr/@attilandscape) on Unsplash"
 faqs:
   - question: "Do you really need to love yourself before you can love others?"
@@ -112,6 +112,8 @@ This is no longer therapy. It is anti-therapy. It is precisely the apparatus tha
 A therapy that respects itself does not reinforce the patient's narcissistic withdrawal. It does not confirm him in his fantasy of self-sufficiency. It does not teach him to love himself better so that he can do better without the world. It does the opposite. It opens. It displaces. It puts back into circulation an investment that had frozen on the self. It accepts to hold a position that is not the patient's — and it is precisely this otherness of the analytic discourse that makes its efficacy.
 
 To love oneself is not the precondition for loving the other. To depreciate oneself is not the opposite of loving oneself; it is its hidden face, and the same prison. And therapy, the real one, does not consist in choosing between the two. It consists in leaving the room.
+
+[CTA-STORE]
 
 ## References
 
