@@ -6,7 +6,13 @@ import { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Store | Clinical Protocols & Psychology Guides | Third Path",
   description: "Browse our collection of research-backed clinical protocols and psychological restructuring guides.",
-  alternates: { canonical: "https://thirdpath.cloud/boutique" }
+  alternates: { canonical: "https://thirdpath.cloud/boutique" },
+  openGraph: {
+    title: "Store | Clinical Protocols & Psychology Guides | Third Path",
+    description: "Clinical protocols and psychology guides written by a state-licensed psychologist.",
+    url: "https://thirdpath.cloud/boutique",
+    images: [{ url: "https://thirdpath.cloud/complete-guide.jpg", width: 1200, height: 630 }],
+  }
 }
 
 export default function Boutique() {

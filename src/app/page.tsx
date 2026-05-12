@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -59,8 +60,8 @@ export default function HomePage() {
           href="/boutique"
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
-          <div className="h-40 overflow-hidden border-b border-slate-100">
-            <img src="/complete-guide.jpg" alt="Psychology Clinical Guides" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
+          <div className="h-40 overflow-hidden border-b border-slate-100 relative">
+            <Image src="/complete-guide.jpg" alt="Psychology Clinical Guides" fill className="object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-medium mb-2 text-slate-900">Complete Guides</h2>
@@ -72,8 +73,8 @@ export default function HomePage() {
           href="/articles"
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-400 transition shadow-sm bg-white/80 backdrop-blur-md"
         >
-          <div className="h-40 overflow-hidden border-b border-slate-100">
-            <img src="/articles.jpg" alt="Psychology Articles" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
+          <div className="h-40 overflow-hidden border-b border-slate-100 relative">
+            <Image src="/articles.jpg" alt="Psychology Articles" fill className="object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-medium mb-2 text-slate-900">Articles</h2>
@@ -81,21 +82,19 @@ export default function HomePage() {
           </div>
         </Link>
 
-        <a
-          href="https://chat.troisiemechemin.fr"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/app"
           className="group block border border-blue-200 rounded-2xl overflow-hidden hover:border-blue-400 transition bg-blue-50/80 shadow-sm backdrop-blur-md"
         >
-          <div className="h-40 overflow-hidden border-b border-blue-100">
-            <img src="/humanist-approach.jpg" alt="Third Path App" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
+          <div className="h-40 overflow-hidden border-b border-blue-100 relative">
+            <Image src="/humanist-approach.jpg" alt="Third Path App" fill className="object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
           </div>
           <div className="p-6">
             <h2 className="text-xl font-bold mb-1 text-blue-900">Daily Therapy App</h2>
             <p className="text-blue-800 text-[10px] font-bold mb-3 uppercase tracking-widest font-sans flex items-center gap-1"><span className="text-blue-500">✦</span> 100% Human · No AI</p>
             <p className="text-slate-700 text-sm md:text-xs leading-relaxed font-sans">A dedicated space for therapy, supervision, and genuine human connection — every day.</p>
           </div>
-        </a>
+        </Link>
       </section>
 
       <div className="max-w-5xl mx-auto w-full border-t border-slate-200/60" />
@@ -106,9 +105,9 @@ export default function HomePage() {
           href="/for-therapists"
           className="group block border border-slate-200 rounded-2xl overflow-hidden hover:border-blue-300 hover:shadow-lg transition-all duration-300 bg-white/80 backdrop-blur-md"
         >
-          <div className="flex flex-col md:flex-row items-center gap-0">
-            <div className="w-full md:w-64 h-48 md:h-full shrink-0 overflow-hidden border-b md:border-b-0 md:border-r border-slate-100">
-              <img src="/humanist-approach.jpg" alt="For therapists" className="w-full h-full object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" />
+          <div className="flex flex-col md:flex-row gap-0">
+            <div className="w-full md:w-64 h-48 shrink-0 overflow-hidden border-b md:border-b-0 md:border-r border-slate-100 relative self-stretch">
+              <Image src="/humanist-approach.jpg" alt="For therapists" fill className="object-cover sepia-[0.1] group-hover:scale-105 transition-transform duration-700" sizes="(min-width:768px) 256px, 100vw" />
             </div>
             <div className="flex-1 p-8 md:p-10 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/60 border border-blue-200 text-blue-700 text-[10px] font-sans font-bold uppercase tracking-widest">

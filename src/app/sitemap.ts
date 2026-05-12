@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base, lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/boutique`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/articles`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/app`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/therapy`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/for-therapists`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/about-us`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${base}/editorial-standards`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },

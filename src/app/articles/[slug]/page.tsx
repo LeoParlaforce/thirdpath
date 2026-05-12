@@ -2,6 +2,7 @@ import { getPostBySlug, getAllPosts } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import ReactMarkdown from "react-markdown"
 import Link from "next/link"
+import Image from "next/image"
 import ShareActions from "@/components/ShareActions"
 
 interface FAQItem {
@@ -195,7 +196,7 @@ export default async function ArticlePage({ params }: PageProps) {
         {/* Image principale */}
         <div className="max-w-5xl mx-auto mb-10">
           <div className="w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white relative p-2">
-            <img src={post.image} alt={post.title} className="w-full h-auto max-h-[60vh] object-cover rounded-xl block" />
+            <Image src={post.image} alt={post.title} width={1200} height={630} className="w-full h-auto max-h-[60vh] object-cover rounded-xl block" priority />
             {post.imageCredit && (
               <div className="absolute bottom-6 right-6 bg-black/50 backdrop-blur-md text-[10px] text-white/90 px-3 py-1 rounded-full font-sans uppercase tracking-widest z-20">
                 <ReactMarkdown components={{
@@ -220,11 +221,11 @@ export default async function ArticlePage({ params }: PageProps) {
                   <Link
                     key={`cta-app-${idx}`}
                     href="/for-therapists"
-                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
+                    className="block my-12 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
                   >
                     <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
-                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
-                        <img src="/articles.jpg" alt="For Therapists" className="w-full h-full object-cover" />
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0 relative">
+                        <Image src="/articles.jpg" alt="For Therapists" fill className="object-cover" sizes="(min-width:768px) 160px, 100vw" />
                       </div>
                       <div className="flex-1 text-center md:text-left">
                         <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">For Practitioners</h3>
@@ -239,16 +240,14 @@ export default async function ArticlePage({ params }: PageProps) {
                     </div>
                   </Link>
                 ) : (
-                  <a
+                  <Link
                     key={`cta-app-${idx}`}
-                    href="https://chat.troisiemechemin.fr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all"
+                    href="/app"
+                    className="block my-12 group p-px rounded-3xl bg-linear-to-br from-blue-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
                   >
                     <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
-                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
-                        <img src="/humanist-approach.jpg" alt="App" className="w-full h-full object-cover" />
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0 relative">
+                        <Image src="/humanist-approach.jpg" alt="App" fill className="object-cover" sizes="(min-width:768px) 160px, 100vw" />
                       </div>
                       <div className="flex-1 text-center md:text-left">
                         <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-2 font-sans">Human Connection</h3>
@@ -261,7 +260,7 @@ export default async function ArticlePage({ params }: PageProps) {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 )
               }
 
@@ -271,11 +270,11 @@ export default async function ArticlePage({ params }: PageProps) {
                   <Link
                     key={`cta-store-${idx}`}
                     href="/boutique"
-                    className="block my-12 group p-px rounded-3xl bg-gradient-to-br from-amber-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
+                    className="block my-12 group p-px rounded-3xl bg-linear-to-br from-amber-100 to-transparent shadow-sm hover:shadow-md transition-all no-underline"
                   >
                     <div className="bg-white rounded-[22px] p-4 flex flex-col md:flex-row items-center gap-6 border border-slate-50">
-                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0">
-                        <img src="/complete-guide.jpg" alt="Clinical Guides" className="w-full h-full object-cover" />
+                      <div className="w-full md:w-40 aspect-video md:aspect-square rounded-xl overflow-hidden shrink-0 relative">
+                        <Image src="/complete-guide.jpg" alt="Clinical Guides" fill className="object-cover" sizes="(min-width:768px) 160px, 100vw" />
                       </div>
                       <div className="flex-1 text-center md:text-left">
                         <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-600 mb-2 font-sans">Go Deeper</h3>
@@ -350,11 +349,13 @@ export default async function ArticlePage({ params }: PageProps) {
                   href={`/articles/${p.slug}`}
                   className="group block bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-all"
                 >
-                  <div className="aspect-[16/10] overflow-hidden bg-slate-100">
-                    <img
+                  <div className="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+                    <Image
                       src={p.image}
                       alt={p.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
                     />
                   </div>
                   <div className="p-6">
@@ -382,8 +383,8 @@ export default async function ArticlePage({ params }: PageProps) {
         <footer className="max-w-7xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20 text-white">
 
           <Link href="/articles" className="group h-72 md:h-80 relative rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900">
-            <img src="/articles.jpg" alt="Library" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/40 to-transparent z-10" />
+            <Image src="/articles.jpg" alt="Library" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width:1024px) 33vw, 50vw" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/95 via-slate-900/40 to-transparent z-10" />
             <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Library</h4>
               <p className="text-2xl md:text-3xl font-serif italic leading-tight">More Articles</p>
@@ -393,27 +394,27 @@ export default async function ArticlePage({ params }: PageProps) {
           {/* Bloc central : app ou page thérapeutes selon la catégorie */}
           {therapistArticle ? (
             <Link href="/for-therapists" className="group h-72 md:h-80 relative rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900">
-              <img src="/articles.jpg" alt="For Therapists" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/40 to-transparent z-10" />
+              <Image src="/articles.jpg" alt="For Therapists" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width:1024px) 33vw, 50vw" />
+              <div className="absolute inset-0 bg-linear-to-t from-blue-900/95 via-blue-900/40 to-transparent z-10" />
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200 mb-2">Practitioners</h4>
                 <p className="text-2xl md:text-3xl font-serif italic leading-tight">For Therapists</p>
               </div>
             </Link>
           ) : (
-            <a href="https://chat.troisiemechemin.fr" target="_blank" rel="noopener noreferrer" className="group h-72 md:h-80 relative rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900">
-              <img src="/humanist-approach.jpg" alt="App" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/40 to-transparent z-10" />
+            <Link href="/app" className="group h-72 md:h-80 relative rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900">
+              <Image src="/humanist-approach.jpg" alt="App" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width:1024px) 33vw, 50vw" />
+              <div className="absolute inset-0 bg-linear-to-t from-blue-900/95 via-blue-900/40 to-transparent z-10" />
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200 mb-2">Community</h4>
                 <p className="text-2xl md:text-3xl font-serif italic leading-tight">Join the App</p>
               </div>
-            </a>
+            </Link>
           )}
 
           <Link href="/boutique" className="group h-72 md:h-80 relative rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900 md:col-span-2 lg:col-span-1">
-            <img src="/complete-guide.jpg" alt="Store" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/40 to-transparent z-10" />
+            <Image src="/complete-guide.jpg" alt="Store" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width:1024px) 33vw, 100vw" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/95 via-slate-900/40 to-transparent z-10" />
             <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-2">Store</h4>
               <p className="text-2xl md:text-3xl font-serif italic leading-tight">Clinical Guides</p>
