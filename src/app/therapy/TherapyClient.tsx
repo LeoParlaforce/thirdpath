@@ -32,7 +32,7 @@ export default function TherapyClient() {
   const faqs = [
     {
       q: "How does it work in practice?",
-      a: "After subscribing, you receive my Signal contact by email. Signal is an end-to-end encrypted messaging app you install on your phone (and computer if you like). You write when you feel like it, I respond. That's it.",
+      a: "After subscribing, you receive my Signal contact by email. Signal is a free encrypted messaging app — you install it on your phone (and computer if you like). You write me a private message whenever you want, as much as you want. I respond within 24 hours. The conversation continues day after day, building over time. That's really all there is to it.",
     },
     {
       q: "Why text and not video?",
@@ -86,6 +86,39 @@ export default function TherapyClient() {
         <p className="text-base text-slate-500 italic font-sans">
           Private individual messaging · 100% human · Cancel anytime
         </p>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+        <p className="text-xs font-sans font-bold uppercase tracking-widest text-blue-500 mb-4">
+          How it works
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold italic tracking-tighter mb-12 max-w-2xl leading-tight">
+          Simple. Very simple.
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">1.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">You write.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              A private message to me, directly on Signal. Whenever you want, as much as you want — morning, evening, after a difficult call, in the middle of the night. No appointment, no scheduling.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">2.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">I respond.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              Always within 24 hours. Always in writing, always me — no AI, no assistant, no script. A real clinical response to what you brought.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">3.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">We keep going.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              The conversation continues. Day after day, message after message. A thread that builds over time — not an isolated session that resets every week.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* THE DIFFERENCE */}

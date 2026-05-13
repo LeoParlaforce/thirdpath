@@ -42,7 +42,7 @@ const useCases = [
   {
     number: "02",
     title: "Supervised clinical practice",
-    description: "Direct supervision with Leo Gayrard, licensed psychologist — entirely via chat. Discuss complex cases, sharpen your theoretical framework, and develop your clinical identity at your own pace, asynchronously.",
+    description: "Direct supervision with Leo Gayrard, licensed psychologist — entirely via private messaging. You write when a case is on your mind. I respond within 24 hours. The conversation builds over time: complex cases, theoretical frameworks, clinical identity. Your own pace, day after day.",
     tag: "For licensed & trainee therapists"
   },
   {
@@ -87,7 +87,7 @@ const faqs = [
   },
   {
     q: "What does supervision look like in practice?",
-    a: "Supervision with Leo Gayrard happens entirely via chat — asynchronous written exchanges through the app. You present cases, discuss theoretical frameworks, and receive structured clinical feedback at your own pace."
+    a: "You send me a private message on Signal — a case you're carrying, a dynamic that's troubling you, a question about your framework. I respond within 24 hours. We keep going from there: the conversation threads over time, day after day, building a real working relationship rather than isolated exchanges."
   },
   {
     q: "Can I use this alongside my existing practice management tools?",
@@ -182,6 +182,39 @@ export default function ForTherapists() {
         <p className="mt-4 text-slate-400 text-xs font-sans uppercase tracking-widest">
           Cancel anytime · Encrypted · 100% human — no AI
         </p>
+      </section>
+
+      {/* ── HOW IT WORKS ── */}
+      <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+        <p className="text-xs font-sans font-bold uppercase tracking-widest text-blue-500 mb-4">
+          How it works
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold italic tracking-tighter mb-12 max-w-2xl leading-tight">
+          Simple. Very simple.
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">1.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">You write.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              A private message to me on Signal — a case you&rsquo;re carrying, a clinical question, something a patient stirred in you. Whenever it comes to you, as much as you need. No appointment, no scheduling.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">2.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">I respond.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              Always within 24 hours. Always in writing, always me — a structured clinical response, not a template or an algorithm.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <div className="text-5xl font-bold italic text-slate-900 tracking-tighter">3.</div>
+            <h3 className="text-xl font-bold italic text-slate-900">We keep going.</h3>
+            <p className="text-slate-600 italic text-sm leading-relaxed">
+              The conversation continues, day after day. Cases build on each other, frameworks deepen, your clinical identity develops — across an ongoing thread, not isolated one-off consultations.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* ── PROBLEM ── */}
