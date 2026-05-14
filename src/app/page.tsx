@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Metadata } from "next"
+import NewsletterSignup from "@/components/NewsletterSignup"
 
 export const metadata: Metadata = {
   title: "Third Path — Human-Centered Psychology | Clinical Guides",
@@ -126,6 +127,15 @@ export default function HomePage() {
             </div>
           </div>
         </Link>
+      </section>
+
+      <div className="max-w-5xl mx-auto w-full border-t border-slate-200/60" />
+
+      {/* NEWSLETTER */}
+      <section className="max-w-5xl mx-auto w-full">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl px-8 py-12 md:py-16">
+          <NewsletterSignup />
+        </div>
       </section>
 
     </main>

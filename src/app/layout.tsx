@@ -191,8 +191,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Newsletter */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 text-center md:text-left">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-1 font-sans">Library Updates</p>
-                <p className="text-sm text-slate-500 italic font-sans">A new reflection, every so often.</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-1 font-sans">New Articles</p>
+                <p className="text-sm text-slate-600 font-sans">One email per publication.</p>
+                <p className="text-xs text-slate-400 font-sans mt-0.5">No spam. Unsubscribe anytime.</p>
               </div>
               <div className="w-full md:w-auto md:min-w-75">
                 <NewsletterSignup variant="minimal" />

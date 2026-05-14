@@ -11,7 +11,7 @@ export default function NewsletterSignup({ variant = "full" }: NewsletterSignupP
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("loading")
     try {
@@ -38,7 +38,7 @@ export default function NewsletterSignup({ variant = "full" }: NewsletterSignupP
     return (
       <div className="w-full">
         {status === "success" ? (
-          <p className="text-xs font-sans text-blue-600 font-medium">You&apos;re in. See you soon.</p>
+          <p className="text-xs font-sans text-blue-600 font-medium">You&apos;re in. Check your inbox.</p>
         ) : (
           <form onSubmit={handleSubmit} className="flex gap-2 flex-wrap">
             <input
@@ -55,7 +55,7 @@ export default function NewsletterSignup({ variant = "full" }: NewsletterSignupP
               disabled={status === "loading"}
               className="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-bold font-sans hover:bg-blue-600 transition-all disabled:opacity-60"
             >
-              {status === "loading" ? "…" : "OK"}
+              {status === "loading" ? "…" : "Subscribe"}
             </button>
           </form>
         )}
@@ -69,14 +69,15 @@ export default function NewsletterSignup({ variant = "full" }: NewsletterSignupP
   return (
     <div className="w-full max-w-xl mx-auto text-center">
       <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-3 font-sans">
-        Library Updates
+        New Articles
       </p>
       <h2 className="text-3xl md:text-4xl font-serif italic text-slate-900 mb-3">
-        Stay in the loop.
+        Every new article, in your inbox.
       </h2>
-      <p className="text-slate-500 italic font-sans text-sm md:text-base mb-8 leading-relaxed">
-        A quiet note whenever a new reflection is published. No noise, no algorithm.
+      <p className="text-slate-500 font-sans text-sm md:text-base mb-2 leading-relaxed">
+        One email per publication — psychology, therapy, and human behavior, by a licensed psychologist.
       </p>
+      <p className="text-slate-400 font-sans text-xs mb-8">No spam. Unsubscribe anytime.</p>
       {status === "success" ? (
         <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
           <p className="text-slate-700 font-serif italic text-lg">
