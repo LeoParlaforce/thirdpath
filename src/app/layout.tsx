@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { EB_Garamond } from "next/font/google"
 import Script from "next/script"
-import NewsletterSignup from "@/components/NewsletterSignup"
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -168,7 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ))}
               <Link
                 href="/app"
-                className="ml-1 px-3 md:px-4 py-1.5 rounded-full bg-blue-600 text-white text-[13px] md:text-sm font-bold font-sans hover:bg-blue-700 transition whitespace-nowrap"
+                className="px-1.5 md:px-3 py-1.5 rounded-md opacity-90 transition hover:opacity-100 hover:text-blue-700 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 text-[13px] md:text-base text-slate-900 font-medium whitespace-nowrap"
               >
                 The App
               </Link>
@@ -187,18 +186,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="relative border-t border-slate-200 bg-white overflow-hidden text-slate-900" role="contentinfo">
           <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg} aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl px-6 py-10 flex flex-col gap-8">
-
-            {/* Newsletter */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 text-center md:text-left">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-1 font-sans">New Articles</p>
-                <p className="text-sm text-slate-600 font-sans">One email per publication.</p>
-                <p className="text-xs text-slate-400 font-sans mt-0.5">No spam. Unsubscribe anytime.</p>
-              </div>
-              <div className="w-full md:w-auto md:min-w-75">
-                <NewsletterSignup variant="minimal" />
-              </div>
-            </div>
 
             {/* Nav + actions + copyright */}
             <div className="flex flex-col md:flex-row md:justify-between items-center gap-6 text-sm text-center md:text-left">
