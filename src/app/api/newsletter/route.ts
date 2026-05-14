@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import { createHmac } from "crypto"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM || "contact@troisiemechemin.fr"
 
-function welcomeHtml() {
+export function makeUnsubToken(email: string): string {
+  const secret = process.env.NEWSLETTER_SECRET ?? process.env.RESEND_API_KEY ?? "newsletter-fallback"
+  return createHmac("sha256", secret).update(email.toLowerCase()).digest("hex").slice(0, 32)
+}
+
+function welcomeHtml(email: string) {
+  const token = makeUnsubToken(email)
+  const unsubUrl = `https://thirdpath.cloud/api/newsletter/unsubscribe?email=${encodeURIComponent(email.toLowerCase())}&token=${token}`
   return `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -27,6 +35,9 @@ function welcomeHtml() {
       <p style="color:#4b5563;font-size:12px;margin:0;font-family:Arial,sans-serif">
         Leo Gayrard · Licensed Psychologist ·
         <a href="https://thirdpath.cloud" style="color:#4b5563">thirdpath.cloud</a>
+      </p>
+      <p style="margin:8px 0 0;font-family:Arial,sans-serif">
+        <a href="${unsubUrl}" style="color:#4b5563;font-size:11px">Unsubscribe</a>
       </p>
     </div>
   </div>
@@ -52,7 +63,7 @@ export async function POST(req: Request) {
       from: FROM,
       to: email,
       subject: "Welcome to the Third Path Library.",
-      html: welcomeHtml(),
+      html: welcomeHtml(email),
     })
 
     const adminEmail = process.env.CONTACT_TO
