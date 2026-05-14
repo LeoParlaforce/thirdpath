@@ -1,0 +1,50 @@
+name: Send Newsletter on New Article
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/posts/**.md'
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect new article files
+        id: detect
+        run: |
+          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'src/posts/*.md')
+          echo "New files: $NEW_FILES"
+          if [ -z "$NEW_FILES" ]; then
+            echo "has_new=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_new=true" >> $GITHUB_OUTPUT
+            echo "NEW_ARTICLE_FILES<<EOF" >> $GITHUB_OUTPUT
+            echo "$NEW_FILES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.detect.outputs.has_new == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: steps.detect.outputs.has_new == 'true'
+        run: npm ci
+
+      - name: Send newsletter
+        if: steps.detect.outputs.has_new == 'true'
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          RESEND_FROM: contact@troisiemechemin.fr
+          NEW_ARTICLE_FILES: ${{ steps.detect.outputs.NEW_ARTICLE_FILES }}
+        run: node scripts/send-newsletter-on-publish.mjs

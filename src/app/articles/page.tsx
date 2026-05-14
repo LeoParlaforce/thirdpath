@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { getAllPosts } from "@/lib/posts"
 import { Metadata } from "next"
+import NewsletterSignup from "@/components/NewsletterSignup"
 
 interface Post { slug: string; title: string; summary: string; date: string; image: string; }
 
@@ -79,6 +80,10 @@ export default function ArticlesPage() {
           </Link>
         ))}
       </div>
+
+      <section className="mt-20 border-t border-slate-200/50 pt-16">
+        <NewsletterSignup variant="full" />
+      </section>
     </main>
   )
 }

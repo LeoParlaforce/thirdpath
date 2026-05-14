@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\leoga\\\\thirdpath.cloud\\\\app\\\\api\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(ConvertTo-Json)",
+      "Bash(find \"c:\\\\\\\\Users\\\\\\\\leoga\\\\\\\\thirdpath.cloud\\\\\\\\app\\\\\\\\api\" -type f)",
+      "Bash(cd /mnt/c/Users/leoga/thirdpath.cloud && find . -type f -name '*.tsx' ! -path '*/node_modules/*' | head -30)",
+      "Read(//mnt/c/Users/leoga/**)",
+      "Bash(cd /mnt/c/Users/leoga/thirdpath.cloud && find . -type f -name '*.ts' ! -path '*/node_modules/*' | grep -E '\\(lib|api\\)' | head -20)",
+      "Bash(cd /mnt/c/Users/leoga/thirdpath.cloud && find . -path '*/node_modules' -prune -o -type d -name 'api' -print)",
+      "Bash(cd /mnt/c/Users/leoga/thirdpath.cloud && ls -la)",
+      "Bash(find \"c:\\\\\\\\Users\\\\\\\\leoga\\\\\\\\thirdpath.cloud\\\\\\\\src\" -name \"*Footer*\" -o -name \"*footer*\")",
+      "Bash(grep -r \"Footer\\\\|footer\" \"c:\\\\\\\\Users\\\\\\\\leoga\\\\\\\\thirdpath.cloud\\\\\\\\src\" --include=\"*.tsx\" --include=\"*.ts\")"
+    ]
+  }
+}

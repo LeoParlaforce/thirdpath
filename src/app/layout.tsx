@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { EB_Garamond } from "next/font/google"
 import Script from "next/script"
+import NewsletterSignup from "@/components/NewsletterSignup"
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -185,41 +186,55 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* FOOTER */}
         <footer className="relative border-t border-slate-200 bg-white overflow-hidden text-slate-900" role="contentinfo">
           <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg} aria-hidden="true" />
-          <div className="relative z-10 mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row md:justify-between items-center gap-8 text-sm text-center md:text-left">
+          <div className="relative z-10 mx-auto max-w-7xl px-6 py-10 flex flex-col gap-8">
 
-            <nav aria-label="Legal navigation">
-              <ul className="flex flex-col md:flex-row gap-4 md:gap-6 list-none p-0">
-                <li><Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Legal Notice</Link></li>
-                <li><Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Editorial Standards</Link></li>
-                <li><Link href="/about-us" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">About Us</Link></li>
-                <li><Link href="/for-therapists" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">For Therapists</Link></li>
-              </ul>
-            </nav>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="mailto:leo.gayrard@gmail.com"
-                className="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:bg-blue-600 shadow-sm"
-              >
-                Contact
-              </a>
-              <a
-                href="https://www.troisiemechemin.fr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 rounded-full border border-slate-300 bg-slate-50 text-slate-700 text-sm font-medium transition hover:bg-white"
-              >
-                Vous parlez le français ?
-              </a>
+            {/* Newsletter */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 text-center md:text-left">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-1 font-sans">Library Updates</p>
+                <p className="text-sm text-slate-500 italic font-sans">A new reflection, every so often.</p>
+              </div>
+              <div className="w-full md:w-auto md:min-w-75">
+                <NewsletterSignup variant="minimal" />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1">
-              <span className="opacity-60 text-[10px] uppercase tracking-widest font-sans">
-                © {new Date().getFullYear()} thirdpath.cloud
-              </span>
-              <span className="opacity-40 text-[9px] font-sans">
-                Leo Gayrard · Licensed Psychologist · Roquebrune-sur-Argens, France
-              </span>
+            {/* Nav + actions + copyright */}
+            <div className="flex flex-col md:flex-row md:justify-between items-center gap-6 text-sm text-center md:text-left">
+              <nav aria-label="Legal navigation">
+                <ul className="flex flex-col md:flex-row gap-4 md:gap-6 list-none p-0">
+                  <li><Link href="/mentions-legales" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Legal Notice</Link></li>
+                  <li><Link href="/editorial-standards" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">Editorial Standards</Link></li>
+                  <li><Link href="/about-us" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">About Us</Link></li>
+                  <li><Link href="/for-therapists" className="opacity-80 hover:opacity-100 transition hover:text-blue-600 font-medium">For Therapists</Link></li>
+                </ul>
+              </nav>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="mailto:leo.gayrard@gmail.com"
+                  className="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:bg-blue-600 shadow-sm"
+                >
+                  Contact
+                </a>
+                <a
+                  href="https://www.troisiemechemin.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 rounded-full border border-slate-300 bg-slate-50 text-slate-700 text-sm font-medium transition hover:bg-white"
+                >
+                  Vous parlez le français ?
+                </a>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <span className="opacity-60 text-[10px] uppercase tracking-widest font-sans">
+                  © {new Date().getFullYear()} thirdpath.cloud
+                </span>
+                <span className="opacity-40 text-[9px] font-sans">
+                  Leo Gayrard · Licensed Psychologist · Roquebrune-sur-Argens, France
+                </span>
+              </div>
             </div>
           </div>
         </footer>
