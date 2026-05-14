@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { EB_Garamond } from "next/font/google"
 import Script from "next/script"
+import NewsletterSignup from "@/components/NewsletterSignup"
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -167,7 +168,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ))}
               <Link
                 href="/app"
-                className="px-1.5 md:px-3 py-1.5 rounded-md opacity-90 transition hover:opacity-100 hover:text-blue-700 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 text-[13px] md:text-base text-slate-900 font-medium whitespace-nowrap"
+                className="ml-1 px-4 py-1.5 rounded-full bg-slate-900 text-white text-[13px] md:text-sm font-bold font-sans hover:bg-blue-600 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 whitespace-nowrap shadow-sm"
               >
                 The App
               </Link>
@@ -186,6 +187,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="relative border-t border-slate-200 bg-white overflow-hidden text-slate-900" role="contentinfo">
           <div className="absolute inset-0 pointer-events-none opacity-40" style={grainBg} aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl px-6 py-10 flex flex-col gap-8">
+
+            {/* Newsletter band */}
+            <div className="border-b border-slate-200/60 pb-8 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+              <div className="shrink-0 text-center md:text-left">
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600 mb-1 font-sans">Stay in the loop</p>
+                <p className="text-sm text-slate-500 font-sans">New articles, straight to your inbox.</p>
+              </div>
+              <div className="w-full max-w-sm mx-auto md:mx-0">
+                <NewsletterSignup variant="minimal" />
+              </div>
+            </div>
 
             {/* Nav + actions + copyright */}
             <div className="flex flex-col md:flex-row md:justify-between items-center gap-6 text-sm text-center md:text-left">

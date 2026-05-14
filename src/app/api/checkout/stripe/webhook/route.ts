@@ -94,7 +94,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true })
     }
 
-    // E-books → no mail
+    // E-books → subscribe to newsletter audience
+    const audienceId = process.env.RESEND_AUDIENCE_ID
+    if (email && audienceId) {
+      try {
+        await resend.contacts.create({ email, audienceId, unsubscribed: false })
+      } catch {
+        // Non-fatal: contact may already exist
+      }
+    }
     return NextResponse.json({ ok: true })
   } catch (e) {
     console.error("Webhook handler error:", e)
