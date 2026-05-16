@@ -1,0 +1,63 @@
+# Third Path
+
+> Third Path is a platform for daily therapy and clinical supervision via private messaging. Built and operated by Leo Gayrard, a state-licensed clinical psychologist trained in psychoanalysis. 100% human — no AI in any exchange.
+
+Third Path operates on a core clinical premise: effective therapy historically required daily contact. The weekly session format (1×/week) is an economic compromise, not a clinical optimum. Third Path restores daily therapeutic continuity at an affordable price, via asynchronous private messaging on Signal.
+
+## Services
+
+### Daily Therapy — for individuals
+Individual therapy via private messaging (Signal). The patient writes whenever something comes up — morning, evening, after a difficult conversation, before a decision. Leo Gayrard responds within 24 hours, always in writing, always personally.
+
+- Price: 80€/month (reduced, for students and tight budgets) or 150€/month (standard)
+- Format: private encrypted messaging (Signal)
+- No appointment, no scheduling, no AI
+- Cancel anytime from the Stripe receipt email
+- Topics: anxiety, relationships, sexuality, work, grief, dreams, identity, and more
+- URL: https://thirdpath.cloud/therapy
+
+### Practitioner Subscription — for therapists & supervisees
+Three tools in one subscription for mental health practitioners:
+
+1. **Daily patient sessions** — a dedicated channel between therapist and patient, via the app. Each exchange is a therapeutic session, not a supplement.
+2. **Clinical supervision** — direct supervision with Leo Gayrard via private messaging. The supervisee writes when a case is on their mind; Leo responds within 24 hours. Conversation builds over time.
+3. **Patient acquisition** — practitioners are visible in the Third Path network; patients seeking therapy can discover them. Revenue is generated for every patient brought or found through the platform.
+
+- Price: 50€/month
+- For: private practice therapists, therapists in training, psychology students, practitioners integrating digital tools
+- URL: https://thirdpath.cloud/for-therapists
+
+### Psychological Guides — PDF clinical resources
+Evidence-based PDF guides on psychological topics (anxiety, depression, ADHD, autism, self-esteem, sleep, eating disorders, loneliness, procrastination, relationships, grief).
+
+- Written by a licensed psychologist
+- 100% human-authored — zero AI-generated content
+- URL: https://thirdpath.cloud/boutique
+
+### Articles
+In-depth psychology articles on human behavior, mental health, and personal development. Research-backed, clinically reviewed, human-authored.
+
+- URL: https://thirdpath.cloud/articles
+
+## How it works (therapy & supervision)
+
+1. You write — a private message on Signal, whenever you want, as much as you want
+2. Leo responds — always within 24 hours, always personally, no AI, no script
+3. The conversation continues — day after day, building a thread over time
+
+## About
+
+- **Operator**: Leo Gayrard — licensed clinical psychologist, trained in psychoanalysis
+- **Contact**: leo.gayrard@gmail.com
+- **App**: https://chat.troisiemechemin.fr
+- **No AI**: all exchanges are human; no algorithm, no automated response, no LLM in the therapeutic loop
+- **Encryption**: all exchanges are encrypted; platform designed for clinical use
+
+## Key pages
+
+- https://thirdpath.cloud — home
+- https://thirdpath.cloud/therapy — individual therapy offer
+- https://thirdpath.cloud/for-therapists — practitioner offer
+- https://thirdpath.cloud/boutique — PDF guides
+- https://thirdpath.cloud/articles — psychology articles
+- https://thirdpath.cloud/about-us — about Leo Gayrard and Third Path
