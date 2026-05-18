@@ -4,9 +4,10 @@ import { useState } from "react"
 
 interface NewsletterSignupProps {
   variant?: "full" | "minimal"
+  onSuccess?: () => void
 }
 
-export default function NewsletterSignup({ variant = "full" }: NewsletterSignupProps) {
+export default function NewsletterSignup({ variant = "full", onSuccess }: NewsletterSignupProps) {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
@@ -24,6 +25,7 @@ export default function NewsletterSignup({ variant = "full" }: NewsletterSignupP
       if (data.success) {
         setStatus("success")
         setEmail("")
+        onSuccess?.()
       } else {
         setErrorMsg(data.error || "Something went wrong.")
         setStatus("error")
